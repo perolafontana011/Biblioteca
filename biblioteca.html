@@ -3,25 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biblioteca Escolar</title>
+<title>Biblioteca · Colégio Estadual Unidade Polo</title>
 <style>
   :root {
-    --papel: #f7f3ec;
-    --papel-escuro: #efe9dd;
-    --papel-borda: #e3dccc;
-    --tinta: #1a1613;
-    --tinta-suave: #4a433a;
-    --tinta-clara: #8a8074;
+    --papel: #f6f1e8;
+    --papel-escuro: #ede6d6;
+    --papel-borda: #ddd3bf;
+    --tinta: #1c1712;
+    --tinta-suave: #4a3f33;
+    --tinta-clara: #877b69;
     --musgo: #3d5a3d;
-    --musgo-escuro: #2d442d;
+    --musgo-escuro: #2a3f2a;
     --terracota: #a8563c;
-    --dourado: #b8935a;
-    --creme-card: #fdfaf4;
-    --borda-fina: #d8cfbc;
-    --sombra: 0 1px 3px rgba(26,22,19,.06), 0 4px 16px rgba(26,22,19,.04);
-    --sombra-forte: 0 4px 24px rgba(26,22,19,.1);
-    --serif: 'Georgia', 'Times New Roman', serif;
-    --sans: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    --dourado: #b89155;
+    --dourado-escuro: #8f6f3e;
+    --creme-card: #fcf8ef;
+    --borda-fina: #d4c9b2;
+    --sombra: 0 1px 3px rgba(28,23,18,.06), 0 4px 16px rgba(28,23,18,.04);
+    --sombra-forte: 0 4px 28px rgba(28,23,18,.12);
+    --serif: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, 'Times New Roman', serif;
+    --sans: 'Optima', 'Segoe UI', -apple-system, system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
@@ -30,25 +31,26 @@
     background: var(--papel);
     color: var(--tinta);
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
     background-image:
-      radial-gradient(circle at 15% 20%, rgba(184,147,90,.04) 0%, transparent 40%),
+      radial-gradient(circle at 15% 20%, rgba(184,145,85,.05) 0%, transparent 40%),
       radial-gradient(circle at 85% 80%, rgba(61,90,61,.04) 0%, transparent 40%);
     background-attachment: fixed;
   }
 
+  /* ================= LOGIN ================= */
   .login-screen {
     position: fixed; inset: 0;
     background: var(--papel);
     display: flex; align-items: center; justify-content: center;
     padding: 24px; z-index: 1000;
     background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,147,90,.06) 40px);
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,145,85,.05) 40px);
   }
   .login-box {
     background: var(--creme-card);
-    max-width: 460px; width: 100%;
-    padding: 56px 48px 44px;
+    max-width: 500px; width: 100%;
+    padding: 60px 52px 46px;
     border: 1px solid var(--borda-fina);
     box-shadow: var(--sombra-forte);
     position: relative;
@@ -56,43 +58,70 @@
   }
   .login-box::before {
     content: '';
-    position: absolute; inset: 6px;
+    position: absolute; inset: 8px;
     border: 1px solid var(--borda-fina);
     pointer-events: none;
   }
-  .login-exlibris {
+  .login-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--dourado), var(--musgo), var(--dourado));
+  }
+  .login-brasao {
+    width: 74px; height: 74px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: var(--papel-escuro);
+    border: 2px solid var(--dourado);
+    display: grid; place-items: center;
     font-family: var(--serif);
-    font-size: .7rem;
-    letter-spacing: .35em;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--musgo);
+    letter-spacing: .02em;
+    position: relative;
+    box-shadow: inset 0 0 0 4px var(--creme-card);
+  }
+  .login-exlibris {
+    font-family: var(--sans);
+    font-size: .68rem;
+    letter-spacing: .4em;
     text-transform: uppercase;
-    color: var(--tinta-clara);
-    margin-bottom: 24px;
+    color: var(--dourado-escuro);
+    margin-bottom: 18px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--borda-fina);
   }
   .login-marca {
     font-family: var(--serif);
-    font-size: 2.4rem;
-    line-height: 1.1;
+    font-size: 1.55rem;
+    line-height: 1.3;
     font-weight: 400;
     color: var(--tinta);
-    letter-spacing: -.01em;
-    margin-bottom: 8px;
+    letter-spacing: -.005em;
+    margin-bottom: 10px;
   }
-  .login-marca em { font-style: italic; color: var(--musgo); }
+  .login-marca em {
+    font-style: italic;
+    color: var(--musgo);
+    display: block;
+    font-size: 1.9rem;
+    margin-top: 4px;
+  }
   .login-sub {
     font-family: var(--serif);
     font-style: italic;
     color: var(--tinta-clara);
-    font-size: .95rem;
-    margin-bottom: 36px;
+    font-size: .92rem;
+    margin-bottom: 34px;
   }
   .ornamento {
     display: flex; align-items: center; gap: 12px;
-    margin: 28px 0;
+    margin: 30px 0;
     color: var(--dourado);
-    font-size: .75rem;
-    letter-spacing: .3em;
+    font-size: .72rem;
+    letter-spacing: .35em;
   }
   .ornamento::before, .ornamento::after {
     content: ''; flex: 1; height: 1px;
@@ -103,19 +132,25 @@
     gap: 12px; margin-bottom: 20px;
   }
   .perfil-card {
-    padding: 24px 16px;
+    padding: 26px 16px;
     background: var(--papel);
     border: 1px solid var(--borda-fina);
     cursor: pointer;
-    transition: all .2s ease;
+    transition: all .25s ease;
     text-align: center;
     font-family: inherit;
+    position: relative;
   }
   .perfil-card:hover {
     background: var(--creme-card);
     border-color: var(--musgo);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     box-shadow: var(--sombra);
+  }
+  .perfil-card:hover::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+    background: var(--dourado);
   }
   .perfil-card .simbolo {
     font-family: var(--serif);
@@ -134,9 +169,10 @@
   }
   .perfil-card small {
     color: var(--tinta-clara);
-    font-size: .78rem;
+    font-size: .76rem;
     font-family: var(--sans);
   }
+
   .login-aluno-select {
     width: 100%; padding: 14px;
     background: var(--papel);
@@ -155,7 +191,7 @@
     border: none;
     font-family: var(--serif);
     font-size: 1rem;
-    letter-spacing: .08em;
+    letter-spacing: .1em;
     text-transform: uppercase;
     cursor: pointer;
     transition: .2s;
@@ -163,11 +199,7 @@
   }
   .btn-entrar:hover { background: var(--musgo-escuro); }
 
-  /* Senha do bibliotecário */
-  .senha-box {
-    display: none;
-    animation: fadeIn .25s;
-  }
+  .senha-box { display: none; animation: fadeIn .25s; }
   .senha-box.ativo { display: block; }
   .senha-label {
     font-family: var(--serif);
@@ -191,7 +223,7 @@
   }
   .senha-input:focus { outline: none; border-color: var(--musgo); }
   .senha-erro {
-    background: #fbeae5;
+    background: #f8e5df;
     border: 1px solid var(--terracota);
     color: var(--terracota);
     font-family: var(--serif);
@@ -227,37 +259,45 @@
   }
   .btn-voltar-login:hover { color: var(--terracota); }
 
+  /* ================= APP ================= */
   .app { display: none; min-height: 100vh; }
   .app.active { display: flex; }
 
   .sidebar {
-    width: 260px;
+    width: 270px;
     background: var(--papel-escuro);
     border-right: 1px solid var(--borda-fina);
-    padding: 28px 20px;
+    padding: 32px 22px;
     display: flex; flex-direction: column;
     position: sticky; top: 0; height: 100vh;
+    overflow-y: auto;
   }
   .marca {
-    padding-bottom: 20px;
+    padding-bottom: 22px;
     border-bottom: 1px solid var(--borda-fina);
     margin-bottom: 24px;
   }
   .marca h1 {
     font-family: var(--serif);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 400;
     color: var(--tinta);
-    line-height: 1.2;
+    line-height: 1.35;
+    letter-spacing: -.005em;
   }
-  .marca h1 em { font-style: italic; color: var(--musgo); }
+  .marca h1 em {
+    font-style: italic;
+    color: var(--musgo);
+    font-size: 1.15rem;
+  }
   .marca small {
-    font-size: .7rem;
-    letter-spacing: .28em;
+    font-size: .65rem;
+    letter-spacing: .3em;
     text-transform: uppercase;
-    color: var(--tinta-clara);
+    color: var(--dourado-escuro);
     display: block;
-    margin-top: 6px;
+    margin-top: 10px;
+    font-family: var(--sans);
   }
   .user-badge {
     display: flex; align-items: center; gap: 12px;
@@ -275,6 +315,7 @@
     font-style: italic;
     font-size: 1.1rem;
     flex-shrink: 0;
+    border: 1.5px solid var(--dourado);
   }
   .user-badge strong {
     display: block;
@@ -285,10 +326,11 @@
     line-height: 1.2;
   }
   .user-badge small {
-    font-size: .72rem;
+    font-size: .7rem;
     color: var(--tinta-clara);
     display: block;
     margin-top: 2px;
+    font-family: var(--sans);
   }
   .nav-item {
     display: flex; align-items: center; gap: 10px;
@@ -330,41 +372,59 @@
     letter-spacing: .04em;
     animation: pulse 2s infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .6; }
-  }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .btn-sair {
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .sidebar-footer {
     margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--borda-fina);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .btn-sair, .btn-trocar-senha {
     padding: 10px;
     background: transparent;
     color: var(--tinta-clara);
     border: 1px solid var(--borda-fina);
     font-family: var(--sans);
-    font-size: .82rem;
-    letter-spacing: .1em;
+    font-size: .76rem;
+    letter-spacing: .12em;
     text-transform: uppercase;
     cursor: pointer;
     transition: .2s;
   }
   .btn-sair:hover { color: var(--terracota); border-color: var(--terracota); }
+  .btn-trocar-senha:hover { color: var(--musgo); border-color: var(--musgo); }
 
   .main {
     flex: 1;
-    padding: 48px 56px;
-    max-width: 1100px;
+    padding: 44px 56px;
+    max-width: 1120px;
     overflow-x: hidden;
   }
+  .escola-tag {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--sans);
+    font-size: .65rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--dourado-escuro);
+    margin-bottom: 14px;
+  }
+  .escola-tag::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--dourado);
+  }
   .page-header {
-    margin-bottom: 36px;
-    padding-bottom: 20px;
+    margin-bottom: 38px;
+    padding-bottom: 22px;
     border-bottom: 1px solid var(--borda-fina);
-    display: flex; align-items: baseline; gap: 20px;
+    display: flex; align-items: flex-end; gap: 20px;
   }
   .page-title {
     font-family: var(--serif);
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: 400;
     letter-spacing: -.015em;
     color: var(--tinta);
@@ -376,7 +436,7 @@
     font-style: italic;
     color: var(--tinta-clara);
     font-size: .95rem;
-    margin-top: 6px;
+    margin-top: 8px;
   }
   .sino {
     margin-left: auto;
@@ -420,12 +480,13 @@
   }
   .stat-card:last-child { border-right: none; }
   .stat-card .label {
-    font-size: .7rem;
-    letter-spacing: .2em;
+    font-size: .68rem;
+    letter-spacing: .22em;
     text-transform: uppercase;
     color: var(--tinta-clara);
     font-weight: 600;
     margin-bottom: 10px;
+    font-family: var(--sans);
   }
   .stat-card .valor {
     font-family: var(--serif);
@@ -492,8 +553,8 @@
     padding: 11px 20px;
     border: 1px solid transparent;
     font-family: var(--sans);
-    font-size: .82rem;
-    letter-spacing: .1em;
+    font-size: .78rem;
+    letter-spacing: .12em;
     text-transform: uppercase;
     font-weight: 600;
     cursor: pointer;
@@ -525,7 +586,7 @@
     border-color: var(--borda-fina);
   }
   .btn-ghost:hover { border-color: var(--musgo); background: var(--papel); }
-  .btn-sm { padding: 6px 12px; font-size: .72rem; letter-spacing: .08em; }
+  .btn-sm { padding: 6px 12px; font-size: .7rem; letter-spacing: .1em; }
 
   table { width: 100%; border-collapse: collapse; }
   th, td {
@@ -536,8 +597,8 @@
   }
   th {
     font-family: var(--sans);
-    font-size: .7rem;
-    letter-spacing: .15em;
+    font-size: .68rem;
+    letter-spacing: .18em;
     text-transform: uppercase;
     color: var(--tinta-clara);
     font-weight: 600;
@@ -551,7 +612,7 @@
     font-size: .98rem;
   }
   tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: rgba(184,147,90,.04); }
+  tbody tr:hover td { background: rgba(184,145,85,.05); }
 
   .matricula-cell {
     font-family: var(--serif);
@@ -564,8 +625,8 @@
     display: inline-block;
     padding: 3px 10px;
     font-family: var(--sans);
-    font-size: .7rem;
-    letter-spacing: .1em;
+    font-size: .68rem;
+    letter-spacing: .12em;
     text-transform: uppercase;
     font-weight: 600;
     border: 1px solid currentColor;
@@ -584,7 +645,7 @@
     background: var(--papel);
     border: 1px solid var(--borda-fina);
     padding: 22px;
-    transition: .2s;
+    transition: .25s;
     display: flex; flex-direction: column;
     position: relative;
   }
@@ -598,6 +659,7 @@
   .livro-card:hover {
     background: var(--creme-card);
     box-shadow: var(--sombra);
+    transform: translateY(-2px);
   }
   .livro-genero {
     font-family: var(--serif);
@@ -711,9 +773,9 @@
     margin: 6px 0;
   }
   .avaliacao-item .data {
-    font-size: .72rem;
+    font-size: .7rem;
     color: var(--tinta-clara);
-    letter-spacing: .12em;
+    letter-spacing: .15em;
     text-transform: uppercase;
   }
 
@@ -739,10 +801,10 @@
   .genero-titulo:first-child { margin-top: 0; }
   .genero-titulo em {
     font-style: italic;
-    font-size: .78rem;
+    font-size: .76rem;
     color: var(--tinta-clara);
     margin-left: auto;
-    letter-spacing: .12em;
+    letter-spacing: .14em;
     text-transform: uppercase;
   }
 
@@ -768,9 +830,9 @@
   }
   .solicitacao-card .topo .data {
     margin-left: auto;
-    font-size: .72rem;
+    font-size: .7rem;
     color: var(--tinta-clara);
-    letter-spacing: .12em;
+    letter-spacing: .15em;
     text-transform: uppercase;
   }
   .solicitacao-card .meta {
@@ -797,10 +859,7 @@
   .solicitacao-card .acoes {
     display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
   }
-  .motivo-input {
-    margin-top: 10px;
-    width: 100%;
-  }
+  .motivo-input { margin-top: 10px; width: 100%; }
 
   .form-ajuda {
     color: var(--tinta-clara);
@@ -847,17 +906,19 @@
   }
   .preview-table table { font-size: .85rem; }
   .preview-table th, .preview-table td { padding: 10px 12px; }
-  .preview-table tr.dup td { background: #fbeae5; }
+  .preview-table tr.dup td { background: #f8e5df; }
   .preview-table tr.dup td:first-child { color: var(--terracota); font-weight: 700; }
   .preview-table .status-ok {
     color: var(--musgo);
     font-weight: 700;
-    font-size: .75rem;
+    font-size: .73rem;
+    letter-spacing: .06em;
   }
   .preview-table .status-dup {
     color: var(--terracota);
     font-weight: 700;
-    font-size: .75rem;
+    font-size: .73rem;
+    letter-spacing: .06em;
   }
   .preview-table input, .preview-table select {
     padding: 6px 8px;
@@ -901,6 +962,64 @@
     font-style: italic;
   }
 
+  /* Modal trocar senha */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(28,23,18,.45);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2000; padding: 20px;
+  }
+  .modal-bg.ativo { display: flex; animation: fadeIn .2s; }
+  .modal {
+    background: var(--creme-card);
+    border: 1px solid var(--borda-fina);
+    max-width: 420px; width: 100%;
+    padding: 32px;
+    box-shadow: var(--sombra-forte);
+    position: relative;
+  }
+  .modal::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--dourado), var(--musgo), var(--dourado));
+  }
+  .modal h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+    color: var(--tinta);
+  }
+  .modal p.sub {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--tinta-clara);
+    font-size: .88rem;
+    margin-bottom: 22px;
+  }
+  .modal label {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: .85rem;
+    color: var(--tinta-clara);
+    margin-bottom: 4px;
+  }
+  .modal input { margin-bottom: 14px; }
+  .modal .erro {
+    background: #f8e5df;
+    border: 1px solid var(--terracota);
+    color: var(--terracota);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: .85rem;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+  .modal .acoes {
+    display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px;
+  }
+
   @media (max-width: 820px) {
     .app.active { flex-direction: column; }
     .sidebar { width: 100%; height: auto; position: static; padding: 20px; }
@@ -910,19 +1029,26 @@
     .nav-badge { margin-left: 6px; }
     .main { padding: 28px 20px; }
     .page-title { font-size: 1.6rem; }
-    .login-box { padding: 36px 24px 28px; }
-    .login-marca { font-size: 1.9rem; }
+    .login-box { padding: 40px 28px 30px; }
+    .login-marca { font-size: 1.3rem; }
+    .login-marca em { font-size: 1.5rem; }
     .ficha-header { flex-direction: column; text-align: center; }
     .page-header { flex-wrap: wrap; }
+    .sidebar-footer { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
-    <div class="login-exlibris">Ex Libris · Biblioteca Escolar</div>
-    <div class="login-marca">Biblioteca <em>Escolar</em></div>
+    <div class="login-brasao">CEUP</div>
+    <div class="login-exlibris">Ex Libris</div>
+    <div class="login-marca">
+      Biblioteca do
+      <em>Colégio Estadual Unidade Polo</em>
+    </div>
     <div class="login-sub">— entre para continuar —</div>
     <div class="ornamento">✦ ✦ ✦</div>
 
@@ -955,11 +1081,12 @@
   </div>
 </div>
 
+<!-- APP -->
 <div class="app" id="app">
   <aside class="sidebar">
     <div class="marca">
-      <h1>Biblioteca<em>.</em></h1>
-      <small>Escolar</small>
+      <h1>Biblioteca do<br><em>Colégio Estadual<br>Unidade Polo</em></h1>
+      <small>Ex Libris · Sistema</small>
     </div>
 
     <div class="user-badge">
@@ -972,10 +1099,32 @@
 
     <nav id="navMenu"></nav>
 
-    <button class="btn-sair" onclick="sair()">Sair</button>
+    <div class="sidebar-footer">
+      <button class="btn-trocar-senha" id="btnTrocarSenha" onclick="abrirTrocarSenha()" style="display:none;">🔑 Trocar senha</button>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
   </aside>
 
   <main class="main" id="mainContent"></main>
+</div>
+
+<!-- Modal trocar senha -->
+<div class="modal-bg" id="modalTrocarSenha">
+  <div class="modal">
+    <h2>Trocar senha</h2>
+    <p class="sub">Informe a senha atual e a nova senha.</p>
+    <label>Senha atual</label>
+    <input type="password" id="senhaAtualInput" placeholder="••••••••">
+    <label>Nova senha (mín. 4 caracteres)</label>
+    <input type="password" id="senhaNovaInput" placeholder="••••••••">
+    <label>Confirmar nova senha</label>
+    <input type="password" id="senhaConfInput" placeholder="••••••••">
+    <div id="trocarSenhaErro" class="erro" style="display:none"></div>
+    <div class="acoes">
+      <button class="btn btn-ghost btn-sm" onclick="fecharTrocarSenha()">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="salvarNovaSenha()">Salvar</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1008,7 +1157,7 @@ const nomeLivro = (id) => livros.find(l => l.id === id)?.titulo || '—';
 const iniciais = (nome) => nome.split(' ').map(p=>p[0]).slice(0,2).join('').toUpperCase();
 const norm = (s) => (s || '').toString().trim().toLowerCase().replace(/\s+/g, ' ');
 
-/* ============ MATRÍCULA AUTOMÁTICA ============ */
+/* ============ MATRÍCULA ============ */
 function proximaMatricula(incluirValorAtual = false) {
   const ano = new Date().getFullYear();
   const regex = new RegExp('^' + ano + '-(\\d{3})$');
@@ -1034,7 +1183,7 @@ function regenerarMatricula() {
   input.value = proximaMatricula(true);
 }
 
-/* ============ SENHA DO BIBLIOTECÁRIO ============ */
+/* ============ SENHA ============ */
 const SENHA_KEY = 'bib_senha_bibliotecario';
 const SENHA_TENTATIVAS_KEY = 'bib_senha_tentativas';
 
@@ -1043,30 +1192,20 @@ async function hashSenha(s) {
   const hash = await crypto.subtle.digest('SHA-256', buf);
   return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
-
-function temSenhaSalva() {
-  return !!localStorage.getItem(SENHA_KEY);
-}
-
+function temSenhaSalva() { return !!localStorage.getItem(SENHA_KEY); }
 function registrarTentativaErrada() {
   const t = JSON.parse(localStorage.getItem(SENHA_TENTATIVAS_KEY) || '{"n":0,"bloqueadoAte":0}');
   t.n = (t.n || 0) + 1;
-  if (t.n >= 5) {
-    t.bloqueadoAte = Date.now() + 60 * 1000;
-    t.n = 0;
-  }
+  if (t.n >= 5) { t.bloqueadoAte = Date.now() + 60 * 1000; t.n = 0; }
   localStorage.setItem(SENHA_TENTATIVAS_KEY, JSON.stringify(t));
 }
-
 function limparTentativas() {
   localStorage.setItem(SENHA_TENTATIVAS_KEY, JSON.stringify({n:0,bloqueadoAte:0}));
 }
-
 function estaBloqueado() {
   const t = JSON.parse(localStorage.getItem(SENHA_TENTATIVAS_KEY) || '{"n":0,"bloqueadoAte":0}');
   return t.bloqueadoAte && t.bloqueadoAte > Date.now()
-    ? Math.ceil((t.bloqueadoAte - Date.now()) / 1000)
-    : 0;
+    ? Math.ceil((t.bloqueadoAte - Date.now()) / 1000) : 0;
 }
 
 function abrirSenhaBibliotecario() {
@@ -1090,7 +1229,6 @@ function abrirSenhaBibliotecario() {
     btnEsqueci.style.display = 'none';
     btnEntrar.textContent = 'Criar senha e entrar';
   }
-
   document.getElementById('senhaInput').value = '';
   setTimeout(() => document.getElementById('senhaInput').focus(), 100);
 }
@@ -1098,17 +1236,9 @@ function abrirSenhaBibliotecario() {
 async function confirmarSenhaBibliotecario() {
   const input = document.getElementById('senhaInput');
   const senha = input.value;
-
-  if (senha.length < 4) {
-    mostrarErroSenha('A senha precisa ter pelo menos 4 caracteres.');
-    return;
-  }
-
+  if (senha.length < 4) return mostrarErroSenha('A senha precisa ter pelo menos 4 caracteres.');
   const bloqueio = estaBloqueado();
-  if (bloqueio > 0) {
-    mostrarErroSenha(`Muitas tentativas. Aguarde ${bloqueio} segundo(s).`);
-    return;
-  }
+  if (bloqueio > 0) return mostrarErroSenha(`Muitas tentativas. Aguarde ${bloqueio} segundo(s).`);
 
   if (!temSenhaSalva()) {
     const hash = await hashSenha(senha);
@@ -1117,7 +1247,6 @@ async function confirmarSenhaBibliotecario() {
     entrarComoBibliotecario();
     return;
   }
-
   const hash = await hashSenha(senha);
   if (hash === localStorage.getItem(SENHA_KEY)) {
     limparTentativas();
@@ -1129,27 +1258,64 @@ async function confirmarSenhaBibliotecario() {
     input.focus();
   }
 }
-
 function mostrarErroSenha(msg) {
   const erro = document.getElementById('senhaErro');
   erro.textContent = msg;
   erro.style.display = 'block';
 }
-
 function resetarSenhaBibliotecario() {
-  if (!confirm('Isso vai apagar a senha atual. Na próxima entrada, você poderá criar uma nova senha. Continuar?'))
-    return;
+  if (!confirm('Isso vai apagar a senha atual. Na próxima entrada, você poderá criar uma nova senha. Continuar?')) return;
   localStorage.removeItem(SENHA_KEY);
   localStorage.removeItem(SENHA_TENTATIVAS_KEY);
   abrirSenhaBibliotecario();
 }
-
 function voltarLogin() {
   document.getElementById('senhaBox').classList.remove('ativo');
   document.getElementById('perfilGrid').style.display = 'grid';
   document.getElementById('senhaErro').style.display = 'none';
   document.getElementById('loginAluno').style.display = 'none';
   document.getElementById('btnEntrarAluno').style.display = 'none';
+}
+
+/* ============ TROCAR SENHA (logado) ============ */
+function abrirTrocarSenha() {
+  document.getElementById('senhaAtualInput').value = '';
+  document.getElementById('senhaNovaInput').value = '';
+  document.getElementById('senhaConfInput').value = '';
+  document.getElementById('trocarSenhaErro').style.display = 'none';
+  document.getElementById('modalTrocarSenha').classList.add('ativo');
+}
+function fecharTrocarSenha() {
+  document.getElementById('modalTrocarSenha').classList.remove('ativo');
+}
+async function salvarNovaSenha() {
+  const atual = document.getElementById('senhaAtualInput').value;
+  const nova = document.getElementById('senhaNovaInput').value;
+  const conf = document.getElementById('senhaConfInput').value;
+  const erro = document.getElementById('trocarSenhaErro');
+  erro.style.display = 'none';
+
+  if (!temSenhaSalva()) { erro.textContent = 'Não há senha cadastrada.'; erro.style.display = 'block'; return; }
+  const hashAtual = await hashSenha(atual);
+  if (hashAtual !== localStorage.getItem(SENHA_KEY)) {
+    erro.textContent = 'Senha atual incorreta.';
+    erro.style.display = 'block';
+    return;
+  }
+  if (nova.length < 4) {
+    erro.textContent = 'A nova senha precisa ter pelo menos 4 caracteres.';
+    erro.style.display = 'block';
+    return;
+  }
+  if (nova !== conf) {
+    erro.textContent = 'As senhas não coincidem.';
+    erro.style.display = 'block';
+    return;
+  }
+  localStorage.setItem(SENHA_KEY, await hashSenha(nova));
+  limparTentativas();
+  fecharTrocarSenha();
+  alert('✅ Senha atualizada com sucesso!');
 }
 
 /* ============ ESTADO ============ */
@@ -1161,10 +1327,7 @@ function escolherPerfil(tipo) {
   if (tipo === 'bibliotecario') return abrirSenhaBibliotecario();
   const sel = document.getElementById('loginAluno');
   const btn = document.getElementById('btnEntrarAluno');
-  if (!alunos.length) {
-    alert('Nenhum aluno cadastrado. Peça ao bibliotecário para te cadastrar.');
-    return;
-  }
+  if (!alunos.length) { alert('Nenhum aluno cadastrado. Peça ao bibliotecário para te cadastrar.'); return; }
   sel.innerHTML = '<option value="">Selecione seu nome...</option>' +
     alunos.map(a => `<option value="${a.id}">${a.nome}${a.turma?' — '+a.turma:''}${a.matricula?' ('+a.matricula+')':''}</option>`).join('');
   sel.style.display = 'block';
@@ -1192,6 +1355,7 @@ function sair() {
   document.getElementById('loginAluno').style.display = 'none';
   document.getElementById('btnEntrarAluno').style.display = 'none';
   voltarLogin();
+  fecharTrocarSenha();
 }
 
 /* ============ MENUS ============ */
@@ -1224,6 +1388,10 @@ function pendentesAluno(alunoId) {
 
 function renderApp() {
   if (!sessao.tipo) return;
+
+  // Botão trocar senha só para bibliotecário
+  document.getElementById('btnTrocarSenha').style.display =
+    sessao.tipo === 'bibliotecario' ? 'block' : 'none';
 
   if (sessao.tipo === 'aluno') {
     const a = alunos.find(x => x.id === sessao.alunoId);
@@ -1265,34 +1433,28 @@ function renderApp() {
   }
 }
 
-function irPara(p) {
-  sessao.pagina = p;
-  renderApp();
-}
+function irPara(p) { sessao.pagina = p; renderApp(); }
 
-/* ============ AÇÕES BÁSICAS ============ */
+/* ============ AÇÕES ============ */
 function cadastrarAluno() {
   const nome = document.getElementById('alunoNome').value.trim();
   const turma = document.getElementById('alunoTurma').value.trim();
   const inputMat = document.getElementById('alunoMatricula');
   if (!nome) return alert('Informe o nome.');
-
   let matricula = proximaMatricula();
-  let tentativas = 0;
-  while (alunos.some(a => a.matricula === matricula) && tentativas < 1000) {
+  let t = 0;
+  while (alunos.some(a => a.matricula === matricula) && t < 1000) {
     const ano = new Date().getFullYear();
     const num = parseInt(matricula.split('-')[1], 10) + 1;
     matricula = `${ano}-${String(num).padStart(3, '0')}`;
-    tentativas++;
+    t++;
   }
-
   alunos.push({ id: uid(), nome, turma, matricula });
   document.getElementById('alunoNome').value = '';
   document.getElementById('alunoTurma').value = '';
   if (inputMat) inputMat.value = proximaMatricula();
   salvar();
 }
-
 function removerAluno(id) {
   if (emprestimos.some(e => e.alunoId === id && !e.devolvido))
     return alert('Aluno tem empréstimos em aberto.');
@@ -1301,7 +1463,6 @@ function removerAluno(id) {
   solicitacoes = solicitacoes.filter(s => s.alunoId !== id);
   salvar();
 }
-
 function cadastrarLivro() {
   const isbn = (document.getElementById('livroIsbn')?.value || '').trim();
   const titulo = document.getElementById('livroTitulo').value.trim();
@@ -1316,7 +1477,6 @@ function cadastrarLivro() {
   livros.push({ id: uid(), isbn, titulo, autor, genero, qtd, emprestados: 0 });
   salvar();
 }
-
 function removerLivro(id) {
   const l = livros.find(x => x.id === id);
   if (!l) return;
@@ -1327,7 +1487,6 @@ function removerLivro(id) {
   solicitacoes = solicitacoes.filter(s => s.livroId !== id);
   salvar();
 }
-
 function emprestar() {
   const alunoId = document.getElementById('empAluno').value;
   const livroId = document.getElementById('empLivro').value;
@@ -1339,7 +1498,6 @@ function emprestar() {
   emprestimos.push({ id: uid(), alunoId, livroId, data, devolvido: false, dataDev: null });
   salvar();
 }
-
 function devolver(empId) {
   const e = emprestimos.find(x => x.id === empId);
   if (!e || e.devolvido) return;
@@ -1349,7 +1507,6 @@ function devolver(empId) {
   e.dataDev = hoje();
   salvar();
 }
-
 function avaliar(alunoId) {
   const livroId = document.getElementById('avLivro').value;
   const nota = parseInt(document.getElementById('avNota').value);
@@ -1371,15 +1528,10 @@ function solicitarEmprestimo(livroId) {
     return alert('Você já tem uma solicitação pendente para este livro.');
   if (emprestimos.some(e => e.alunoId === alunoId && e.livroId === livroId && !e.devolvido))
     return alert('Você já está com este livro emprestado.');
-
-  solicitacoes.push({
-    id: uid(), alunoId, livroId, data: hoje(),
-    status: 'pendente', motivo: '', dataResposta: null
-  });
+  solicitacoes.push({ id: uid(), alunoId, livroId, data: hoje(), status: 'pendente', motivo: '', dataResposta: null });
   salvar();
   alert('Solicitação enviada! Aguarde a aprovação do bibliotecário.');
 }
-
 function aprovarSolicitacao(solId) {
   const s = solicitacoes.find(x => x.id === solId);
   if (!s || s.status !== 'pendente') return;
@@ -1387,15 +1539,11 @@ function aprovarSolicitacao(solId) {
   if (!l || l.emprestados >= l.qtd)
     return alert('Sem exemplares disponíveis para aprovar.');
   l.emprestados++;
-  emprestimos.push({
-    id: uid(), alunoId: s.alunoId, livroId: s.livroId, data: hoje(),
-    devolvido: false, dataDev: null
-  });
+  emprestimos.push({ id: uid(), alunoId: s.alunoId, livroId: s.livroId, data: hoje(), devolvido: false, dataDev: null });
   s.status = 'aprovada';
   s.dataResposta = hoje();
   salvar();
 }
-
 function recusarSolicitacao(solId) {
   const s = solicitacoes.find(x => x.id === solId);
   if (!s || s.status !== 'pendente') return;
@@ -1416,6 +1564,7 @@ const header = (titulo, sub, emTitulo, sino) => {
       ${notif > 0 ? `<span class="contador">${notif}</span>` : ''}
     </button>` : '';
   return `
+    <div class="escola-tag">Colégio Estadual Unidade Polo</div>
     <div class="page-header">
       <div>
         <h1 class="page-title">${titulo}${emTitulo ? ` <em>${emTitulo}</em>` : ''}</h1>
@@ -1425,71 +1574,50 @@ const header = (titulo, sub, emTitulo, sino) => {
     </div>`;
 };
 
-/* ============ PARSER CSV ============ */
+/* ============ CSV ============ */
 function parseCSV(texto) {
   if (texto.charCodeAt(0) === 0xFEFF) texto = texto.slice(1);
-  const linhas = [];
-  let atual = [];
-  let campo = '';
-  let dentroAspas = false;
-
+  const linhas = []; let atual = []; let campo = ''; let dentroAspas = false;
   for (let i = 0; i < texto.length; i++) {
-    const c = texto[i];
-    const prox = texto[i + 1];
-
-    if (c === '"') {
-      if (dentroAspas && prox === '"') { campo += '"'; i++; }
-      else { dentroAspas = !dentroAspas; }
-    } else if (c === ',' && !dentroAspas) {
-      atual.push(campo); campo = '';
-    } else if ((c === '\n' || c === '\r') && !dentroAspas) {
+    const c = texto[i]; const prox = texto[i + 1];
+    if (c === '"') { if (dentroAspas && prox === '"') { campo += '"'; i++; } else { dentroAspas = !dentroAspas; } }
+    else if (c === ',' && !dentroAspas) { atual.push(campo); campo = ''; }
+    else if ((c === '\n' || c === '\r') && !dentroAspas) {
       if (c === '\r' && prox === '\n') i++;
       atual.push(campo);
       if (atual.some(x => x.trim() !== '')) linhas.push(atual);
       atual = []; campo = '';
-    } else {
-      campo += c;
-    }
+    } else { campo += c; }
   }
-  if (campo !== '' || atual.length) {
-    atual.push(campo);
-    if (atual.some(x => x.trim() !== '')) linhas.push(atual);
-  }
+  if (campo !== '' || atual.length) { atual.push(campo); if (atual.some(x => x.trim() !== '')) linhas.push(atual); }
   return linhas;
 }
-
 function encontrarColuna(cabecalho, nomesAceitos) {
   for (let i = 0; i < cabecalho.length; i++) {
     const h = norm(cabecalho[i]).replace(/[áàâã]/g,'a').replace(/[éê]/g,'e').replace(/[íî]/g,'i').replace(/[óô]/g,'o').replace(/[úû]/g,'u').replace(/ç/g,'c');
-    for (const nome of nomesAceitos) {
-      if (h === nome) return i;
-    }
+    for (const nome of nomesAceitos) if (h === nome) return i;
   }
   return -1;
 }
 
-/* ============ IMPORTAÇÃO — ALUNOS ============ */
+/* ============ IMPORTAR ALUNOS ============ */
 function lerCSVAlunos(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
-      const texto = e.target.result;
-      const linhas = parseCSV(texto);
+      const linhas = parseCSV(e.target.result);
       if (linhas.length < 2) { alert('Arquivo vazio ou sem cabeçalho.'); return; }
       const cab = linhas[0];
-      const idxNome = encontrarColuna(cab, ['nome', 'nome completo', 'aluno']);
-      const idxTurma = encontrarColuna(cab, ['turma', 'classe', 'serie', 'série']);
-      const idxMat = encontrarColuna(cab, ['matricula', 'matrícula', 'mat']);
+      const idxNome = encontrarColuna(cab, ['nome','nome completo','aluno']);
+      const idxTurma = encontrarColuna(cab, ['turma','classe','serie','série']);
+      const idxMat = encontrarColuna(cab, ['matricula','matrícula','mat']);
       if (idxNome === -1) { alert('A coluna "Nome" é obrigatória.'); return; }
-
       const vistos = new Set();
       const novasLinhas = [];
       for (let i = 1; i < linhas.length; i++) {
         const l = linhas[i];
-        const nome = (l[idxNome] || '').trim();
-        if (!nome) continue;
+        const nome = (l[idxNome] || '').trim(); if (!nome) continue;
         const turma = (l[idxTurma] || '').trim();
         const mat = (l[idxMat] || '').trim();
         const chave = norm(nome) + '||' + norm(turma);
@@ -1508,19 +1636,16 @@ function lerCSVAlunos(event) {
   reader.readAsText(file, 'UTF-8');
   event.target.value = '';
 }
-
 function removerLinhaAlunoImport(idx) {
   if (!importState.alunos) return;
   importState.alunos.linhas.splice(idx, 1);
   renderApp();
 }
-
 function atualizarTurmaImport(idx, val) {
   if (!importState.alunos) return;
   const l = importState.alunos.linhas[idx];
   l.turma = val;
   const nome = l.nome;
-  const chave = norm(nome) + '||' + norm(val);
   const dupBanco = alunos.some(a => norm(a.nome) === norm(nome) && norm(a.turma) === norm(val));
   let dupPlanilha = false;
   importState.alunos.linhas.forEach((outra, j) => {
@@ -1531,7 +1656,6 @@ function atualizarTurmaImport(idx, val) {
   else { l.status = 'ok'; l.motivo = ''; }
   renderApp();
 }
-
 function confirmarImportAlunos() {
   if (!importState.alunos) return;
   const validos = importState.alunos.linhas.filter(l => l.status === 'ok');
@@ -1539,13 +1663,13 @@ function confirmarImportAlunos() {
   validos.forEach(l => {
     let matricula = l.matricula;
     if (!matricula) {
-      let tentativas = 0;
+      let t = 0;
       matricula = proximaMatricula();
-      while (alunos.some(a => a.matricula === matricula) && tentativas < 1000) {
+      while (alunos.some(a => a.matricula === matricula) && t < 1000) {
         const ano = new Date().getFullYear();
         const num = parseInt(matricula.split('-')[1], 10) + 1;
         matricula = `${ano}-${String(num).padStart(3, '0')}`;
-        tentativas++;
+        t++;
       }
     }
     alunos.push({ id: uid(), nome: l.nome, turma: l.turma, matricula });
@@ -1554,60 +1678,43 @@ function confirmarImportAlunos() {
   salvar();
   alert(`✅ ${validos.length} aluno(s) importado(s)!`);
 }
+function cancelarImportAlunos() { importState.alunos = null; renderApp(); }
 
-function cancelarImportAlunos() {
-  importState.alunos = null;
-  renderApp();
-}
-
-/* ============ IMPORTAÇÃO — LIVROS ============ */
+/* ============ IMPORTAR LIVROS ============ */
 function lerCSVLivros(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
-      const texto = e.target.result;
-      const linhas = parseCSV(texto);
+      const linhas = parseCSV(e.target.result);
       if (linhas.length < 2) { alert('Arquivo vazio ou sem cabeçalho.'); return; }
       const cab = linhas[0];
-      const idxIsbn = encontrarColuna(cab, ['isbn', 'isbn13', 'isbn-13', 'codigo', 'código']);
-      const idxTitulo = encontrarColuna(cab, ['titulo', 'título', 'title']);
-      const idxAutor = encontrarColuna(cab, ['autor', 'author', 'autores']);
-      const idxGenero = encontrarColuna(cab, ['genero', 'gênero', 'genre', 'categoria']);
-      const idxQtd = encontrarColuna(cab, ['quantidade', 'qtd', 'exemplares', 'qty']);
+      const idxIsbn = encontrarColuna(cab, ['isbn','isbn13','isbn-13','codigo','código']);
+      const idxTitulo = encontrarColuna(cab, ['titulo','título','title']);
+      const idxAutor = encontrarColuna(cab, ['autor','author','autores']);
+      const idxGenero = encontrarColuna(cab, ['genero','gênero','genre','categoria']);
+      const idxQtd = encontrarColuna(cab, ['quantidade','qtd','exemplares','qty']);
       if (idxTitulo === -1) { alert('A coluna "Título" é obrigatória.'); return; }
-
       const isbnsVistos = new Set();
       const titulosVistos = new Set();
       const novasLinhas = [];
-
       for (let i = 1; i < linhas.length; i++) {
         const l = linhas[i];
-        const titulo = (l[idxTitulo] || '').trim();
-        if (!titulo) continue;
+        const titulo = (l[idxTitulo] || '').trim(); if (!titulo) continue;
         const isbn = idxIsbn >= 0 ? (l[idxIsbn] || '').trim() : '';
         const autor = idxAutor >= 0 ? (l[idxAutor] || '').trim() : '';
         const genero = (idxGenero >= 0 ? (l[idxGenero] || '').trim() : '') || 'Geral';
         const qtd = Math.max(1, parseInt(idxQtd >= 0 ? l[idxQtd] : '') || 1);
-
         const chaveIsbn = norm(isbn);
         const chaveTA = norm(titulo) + '||' + norm(autor);
         let status = 'ok', motivo = '';
-
         if (isbn && isbnsVistos.has(chaveIsbn)) { status = 'dup'; motivo = 'ISBN repetido na planilha'; }
         else if (!isbn && titulosVistos.has(chaveTA)) { status = 'dup'; motivo = 'Título+autor repetido na planilha'; }
         else if (isbn && livros.some(x => norm(x.isbn) === chaveIsbn)) { status = 'dup'; motivo = 'ISBN já no acervo'; }
         else if (!isbn && livros.some(x => norm(x.titulo) === norm(titulo) && norm(x.autor) === norm(autor))) { status = 'dup'; motivo = 'Título+autor já no acervo'; }
-
-        if (status === 'ok') {
-          if (isbn) isbnsVistos.add(chaveIsbn);
-          else titulosVistos.add(chaveTA);
-        }
-
+        if (status === 'ok') { if (isbn) isbnsVistos.add(chaveIsbn); else titulosVistos.add(chaveTA); }
         novasLinhas.push({ isbn, titulo, autor, genero, qtd, status, motivo });
       }
-
       importState.livros = { linhas: novasLinhas, arquivo: file.name };
       renderApp();
     } catch (err) { alert('Erro ao ler: ' + err.message); }
@@ -1615,51 +1722,38 @@ function lerCSVLivros(event) {
   reader.readAsText(file, 'UTF-8');
   event.target.value = '';
 }
-
 function removerLinhaLivroImport(idx) {
   if (!importState.livros) return;
   importState.livros.linhas.splice(idx, 1);
   renderApp();
 }
-
 function atualizarGeneroImport(idx, val) {
   if (!importState.livros) return;
   importState.livros.linhas[idx].genero = val || 'Geral';
   renderApp();
 }
-
 function atualizarQtdImport(idx, val) {
   if (!importState.livros) return;
   const n = parseInt(val) || 1;
   importState.livros.linhas[idx].qtd = Math.max(1, n);
 }
-
 function confirmarImportLivros() {
   if (!importState.livros) return;
   const validos = importState.livros.linhas.filter(l => l.status === 'ok');
   if (!validos.length) return alert('Nenhuma linha válida para importar.');
   validos.forEach(l => {
-    livros.push({
-      id: uid(), isbn: l.isbn, titulo: l.titulo, autor: l.autor,
-      genero: l.genero, qtd: l.qtd, emprestados: 0
-    });
+    livros.push({ id: uid(), isbn: l.isbn, titulo: l.titulo, autor: l.autor, genero: l.genero, qtd: l.qtd, emprestados: 0 });
   });
   importState.livros = null;
   salvar();
   alert(`✅ ${validos.length} livro(s) importado(s)!`);
 }
+function cancelarImportLivros() { importState.livros = null; renderApp(); }
 
-function cancelarImportLivros() {
-  importState.livros = null;
-  renderApp();
-}
-
-/* ============ MODELOS CSV ============ */
+/* ============ MODELOS ============ */
 function baixarModeloAlunos() {
   const csv = 'Nome,Turma,Matrícula\n' +
-    'Ana Beatriz Souza,9ºA,\n' +
-    'Lucas Ferreira,9ºB,2024-015\n' +
-    'Mariana Costa,8ºC,\n';
+    'Ana Beatriz Souza,9ºA,\nLucas Ferreira,9ºB,2024-015\nMariana Costa,8ºC,\n';
   baixarArquivo(csv, 'modelo-alunos.csv');
 }
 function baixarModeloLivros() {
@@ -1673,26 +1767,18 @@ function baixarArquivo(conteudo, nome) {
   const blob = new Blob([conteudo], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = nome;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.href = url; a.download = nome;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
 
 /* ============ PREVIEWS ============ */
 function renderPreviewAlunos() {
-  const st = importState.alunos;
-  if (!st) return '';
+  const st = importState.alunos; if (!st) return '';
   const total = st.linhas.length;
   const validos = st.linhas.filter(l => l.status === 'ok').length;
   const dups = st.linhas.filter(l => l.status === 'dup').length;
-
-  if (!total) {
-    return `<div class="card"><div class="aviso-import">Todas as linhas foram removidas. <a href="#" onclick="cancelarImportAlunos();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
-  }
-
+  if (!total) return `<div class="card"><div class="aviso-import">Todas as linhas foram removidas. <a href="#" onclick="cancelarImportAlunos();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
   return `
     <div class="card">
       <div class="card-header"><h2>Pré-visualização</h2><span class="num">${st.arquivo}</span></div>
@@ -1701,52 +1787,33 @@ function renderPreviewAlunos() {
         <div><span class="cont ok">${validos}</span> válido(s)</div>
         <div><span class="cont dup">${dups}</span> ignorado(s)</div>
         <div style="color:var(--tinta-clara)">${total} total</div>
-        <button class="btn btn-primary btn-sm" onclick="confirmarImportAlunos()" ${validos===0?'disabled':''}>✓ Confirmar importação</button>
+        <button class="btn btn-primary btn-sm" onclick="confirmarImportAlunos()" ${validos===0?'disabled':''}>✓ Confirmar</button>
         <button class="btn btn-ghost btn-sm" onclick="cancelarImportAlunos()">Cancelar</button>
       </div>
       <div class="preview-table">
         <table>
-          <thead>
-            <tr>
-              <th style="width:40px">#</th>
-              <th>Nome</th>
-              <th style="width:140px">Turma (editável)</th>
-              <th style="width:120px">Matrícula</th>
-              <th style="width:180px">Status</th>
-              <th style="width:50px"></th>
-            </tr>
-          </thead>
+          <thead><tr><th style="width:40px">#</th><th>Nome</th><th style="width:140px">Turma</th><th style="width:120px">Matrícula</th><th style="width:180px">Status</th><th style="width:50px"></th></tr></thead>
           <tbody>
             ${st.linhas.map((l, i) => `
               <tr class="${l.status === 'dup' ? 'dup' : ''}">
                 <td>${i + 1}</td>
                 <td>${l.nome}</td>
-                <td><input value="${l.turma}" onchange="atualizarTurmaImport(${i}, this.value)" placeholder="Turma"></td>
+                <td><input value="${l.turma}" onchange="atualizarTurmaImport(${i}, this.value)"></td>
                 <td>${l.matricula ? `<span class="matricula-cell">${l.matricula}</span>` : '<span style="color:var(--tinta-clara);font-style:italic">auto</span>'}</td>
-                <td>${l.status === 'ok'
-                  ? '<span class="status-ok">✓ Será importado</span>'
-                  : `<span class="status-dup">⚠ ${l.motivo}</span>`}</td>
+                <td>${l.status === 'ok' ? '<span class="status-ok">✓ Será importado</span>' : `<span class="status-dup">⚠ ${l.motivo}</span>`}</td>
                 <td><button class="btn-x" onclick="removerLinhaAlunoImport(${i})" title="Remover">✕</button></td>
-              </tr>
-            `).join('')}
+              </tr>`).join('')}
           </tbody>
         </table>
       </div>
-    </div>
-  `;
+    </div>`;
 }
-
 function renderPreviewLivros() {
-  const st = importState.livros;
-  if (!st) return '';
+  const st = importState.livros; if (!st) return '';
   const total = st.linhas.length;
   const validos = st.linhas.filter(l => l.status === 'ok').length;
   const dups = st.linhas.filter(l => l.status === 'dup').length;
-
-  if (!total) {
-    return `<div class="card"><div class="aviso-import">Todas as linhas foram removidas. <a href="#" onclick="cancelarImportLivros();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
-  }
-
+  if (!total) return `<div class="card"><div class="aviso-import">Todas as linhas foram removidas. <a href="#" onclick="cancelarImportLivros();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
   return `
     <div class="card">
       <div class="card-header"><h2>Pré-visualização</h2><span class="num">${st.arquivo}</span></div>
@@ -1755,23 +1822,12 @@ function renderPreviewLivros() {
         <div><span class="cont ok">${validos}</span> válido(s)</div>
         <div><span class="cont dup">${dups}</span> ignorado(s)</div>
         <div style="color:var(--tinta-clara)">${total} total</div>
-        <button class="btn btn-primary btn-sm" onclick="confirmarImportLivros()" ${validos===0?'disabled':''}>✓ Confirmar importação</button>
+        <button class="btn btn-primary btn-sm" onclick="confirmarImportLivros()" ${validos===0?'disabled':''}>✓ Confirmar</button>
         <button class="btn btn-ghost btn-sm" onclick="cancelarImportLivros()">Cancelar</button>
       </div>
       <div class="preview-table">
         <table>
-          <thead>
-            <tr>
-              <th style="width:40px">#</th>
-              <th>Título</th>
-              <th>Autor</th>
-              <th style="width:120px">Gênero</th>
-              <th style="width:100px">ISBN</th>
-              <th style="width:70px">Qtd</th>
-              <th style="width:180px">Status</th>
-              <th style="width:50px"></th>
-            </tr>
-          </thead>
+          <thead><tr><th style="width:40px">#</th><th>Título</th><th>Autor</th><th style="width:120px">Gênero</th><th style="width:100px">ISBN</th><th style="width:70px">Qtd</th><th style="width:180px">Status</th><th style="width:50px"></th></tr></thead>
           <tbody>
             ${st.linhas.map((l, i) => `
               <tr class="${l.status === 'dup' ? 'dup' : ''}">
@@ -1781,17 +1837,13 @@ function renderPreviewLivros() {
                 <td><input value="${l.genero}" onchange="atualizarGeneroImport(${i}, this.value)"></td>
                 <td style="font-family:var(--serif);font-size:.82rem;">${l.isbn || '<span style="color:var(--tinta-clara);font-style:italic">—</span>'}</td>
                 <td><input type="number" min="1" value="${l.qtd}" onchange="atualizarQtdImport(${i}, this.value)" style="min-width:60px;"></td>
-                <td>${l.status === 'ok'
-                  ? '<span class="status-ok">✓ Será importado</span>'
-                  : `<span class="status-dup">⚠ ${l.motivo}</span>`}</td>
+                <td>${l.status === 'ok' ? '<span class="status-ok">✓ Será importado</span>' : `<span class="status-dup">⚠ ${l.motivo}</span>`}</td>
                 <td><button class="btn-x" onclick="removerLinhaLivroImport(${i})" title="Remover">✕</button></td>
-              </tr>
-            `).join('')}
+              </tr>`).join('')}
           </tbody>
         </table>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 /* ============ RENDERERS ============ */
@@ -1809,17 +1861,14 @@ const RENDERERS = {
           <div class="stat-card"><div class="label">Solicitações</div><div class="valor"><em>${solicPend}</em></div></div>
           <div class="stat-card"><div class="label">Avaliações</div><div class="valor">${avaliacoes.length}</div></div>
         </div>
-
         ${solicPend > 0 ? `
           <div class="card" style="border-left:4px solid var(--terracota);">
-            <div class="card-header"><h2>⏳ Você tem solicitações aguardando</h2><span class="num">${solicPend}</span></div>
+            <div class="card-header"><h2>⏳ Solicitações aguardando</h2><span class="num">${solicPend}</span></div>
             <p style="font-family:var(--serif);font-style:italic;color:var(--tinta-suave);margin-bottom:14px;">
               Alunos solicitaram livros pelo acervo. Aprove ou recuse para continuar.
             </p>
             <button class="btn btn-primary" onclick="irPara('solicitacoes')">Ver solicitações</button>
-          </div>
-        ` : ''}
-
+          </div>` : ''}
         <div class="card">
           <div class="card-header"><h2>Empréstimos em aberto</h2><span class="num">${pend.length}</span></div>
           ${pend.length ? `
@@ -1834,17 +1883,11 @@ const RENDERERS = {
               </tr>`).join('')}
               </tbody>
             </table>` : '<p class="empty">Nenhum empréstimo em aberto.</p>'}
-        </div>
-      `;
+        </div>`;
     },
-
     solicitacoes() {
-      const pend = solicitacoes.filter(s => s.status === 'pendente')
-        .sort((a,b)=>b.data.localeCompare(a.data));
-      const outras = solicitacoes.filter(s => s.status !== 'pendente')
-        .sort((a,b)=>(b.dataResposta||'').localeCompare(a.dataResposta||''))
-        .slice(0, 20);
-
+      const pend = solicitacoes.filter(s => s.status === 'pendente').sort((a,b)=>b.data.localeCompare(a.data));
+      const outras = solicitacoes.filter(s => s.status !== 'pendente').sort((a,b)=>(b.dataResposta||'').localeCompare(a.dataResposta||'')).slice(0,20);
       return `
         ${header('Solicitações', 'Pedidos de empréstimo feitos pelos alunos', 'solicitações', true)}
         <div class="card">
@@ -1853,12 +1896,8 @@ const RENDERERS = {
             const aluno = alunos.find(a => a.id === s.alunoId);
             return `
             <div class="solicitacao-card pendente">
-              <div class="topo">
-                <h3>${nomeLivro(s.livroId)}</h3>
-                <span class="data">${fmtData(s.data)}</span>
-              </div>
-              <div class="meta">
-                Solicitado por <strong>${nomeAluno(s.alunoId)}</strong>
+              <div class="topo"><h3>${nomeLivro(s.livroId)}</h3><span class="data">${fmtData(s.data)}</span></div>
+              <div class="meta">Solicitado por <strong>${nomeAluno(s.alunoId)}</strong>
                 ${aluno?.matricula ? `<span class="matricula-cell" style="font-size:.8rem;margin-left:8px;">· ${aluno.matricula}</span>` : ''}
               </div>
               <input class="motivo-input" id="motivo-${s.id}" placeholder="Motivo (opcional, em caso de recusa)">
@@ -1866,40 +1905,28 @@ const RENDERERS = {
                 <button class="btn btn-primary btn-sm" onclick="aprovarSolicitacao('${s.id}')">✓ Aprovar</button>
                 <button class="btn btn-danger btn-sm" onclick="recusarSolicitacao('${s.id}')">✕ Recusar</button>
               </div>
-            </div>
-          `}).join('') : '<p class="empty">Nenhuma solicitação pendente.</p>'}
+            </div>`}).join('') : '<p class="empty">Nenhuma solicitação pendente.</p>'}
         </div>
-
         ${outras.length ? `
           <div class="card">
             <div class="card-header"><h2>Histórico recente</h2></div>
             ${outras.map(s => `
               <div class="solicitacao-card ${s.status}">
-                <div class="topo">
-                  <h3>${nomeLivro(s.livroId)}</h3>
-                  <span class="data">${fmtData(s.dataResposta || s.data)}</span>
-                </div>
-                <div class="meta">
-                  <strong>${nomeAluno(s.alunoId)}</strong>
-                  · <span class="badge ${s.status==='aprovada'?'badge-green':'badge-red'}">${s.status}</span>
-                </div>
+                <div class="topo"><h3>${nomeLivro(s.livroId)}</h3><span class="data">${fmtData(s.dataResposta || s.data)}</span></div>
+                <div class="meta"><strong>${nomeAluno(s.alunoId)}</strong> · <span class="badge ${s.status==='aprovada'?'badge-green':'badge-red'}">${s.status}</span></div>
                 ${s.motivo ? `<div class="motivo">Motivo: "${s.motivo}"</div>` : ''}
-              </div>
-            `).join('')}
-          </div>
-        ` : ''}
-      `;
+              </div>`).join('')}
+          </div>` : ''}`;
     },
-
     alunos() {
-      const matriculaSugerida = proximaMatricula();
+      const mat = proximaMatricula();
       return `
         ${header('Alunos', 'Cadastro e gestão dos leitores', 'leitores')}
         <div class="card">
           <div class="import-bar">
             <button class="btn btn-primary" onclick="document.getElementById('fileAlunos').click()">📥 Importar CSV</button>
             <input type="file" id="fileAlunos" accept=".csv,text/csv" style="display:none">
-            <button class="btn btn-ghost" onclick="baixarModeloAlunos()">📄 Baixar modelo CSV</button>
+            <button class="btn btn-ghost" onclick="baixarModeloAlunos()">📄 Baixar modelo</button>
             <span style="align-self:center;color:var(--tinta-clara);font-family:var(--serif);font-style:italic;font-size:.82rem;">
               No Excel: Arquivo → Salvar como → CSV
             </span>
@@ -1908,18 +1935,14 @@ const RENDERERS = {
             <input id="alunoNome" placeholder="Nome completo">
             <input id="alunoTurma" placeholder="Turma (ex: 9ºB)">
             <div class="matricula-wrap">
-              <input id="alunoMatricula" value="${matriculaSugerida}" readonly
-                     title="Matrícula gerada automaticamente"
-                     style="font-family:var(--serif);letter-spacing:.05em;">
-              <button class="btn-regen" onclick="regenerarMatricula()" title="Gerar próxima matrícula">🔄</button>
+              <input id="alunoMatricula" value="${mat}" readonly style="font-family:var(--serif);letter-spacing:.05em;">
+              <button class="btn-regen" onclick="regenerarMatricula()" title="Gerar próxima">🔄</button>
             </div>
             <button class="btn btn-primary" onclick="cadastrarAluno()">Cadastrar</button>
           </div>
-          <p class="form-ajuda">Matrícula gerada automaticamente no formato <strong>ANO-NNN</strong>. Clique em 🔄 para pular.</p>
+          <p class="form-ajuda">Matrícula automática no formato <strong>ANO-NNN</strong>. Clique em 🔄 para pular.</p>
         </div>
-
         ${renderPreviewAlunos()}
-
         <div class="card">
           <div class="card-header"><h2>Cadastrados</h2><span class="num">${alunos.length}</span></div>
           ${alunos.length ? `
@@ -1934,10 +1957,8 @@ const RENDERERS = {
               </tr>`).join('')}
               </tbody>
             </table>` : '<p class="empty">Nenhum aluno cadastrado.</p>'}
-        </div>
-      `;
+        </div>`;
     },
-
     livros() {
       const grupos = {};
       livros.forEach(l => (grupos[l.genero] = grupos[l.genero] || []).push(l));
@@ -1948,7 +1969,7 @@ const RENDERERS = {
           <div class="import-bar">
             <button class="btn btn-primary" onclick="document.getElementById('fileLivros').click()">📥 Importar CSV</button>
             <input type="file" id="fileLivros" accept=".csv,text/csv" style="display:none">
-            <button class="btn btn-ghost" onclick="baixarModeloLivros()">📄 Baixar modelo CSV</button>
+            <button class="btn btn-ghost" onclick="baixarModeloLivros()">📄 Baixar modelo</button>
             <span style="align-self:center;color:var(--tinta-clara);font-family:var(--serif);font-style:italic;font-size:.82rem;">
               No Excel: Arquivo → Salvar como → CSV
             </span>
@@ -1962,9 +1983,7 @@ const RENDERERS = {
             <button class="btn btn-primary" onclick="cadastrarLivro()">Cadastrar</button>
           </div>
         </div>
-
         ${renderPreviewLivros()}
-
         <div class="card">
           <div class="card-header"><h2>Livros</h2><span class="num">${livros.length}</span></div>
           ${livros.length ? `
@@ -1973,36 +1992,26 @@ const RENDERERS = {
                 <div class="genero-titulo">${g} <em>${grupos[g].length} ${grupos[g].length===1?'título':'títulos'}</em></div>
                 ${grupos[g].map(l => {
                   const disp = l.qtd - l.emprestados;
-                  const badge = disp === 0
-                    ? '<span class="badge badge-red">Esgotado</span>'
-                    : disp === l.qtd
-                      ? '<span class="badge badge-green">Disponível</span>'
-                      : '<span class="badge badge-blue">Parcial</span>';
+                  const badge = disp === 0 ? '<span class="badge badge-red">Esgotado</span>'
+                    : disp === l.qtd ? '<span class="badge badge-green">Disponível</span>'
+                    : '<span class="badge badge-blue">Parcial</span>';
                   return `<div class="livro-card">
                     <div class="livro-genero">${l.genero}</div>
                     <h3>${l.titulo}</h3>
                     <div class="autor">${l.autor || 'Autor não informado'}</div>
                     ${l.isbn ? `<div style="font-size:.72rem;color:var(--tinta-clara);font-family:var(--serif);letter-spacing:.05em;margin-bottom:6px;">ISBN ${l.isbn}</div>` : ''}
-                    <div class="estoque">
-                      ${badge}<br>
-                      <span style="font-size:.78rem;color:var(--tinta-clara);">${disp} de ${l.qtd} exemplares</span>
-                    </div>
-                    <div class="ações">
-                      <button class="btn btn-danger btn-sm" onclick="removerLivro('${l.id}')">Remover</button>
-                    </div>
+                    <div class="estoque">${badge}<br><span style="font-size:.78rem;color:var(--tinta-clara);">${disp} de ${l.qtd} exemplares</span></div>
+                    <div class="ações"><button class="btn btn-danger btn-sm" onclick="removerLivro('${l.id}')">Remover</button></div>
                   </div>`;
                 }).join('')}
               `).join('')}
             </div>` : '<p class="empty">Nenhum livro cadastrado.</p>'}
-        </div>
-      `;
+        </div>`;
     },
-
     emprestimos() {
       const ativos = emprestimos.filter(e => !e.devolvido);
       const optsAlunos = alunos.map(a => `<option value="${a.id}">${a.nome}${a.matricula?' ('+a.matricula+')':''}</option>`).join('');
-      const optsLivros = livros.filter(l => l.emprestados < l.qtd)
-        .map(l => `<option value="${l.id}">${l.titulo}</option>`).join('');
+      const optsLivros = livros.filter(l => l.emprestados < l.qtd).map(l => `<option value="${l.id}">${l.titulo}</option>`).join('');
       return `
         ${header('Empréstimos', 'Registre e gerencie as saídas', 'empréstimos')}
         <div class="card">
@@ -2032,13 +2041,11 @@ const RENDERERS = {
                   <td>${nomeLivro(e.livroId)}</td>
                   <td>${fmtData(e.data)}</td>
                   <td><button class="btn btn-ghost btn-sm" onclick="devolver('${e.id}')">Devolver</button></td>
-                </tr>`;}).join('')}
+                </tr>`}).join('')}
               </tbody>
             </table>` : '<p class="empty">Nenhum empréstimo ativo.</p>'}
-        </div>
-      `;
+        </div>`;
     },
-
     fichas() {
       const opts = alunos.map(a => `<option value="${a.id}">${a.nome}${a.turma?' — '+a.turma:''}${a.matricula?' · '+a.matricula:''}</option>`).join('');
       return `
@@ -2048,10 +2055,8 @@ const RENDERERS = {
             <option value="">Selecione um aluno...</option>${opts}
           </select>
         </div>
-        <div id="fichaConteudo"><p class="empty">Selecione um aluno para ver a ficha.</p></div>
-      `;
+        <div id="fichaConteudo"><p class="empty">Selecione um aluno para ver a ficha.</p></div>`;
     },
-
     avaliacoes() {
       return header('Avaliações', 'Opiniões dos leitores', 'avaliações') + renderBlocoAvaliacoes();
     }
@@ -2072,15 +2077,12 @@ const RENDERERS = {
             </p>
           </div>
         </div>
-        ${renderFichaAluno(a.id)}
-      `;
+        ${renderFichaAluno(a.id)}`;
     },
-
     acervo() {
       const grupos = {};
       livros.forEach(l => (grupos[l.genero] = grupos[l.genero] || []).push(l));
       const generos = Object.keys(grupos).sort();
-
       return `
         ${header('Acervo', 'Escolha um livro e solicite o empréstimo', 'acervo')}
         <div class="card">
@@ -2091,20 +2093,14 @@ const RENDERERS = {
                 ${grupos[g].map(l => {
                   const disp = l.qtd - l.emprestados;
                   const aval = avaliacoes.filter(a => a.livroId === l.id);
-                  const media = aval.length
-                    ? (aval.reduce((s,a)=>s+a.nota,0)/aval.length).toFixed(1)
-                    : null;
-                  const jaSolicitou = solicitacoes.some(s =>
-                    s.alunoId === sessao.alunoId && s.livroId === l.id && s.status === 'pendente');
-                  const jaTem = emprestimos.some(e =>
-                    e.alunoId === sessao.alunoId && e.livroId === l.id && !e.devolvido);
-
+                  const media = aval.length ? (aval.reduce((s,a)=>s+a.nota,0)/aval.length).toFixed(1) : null;
+                  const jaSolicitou = solicitacoes.some(s => s.alunoId === sessao.alunoId && s.livroId === l.id && s.status === 'pendente');
+                  const jaTem = emprestimos.some(e => e.alunoId === sessao.alunoId && e.livroId === l.id && !e.devolvido);
                   let botao;
                   if (jaTem) botao = `<button class="btn btn-ghost btn-sm" disabled>Já com você</button>`;
                   else if (jaSolicitou) botao = `<button class="btn btn-ghost btn-sm" disabled>Solicitação pendente</button>`;
                   else if (disp <= 0) botao = `<button class="btn btn-ghost btn-sm" disabled>Esgotado</button>`;
                   else botao = `<button class="btn btn-primary btn-sm" onclick="solicitarEmprestimo('${l.id}')">Solicitar empréstimo</button>`;
-
                   return `<div class="livro-card">
                     <div class="livro-genero">${l.genero}</div>
                     <h3>${l.titulo}</h3>
@@ -2120,51 +2116,34 @@ const RENDERERS = {
                 }).join('')}
               `).join('')}
             </div>` : '<p class="empty">Nenhum livro no acervo ainda.</p>'}
-        </div>
-      `;
+        </div>`;
     },
-
     minhasSolic() {
-      const minhas = solicitacoes.filter(s => s.alunoId === sessao.alunoId)
-        .sort((a,b)=>b.data.localeCompare(a.data));
+      const minhas = solicitacoes.filter(s => s.alunoId === sessao.alunoId).sort((a,b)=>b.data.localeCompare(a.data));
       const pend = minhas.filter(s => s.status === 'pendente');
       const hist = minhas.filter(s => s.status !== 'pendente');
-
       return `
         ${header('Minhas solicitações', 'Acompanhe seus pedidos de empréstimo', 'solicitações')}
         <div class="card">
           <div class="card-header"><h2>Pendentes</h2><span class="num">${pend.length}</span></div>
           ${pend.length ? pend.map(s => `
             <div class="solicitacao-card pendente">
-              <div class="topo">
-                <h3>${nomeLivro(s.livroId)}</h3>
-                <span class="data">${fmtData(s.data)}</span>
-              </div>
+              <div class="topo"><h3>${nomeLivro(s.livroId)}</h3><span class="data">${fmtData(s.data)}</span></div>
               <div class="meta">Aguardando aprovação do bibliotecário</div>
               <span class="badge badge-yellow">Pendente</span>
-            </div>
-          `).join('') : '<p class="empty">Nenhuma solicitação pendente.</p>'}
+            </div>`).join('') : '<p class="empty">Nenhuma solicitação pendente.</p>'}
         </div>
         ${hist.length ? `
           <div class="card">
             <div class="card-header"><h2>Histórico de solicitações</h2></div>
             ${hist.map(s => `
               <div class="solicitacao-card ${s.status}">
-                <div class="topo">
-                  <h3>${nomeLivro(s.livroId)}</h3>
-                  <span class="data">${fmtData(s.dataResposta || s.data)}</span>
-                </div>
-                <div class="meta">
-                  <span class="badge ${s.status==='aprovada'?'badge-green':'badge-red'}">${s.status}</span>
-                </div>
+                <div class="topo"><h3>${nomeLivro(s.livroId)}</h3><span class="data">${fmtData(s.dataResposta || s.data)}</span></div>
+                <div class="meta"><span class="badge ${s.status==='aprovada'?'badge-green':'badge-red'}">${s.status}</span></div>
                 ${s.motivo ? `<div class="motivo">Motivo: "${s.motivo}"</div>` : ''}
-              </div>
-            `).join('')}
-          </div>
-        ` : ''}
-      `;
+              </div>`).join('')}
+          </div>` : ''}`;
     },
-
     avaliar() {
       const optsLivros = livros.map(l => `<option value="${l.id}">${l.titulo}</option>`).join('');
       return `
@@ -2190,22 +2169,19 @@ const RENDERERS = {
         <div class="card">
           <div class="card-header"><h2>Minhas avaliações</h2></div>
           ${renderMinhasAvaliacoes(sessao.alunoId)}
-        </div>
-      `;
+        </div>`;
     },
-
     recomendacoes() {
       return header('Recomendações', 'O que os colegas estão lendo', 'recomendações') + renderBlocoAvaliacoes();
     }
   }
 };
 
-/* ============ HELPERS DE RENDER ============ */
+/* ============ HELPERS ============ */
 function renderFichaAluno(alunoId) {
   const hist = emprestimos.filter(e => e.alunoId === alunoId);
   const pend = hist.filter(e => !e.devolvido);
   const avals = avaliacoes.filter(a => a.alunoId === alunoId);
-
   return `
     <div class="card">
       <div class="card-header"><h2>Livros não entregues</h2><span class="num">${pend.length}</span></div>
@@ -2232,9 +2208,7 @@ function renderFichaAluno(alunoId) {
           ${hist.sort((a,b)=>b.data.localeCompare(a.data)).map(e => `<tr>
             <td><strong>${nomeLivro(e.livroId)}</strong></td>
             <td>${fmtData(e.data)}</td>
-            <td>${e.devolvido
-              ? '<span class="badge badge-green">Devolvido</span>'
-              : '<span class="badge badge-red">Pendente</span>'}</td>
+            <td>${e.devolvido ? '<span class="badge badge-green">Devolvido</span>' : '<span class="badge badge-red">Pendente</span>'}</td>
           </tr>`).join('')}
           </tbody>
         </table>` : '<p class="empty">Sem histórico ainda.</p>'}
@@ -2248,10 +2222,8 @@ function renderFichaAluno(alunoId) {
           <p>${a.comentario || '(sem comentário)'}</p>
           <div class="data">${fmtData(a.data)}</div>
         </div>`).join('') : '<p class="empty">Nenhuma avaliação feita.</p>'}
-    </div>
-  `;
+    </div>`;
 }
-
 function renderMinhasAvaliacoes(alunoId) {
   const minhas = avaliacoes.filter(a => a.alunoId === alunoId);
   if (!minhas.length) return '<p class="empty">Você ainda não avaliou nenhum livro.</p>';
@@ -2263,7 +2235,6 @@ function renderMinhasAvaliacoes(alunoId) {
       <div class="data">${fmtData(a.data)}</div>
     </div>`).join('');
 }
-
 function renderBlocoAvaliacoes() {
   if (!avaliacoes.length) return `<div class="card"><p class="empty">Nenhuma avaliação ainda.</p></div>`;
   const grupos = {};
@@ -2287,7 +2258,6 @@ function renderBlocoAvaliacoes() {
       </div>`;
   }).join('');
 }
-
 function atualizarFicha() {
   const id = document.getElementById('fichaAluno').value;
   const box = document.getElementById('fichaConteudo');
@@ -2304,8 +2274,7 @@ function atualizarFicha() {
         </p>
       </div>
     </div>
-    ${renderFichaAluno(id)}
-  `;
+    ${renderFichaAluno(id)}`;
 }
 </script>
 </body>
