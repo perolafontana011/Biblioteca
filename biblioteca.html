@@ -1,21 +1,3 @@
-Perfeito! Vou fazer as seguintes alterações:
-
-1. **No perfil do Bibliotecário**: O menu "Avaliações" vira **"Blog"**.
-2. **No perfil do Aluno**: 
-   - Removo o menu "Recomendações".
-   - Removo o menu "Avaliar livro" (a avaliação agora acontece direto no livro).
-   - Quando o aluno clicar em um livro no **Acervo**, ele vai abrir um **modal com os detalhes do livro**, mostrando a média das notas, o que os colegas acharam (as avaliações) e **um campo para ele mesmo avaliar e comentar ali mesmo**.
-
-Para isso, o modal de visualização do livro precisa de um novo design. Vou entregar o arquivo completo atualizado.
-
-### 🆕 O que mudou:
-- **Acervo do Aluno**: Os cards dos livros agora são clicáveis. Ao clicar, abre um "Modal" (uma janela flutuante) com o resumo do livro, as avaliações de outros alunos e o formulário para deixar a própria nota e comentário.
-- **Menus ajustados** conforme você pediu (Blog para o bibliotecário; e o menu do aluno ficou mais limpo: "Minha ficha", "Acervo", "Minhas solicitações").
-- Se o aluno tentar avaliar sem selecionar uma nota, o sistema avisa (e não deixa enviar nota 0).
-
-Aqui está o código completo atualizado:
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -2410,4 +2392,3 @@ function atualizarFicha() {
 </script>
 </body>
 </html>
-```
