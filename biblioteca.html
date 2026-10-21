@@ -199,7 +199,7 @@
   }
   .btn-entrar:hover { background: var(--musgo-escuro); }
 
-  .senha-box { display: none; animation: fadeIn .25s; }
+  .senha-box { display: none; animation: fadeIn .25s; max-width: 320px; margin: 0 auto; }
   .senha-box.ativo { display: block; }
   .senha-label {
     font-family: var(--serif);
@@ -220,6 +220,7 @@
     color: var(--tinta);
     margin-bottom: 12px;
     letter-spacing: .15em;
+    text-align: center;
   }
   .senha-input:focus { outline: none; border-color: var(--musgo); }
   .senha-erro {
@@ -231,7 +232,7 @@
     font-size: .85rem;
     padding: 10px 14px;
     margin-bottom: 12px;
-    text-align: left;
+    text-align: center;
   }
   .btn-esqueci {
     background: transparent;
@@ -283,7 +284,6 @@
     font-weight: 400;
     color: var(--tinta);
     line-height: 1.35;
-    letter-spacing: -.005em;
   }
   .marca h1 em {
     font-style: italic;
@@ -330,7 +330,6 @@
     color: var(--tinta-clara);
     display: block;
     margin-top: 2px;
-    font-family: var(--sans);
   }
   .nav-item {
     display: flex; align-items: center; gap: 10px;
@@ -344,7 +343,6 @@
     width: 100%;
     border-bottom: 1px solid transparent;
     transition: .15s;
-    position: relative;
   }
   .nav-item:hover { color: var(--musgo); padding-left: 8px; }
   .nav-item.active {
@@ -369,8 +367,6 @@
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 10px;
-    letter-spacing: .04em;
-    animation: pulse 2s infinite;
   }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
@@ -486,7 +482,6 @@
     color: var(--tinta-clara);
     font-weight: 600;
     margin-bottom: 10px;
-    font-family: var(--sans);
   }
   .stat-card .valor {
     font-family: var(--serif);
@@ -545,9 +540,7 @@
     border-color: var(--musgo);
     background: var(--creme-card);
   }
-  input::placeholder, textarea::placeholder { color: var(--tinta-clara); }
   input[readonly] { background: var(--papel-escuro); cursor: not-allowed; }
-  textarea { resize: vertical; min-height: 80px; }
 
   .btn {
     padding: 11px 20px;
@@ -559,78 +552,26 @@
     font-weight: 600;
     cursor: pointer;
     transition: .2s;
-    border-radius: 0;
     white-space: nowrap;
   }
-  .btn-primary {
-    background: var(--musgo);
-    color: var(--creme-card);
-    border-color: var(--musgo);
-  }
-  .btn-primary:hover { background: var(--musgo-escuro); border-color: var(--musgo-escuro); }
-  .btn-primary:disabled {
-    background: var(--papel-escuro);
-    color: var(--tinta-clara);
-    border-color: var(--borda-fina);
-    cursor: not-allowed;
-  }
-  .btn-danger {
-    background: transparent;
-    color: var(--terracota);
-    border-color: var(--borda-fina);
-  }
+  .btn-primary { background: var(--musgo); color: var(--creme-card); border-color: var(--musgo); }
+  .btn-primary:hover { background: var(--musgo-escuro); }
+  .btn-primary:disabled { background: var(--papel-escuro); color: var(--tinta-clara); border-color: var(--borda-fina); cursor: not-allowed; }
+  .btn-danger { background: transparent; color: var(--terracota); border-color: var(--borda-fina); }
   .btn-danger:hover { border-color: var(--terracota); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--musgo);
-    border-color: var(--borda-fina);
-  }
+  .btn-ghost { background: transparent; color: var(--musgo); border-color: var(--borda-fina); }
   .btn-ghost:hover { border-color: var(--musgo); background: var(--papel); }
-  .btn-sm { padding: 6px 12px; font-size: .7rem; letter-spacing: .1em; }
+  .btn-sm { padding: 6px 12px; font-size: .7rem; }
 
   table { width: 100%; border-collapse: collapse; }
-  th, td {
-    padding: 14px 8px;
-    text-align: left;
-    border-bottom: 1px solid var(--borda-fina);
-    font-size: .9rem;
-  }
-  th {
-    font-family: var(--sans);
-    font-size: .68rem;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--tinta-clara);
-    font-weight: 600;
-    padding-top: 0;
-  }
+  th, td { padding: 14px 8px; text-align: left; border-bottom: 1px solid var(--borda-fina); font-size: .9rem; }
+  th { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--tinta-clara); font-weight: 600; }
   td { color: var(--tinta-suave); }
-  td strong {
-    font-family: var(--serif);
-    font-weight: 400;
-    color: var(--tinta);
-    font-size: .98rem;
-  }
   tr:last-child td { border-bottom: none; }
   tbody tr:hover td { background: rgba(184,145,85,.05); }
-
-  .matricula-cell {
-    font-family: var(--serif);
-    letter-spacing: .05em;
-    color: var(--musgo);
-    font-weight: 600;
-  }
-
-  .badge {
-    display: inline-block;
-    padding: 3px 10px;
-    font-family: var(--sans);
-    font-size: .68rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    font-weight: 600;
-    border: 1px solid currentColor;
-  }
+  
+  .matricula-cell { font-family: var(--serif); color: var(--musgo); font-weight: 600; }
+  .badge { display: inline-block; padding: 3px 10px; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; border: 1px solid currentColor; }
   .badge-green { color: var(--musgo); }
   .badge-red { color: var(--terracota); }
   .badge-blue { color: #4a6b8a; }
@@ -638,7 +579,7 @@
 
   .livros-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 16px;
   }
   .livro-card {
@@ -650,49 +591,13 @@
     position: relative;
     cursor: pointer;
   }
-  .livro-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--dourado);
-  }
-  .livro-card:hover {
-    background: var(--creme-card);
-    box-shadow: var(--sombra);
-    transform: translateY(-2px);
-  }
-  .livro-genero {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .82rem;
-    color: var(--tinta-clara);
-    margin-bottom: 6px;
-  }
-  .livro-card h3 {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-weight: 400;
-    line-height: 1.25;
-    color: var(--tinta);
-    margin-bottom: 4px;
-  }
-  .livro-card .autor {
-    font-size: .85rem;
-    color: var(--tinta-suave);
-    margin-bottom: 14px;
-    font-style: italic;
-  }
-  .livro-card .estoque {
-    font-size: .82rem;
-    color: var(--tinta-suave);
-    padding: 10px 0;
-    margin-top: auto;
-    border-top: 1px solid var(--borda-fina);
-  }
-  .livro-card .ações { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .livro-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--dourado); }
+  .livro-card:hover { background: var(--creme-card); box-shadow: var(--sombra); transform: translateY(-2px); }
+  .livro-genero { font-family: var(--serif); font-style: italic; font-size: .82rem; color: var(--tinta-clara); margin-bottom: 6px; }
+  .livro-card h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; line-height: 1.25; color: var(--tinta); margin-bottom: 4px; }
+  .livro-card .autor { font-size: .85rem; color: var(--tinta-suave); margin-bottom: 14px; font-style: italic; }
+  .livro-card .estoque { font-size: .82rem; color: var(--tinta-suave); padding: 10px 0; margin-top: auto; border-top: 1px solid var(--borda-fina); }
 
-  /* Ficha Header */
   .ficha-header {
     background: var(--papel-escuro);
     border: 1px solid var(--borda-fina);
@@ -701,376 +606,66 @@
     display: flex; align-items: center; gap: 24px;
     position: relative;
   }
-  .ficha-header::before {
-    content: '';
-    position: absolute;
-    top: 8px; left: 8px; right: 8px; bottom: 8px;
-    border: 1px solid var(--borda-fina);
-    pointer-events: none;
-  }
-  .avatar-grande {
-    width: 76px; height: 76px;
-    border-radius: 50%;
-    background: var(--musgo);
-    color: var(--creme-card);
-    display: grid; place-items: center;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.9rem;
-    flex-shrink: 0;
-    border: 2px solid var(--dourado);
-  }
-  .ficha-header h2 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.7rem;
-    color: var(--tinta);
-    line-height: 1.2;
-  }
-  .ficha-header p {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--tinta-clara);
-    font-size: .95rem;
-    margin-top: 4px;
-  }
-  .ficha-header .matricula-tag {
-    display: inline-block;
-    font-family: var(--serif);
-    font-style: normal;
-    font-size: .8rem;
-    background: var(--creme-card);
-    color: var(--musgo);
-    border: 1px solid var(--borda-fina);
-    padding: 3px 10px;
-    letter-spacing: .06em;
-    margin-left: 8px;
-    font-weight: 600;
-  }
+  .ficha-header::before { content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px; border: 1px solid var(--borda-fina); pointer-events: none; }
+  .avatar-grande { width: 76px; height: 76px; border-radius: 50%; background: var(--musgo); color: var(--creme-card); display: grid; place-items: center; font-family: var(--serif); font-style: italic; font-size: 1.9rem; flex-shrink: 0; border: 2px solid var(--dourado); }
+  .ficha-header h2 { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; color: var(--tinta); }
+  .ficha-header p { font-family: var(--serif); font-style: italic; color: var(--tinta-clara); font-size: .95rem; }
+  .ficha-header .matricula-tag { display: inline-block; font-family: var(--serif); font-style: normal; font-size: .8rem; background: var(--creme-card); color: var(--musgo); border: 1px solid var(--borda-fina); padding: 3px 10px; margin-left: 8px; font-weight: 600; }
 
-  /* Avaliações */
-  .avaliacao-item {
-    padding: 16px 0;
-    border-bottom: 1px solid var(--borda-fina);
-  }
+  .avaliacao-item { padding: 16px 0; border-bottom: 1px solid var(--borda-fina); }
   .avaliacao-item:last-child { border-bottom: none; }
-  .avaliacao-item strong {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1rem;
-    color: var(--tinta);
-    display: block;
-    margin-bottom: 4px;
-  }
-  .stars {
-    color: var(--dourado);
-    font-size: .95rem;
-    letter-spacing: .12em;
-    margin-bottom: 4px;
-  }
-  .avaliacao-item p {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--tinta-suave);
-    font-size: .95rem;
-    margin: 6px 0;
-  }
-  .avaliacao-item .data {
-    font-size: .7rem;
-    color: var(--tinta-clara);
-    letter-spacing: .15em;
-    text-transform: uppercase;
-  }
+  .avaliacao-item strong { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; color: var(--tinta); display: block; margin-bottom: 4px; }
+  .stars { color: var(--dourado); font-size: 1.1rem; letter-spacing: .12em; margin-bottom: 6px; }
+  .avaliacao-item p { font-family: var(--serif); font-style: italic; color: var(--tinta-suave); font-size: .95rem; margin: 6px 0; }
+  .avaliacao-item .data { font-size: .7rem; color: var(--tinta-clara); letter-spacing: .15em; text-transform: uppercase; }
 
-  .empty {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--tinta-clara);
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .95rem;
-  }
-
-  .genero-titulo {
-    grid-column: 1/-1;
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--tinta);
-    margin: 24px 0 4px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--borda-fina);
-    display: flex; align-items: baseline; gap: 10px;
-  }
+  .empty { text-align: center; padding: 40px 20px; color: var(--tinta-clara); font-family: var(--serif); font-style: italic; font-size: .95rem; }
+  .genero-titulo { grid-column: 1/-1; font-family: var(--serif); font-size: 1.1rem; color: var(--tinta); margin: 24px 0 4px; padding-bottom: 8px; border-bottom: 1px solid var(--borda-fina); display: flex; align-items: baseline; gap: 10px; }
   .genero-titulo:first-child { margin-top: 0; }
-  .genero-titulo em {
-    font-style: italic;
-    font-size: .76rem;
-    color: var(--tinta-clara);
-    margin-left: auto;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-  }
+  .genero-titulo em { font-style: italic; font-size: .76rem; color: var(--tinta-clara); margin-left: auto; letter-spacing: .14em; text-transform: uppercase; }
 
-  .solicitacao-card {
-    background: var(--papel);
-    border: 1px solid var(--borda-fina);
-    border-left: 4px solid var(--dourado);
-    padding: 20px;
-    margin-bottom: 14px;
-  }
+  .solicitacao-card { background: var(--papel); border: 1px solid var(--borda-fina); border-left: 4px solid var(--dourado); padding: 20px; margin-bottom: 14px; }
   .solicitacao-card.pendente { border-left-color: var(--terracota); }
   .solicitacao-card.aprovada { border-left-color: var(--musgo); }
   .solicitacao-card.recusada { border-left-color: var(--tinta-clara); opacity: .75; }
-  .solicitacao-card .topo {
-    display: flex; align-items: baseline; gap: 12px;
-    margin-bottom: 8px;
-  }
-  .solicitacao-card .topo h3 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.05rem;
-    color: var(--tinta);
-  }
-  .solicitacao-card .topo .data {
-    margin-left: auto;
-    font-size: .7rem;
-    color: var(--tinta-clara);
-    letter-spacing: .15em;
-    text-transform: uppercase;
-  }
-  .solicitacao-card .meta {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .85rem;
-    color: var(--tinta-suave);
-    margin-bottom: 12px;
-  }
-  .solicitacao-card .meta strong {
-    font-style: normal;
-    color: var(--tinta);
-  }
-  .solicitacao-card .motivo {
-    background: var(--creme-card);
-    border: 1px dashed var(--borda-fina);
-    padding: 10px 14px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .88rem;
-    color: var(--tinta-suave);
-    margin: 10px 0;
-  }
-  .solicitacao-card .acoes {
-    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
-  }
-  .motivo-input { margin-top: 10px; width: 100%; }
+  .solicitacao-card .topo { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .solicitacao-card .topo h3 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; color: var(--tinta); }
+  .solicitacao-card .topo .data { margin-left: auto; font-size: .7rem; color: var(--tinta-clara); text-transform: uppercase; }
+  .solicitacao-card .meta { font-family: var(--serif); font-style: italic; font-size: .85rem; color: var(--tinta-suave); margin-bottom: 12px; }
+  .solicitacao-card .motivo { background: var(--creme-card); border: 1px dashed var(--borda-fina); padding: 10px 14px; font-family: var(--serif); font-style: italic; font-size: .88rem; margin: 10px 0; }
+  .solicitacao-card .acoes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 
-  .form-ajuda {
-    color: var(--tinta-clara);
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .82rem;
-    margin-top: 12px;
-  }
-
-  .matricula-wrap {
-    display: flex;
-    gap: 6px;
-    align-items: stretch;
-  }
+  .form-ajuda { color: var(--tinta-clara); font-family: var(--serif); font-style: italic; font-size: .82rem; margin-top: 12px; }
+  .matricula-wrap { display: flex; gap: 6px; align-items: stretch; }
   .matricula-wrap input { flex: 1; }
-  .matricula-wrap .btn-regen {
-    padding: 0 14px;
-    background: var(--papel);
-    border: 1px solid var(--borda-fina);
-    color: var(--musgo);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: .2s;
-    font-family: var(--sans);
-  }
-  .matricula-wrap .btn-regen:hover {
-    background: var(--creme-card);
-    border-color: var(--musgo);
-  }
+  .matricula-wrap .btn-regen { padding: 0 14px; background: var(--papel); border: 1px solid var(--borda-fina); color: var(--musgo); cursor: pointer; transition: .2s; }
+  .matricula-wrap .btn-regen:hover { background: var(--creme-card); border-color: var(--musgo); }
 
-  .import-bar {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    margin-bottom: 18px;
-    padding-bottom: 18px;
-    border-bottom: 1px dashed var(--borda-fina);
-  }
-  .import-bar .btn { padding: 9px 16px; }
-
-  .preview-table {
-    background: var(--papel);
-    border: 1px solid var(--borda-fina);
-    padding: 0;
-    overflow-x: auto;
-  }
+  .import-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--borda-fina); }
+  .preview-table { background: var(--papel); border: 1px solid var(--borda-fina); overflow-x: auto; }
   .preview-table table { font-size: .85rem; }
   .preview-table th, .preview-table td { padding: 10px 12px; }
   .preview-table tr.dup td { background: #f8e5df; }
-  .preview-table tr.dup td:first-child { color: var(--terracota); font-weight: 700; }
-  .preview-table .status-ok {
-    color: var(--musgo);
-    font-weight: 700;
-    font-size: .73rem;
-    letter-spacing: .06em;
-  }
-  .preview-table .status-dup {
-    color: var(--terracota);
-    font-weight: 700;
-    font-size: .73rem;
-    letter-spacing: .06em;
-  }
-  .preview-table input, .preview-table select {
-    padding: 6px 8px;
-    font-size: .85rem;
-    min-width: 90px;
-  }
-  .preview-resumo {
-    display: flex; gap: 20px; flex-wrap: wrap;
-    align-items: center;
-    background: var(--papel-escuro);
-    border: 1px solid var(--borda-fina);
-    padding: 14px 20px;
-    margin-bottom: 16px;
-    font-family: var(--serif);
-    font-size: .95rem;
-  }
-  .preview-resumo .cont { font-weight: 700; }
-  .preview-resumo .ok { color: var(--musgo); }
-  .preview-resumo .dup { color: var(--terracota); }
+  .preview-table .status-ok { color: var(--musgo); font-weight: 700; font-size: .73rem; }
+  .preview-table .status-dup { color: var(--terracota); font-weight: 700; font-size: .73rem; }
+  .preview-resumo { display: flex; gap: 20px; align-items: center; background: var(--papel-escuro); border: 1px solid var(--borda-fina); padding: 14px 20px; margin-bottom: 16px; font-family: var(--serif); }
   .preview-resumo .btn { margin-left: auto; }
-
-  .btn-x {
-    background: transparent;
-    border: none;
-    color: var(--terracota);
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 2px 6px;
-    transition: .2s;
-  }
+  .btn-x { background: transparent; border: none; color: var(--terracota); cursor: pointer; font-size: 1.1rem; padding: 2px 6px; }
   .btn-x:hover { color: #7a3a26; transform: scale(1.15); }
+  .aviso-import { background: var(--papel-escuro); border-left: 3px solid var(--dourado); padding: 12px 16px; margin-bottom: 16px; font-family: var(--serif); font-size: .88rem; font-style: italic; }
 
-  .aviso-import {
-    background: var(--papel-escuro);
-    border-left: 3px solid var(--dourado);
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    font-family: var(--serif);
-    font-size: .88rem;
-    color: var(--tinta-suave);
-    font-style: italic;
-  }
-
-  /* Modal trocar senha e detalhes do livro */
-  .modal-bg {
-    position: fixed; inset: 0;
-    background: rgba(28,23,18,.45);
-    display: none; align-items: center; justify-content: center;
-    z-index: 2000; padding: 20px;
-  }
+  /* ================= MODAIS ================= */
+  .modal-bg { position: fixed; inset: 0; background: rgba(28,23,18,.45); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
   .modal-bg.ativo { display: flex; animation: fadeIn .2s; }
-  .modal {
-    background: var(--creme-card);
-    border: 1px solid var(--borda-fina);
-    max-width: 540px; width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 32px;
-    box-shadow: var(--sombra-forte);
-    position: relative;
-  }
-  .modal::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--dourado), var(--musgo), var(--dourado));
-  }
-  .modal h2 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.35rem;
-    margin-bottom: 6px;
-    color: var(--tinta);
-  }
-  .modal p.sub {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--tinta-clara);
-    font-size: .88rem;
-    margin-bottom: 22px;
-  }
-  .modal label {
-    display: block;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .85rem;
-    color: var(--tinta-clara);
-    margin-bottom: 4px;
-  }
-  .modal input, .modal select, .modal textarea { margin-bottom: 14px; }
-  .modal .erro {
-    background: #f8e5df;
-    border: 1px solid var(--terracota);
-    color: var(--terracota);
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .85rem;
-    padding: 10px 14px;
-    margin-bottom: 14px;
-  }
-  .modal .acoes {
-    display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px;
-  }
-
-  /* Modal de Livro */
-  .modal-livro-header {
-    display: flex; gap: 18px; margin-bottom: 24px;
-    align-items: flex-start;
-  }
-  .modal-livro-capa {
-    width: 70px; height: 100px;
-    background: var(--papel-escuro);
-    border-left: 4px solid var(--dourado);
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; padding: 8px;
-    font-family: var(--serif); font-size: 0.75rem;
-    color: var(--tinta-suave);
-    flex-shrink: 0;
-    box-shadow: inset -3px 0 10px rgba(0,0,0,0.05);
-  }
-  .modal-livro-info { flex: 1; }
-  .modal-livro-info .genero { font-family: var(--serif); font-style: italic; font-size: 0.85rem; color: var(--tinta-clara); margin-bottom: 4px; }
-  .modal-livro-info h3 { font-family: var(--serif); font-size: 1.5rem; line-height: 1.2; margin-bottom: 4px; color: var(--tinta); font-weight: 400; }
-  .modal-livro-info .autor { font-family: var(--sans); font-size: 0.95rem; color: var(--tinta-suave); margin-bottom: 12px; }
-  
-  .modal-livro-acoes {
-    background: var(--papel);
-    padding: 16px;
-    border: 1px solid var(--borda-fina);
-    margin-bottom: 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    flex-wrap: wrap;
-  }
-  .modal-livro-acoes .disp { font-family: var(--sans); font-size: 0.85rem; color: var(--tinta-suave); }
-  .modal-form-aval {
-    background: var(--papel-escuro);
-    padding: 20px;
-    border: 1px solid var(--borda-fina);
-    margin-bottom: 24px;
-  }
-  .modal-form-aval h4 {
-    font-family: var(--serif); font-size: 1.1rem; font-weight: 400;
-    color: var(--tinta); margin-bottom: 12px;
-  }
-  .modal-form-aval .estrelas-select {
-    font-size: 1.8rem; color: var(--dourado); cursor: pointer; display: flex; gap: 6px; margin-bottom: 12px;
-  }
-  .modal-form-aval .estrelas-select span { transition: transform 0.1s; }
-  .modal-form-aval .estrelas-select span:hover { transform: scale(1.15); }
-  .modal-form-aval button { width: 100%; }
+  .modal { background: var(--creme-card); border: 1px solid var(--borda-fina); max-width: 500px; width: 100%; padding: 32px; box-shadow: var(--sombra-forte); position: relative; max-height: 90vh; overflow-y: auto; }
+  .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--dourado), var(--musgo), var(--dourado)); }
+  .modal h2 { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; margin-bottom: 6px; color: var(--tinta); }
+  .modal p.sub { font-family: var(--serif); font-style: italic; color: var(--tinta-clara); font-size: .88rem; margin-bottom: 22px; }
+  .modal label { display: block; font-family: var(--serif); font-style: italic; font-size: .85rem; color: var(--tinta-clara); margin-bottom: 4px; }
+  .modal input { margin-bottom: 14px; }
+  .modal .acoes { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+  .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--tinta-clara); }
+  .modal-close:hover { color: var(--terracota); }
 
   @media (max-width: 820px) {
     .app.active { flex-direction: column; }
@@ -1078,16 +673,9 @@
     .sidebar nav { display: flex; flex-wrap: wrap; gap: 0 16px; }
     .nav-item { width: auto; border-bottom: none; border-left: 1px solid transparent; }
     .nav-item.active { border-bottom: none; border-left: 2px solid var(--musgo); padding-left: 10px; }
-    .nav-badge { margin-left: 6px; }
     .main { padding: 28px 20px; }
-    .page-title { font-size: 1.6rem; }
     .login-box { padding: 40px 28px 30px; }
-    .login-marca { font-size: 1.3rem; }
-    .login-marca em { font-size: 1.5rem; }
     .ficha-header { flex-direction: column; text-align: center; }
-    .page-header { flex-wrap: wrap; }
-    .sidebar-footer { flex-direction: column; }
-    .modal-livro-header { flex-direction: column; align-items: center; text-align: center; }
   }
 </style>
 </head>
@@ -1100,7 +688,7 @@
     <div class="login-exlibris">Ex Libris</div>
     <div class="login-marca">
       Biblioteca do
-      <em>Colégio Estadual Unidade Polo</em>
+      <em>Colégio Estadual<br>Unidade Polo</em>
     </div>
     <div class="login-sub">— entre para continuar —</div>
     <div class="ornamento">✦ ✦ ✦</div>
@@ -1109,7 +697,7 @@
       <div class="perfil-card" onclick="escolherPerfil('aluno')">
         <span class="simbolo">a.</span>
         <h3>Aluno</h3>
-        <small>Acervo · Solicitações · Opiniões</small>
+        <small>Acervo · Resenhas · Empréstimos</small>
       </div>
       <div class="perfil-card" onclick="escolherPerfil('bibliotecario')">
         <span class="simbolo">b.</span>
@@ -1161,9 +749,10 @@
   <main class="main" id="mainContent"></main>
 </div>
 
-<!-- Modal trocar senha -->
+<!-- Modal: Trocar senha -->
 <div class="modal-bg" id="modalTrocarSenha">
   <div class="modal">
+    <button class="modal-close" onclick="fecharTrocarSenha()">×</button>
     <h2>Trocar senha</h2>
     <p class="sub">Informe a senha atual e a nova senha.</p>
     <label>Senha atual</label>
@@ -1172,7 +761,7 @@
     <input type="password" id="senhaNovaInput" placeholder="••••••••">
     <label>Confirmar nova senha</label>
     <input type="password" id="senhaConfInput" placeholder="••••••••">
-    <div id="trocarSenhaErro" class="erro" style="display:none"></div>
+    <div id="trocarSenhaErro" class="senha-erro" style="display:none; text-align:left;"></div>
     <div class="acoes">
       <button class="btn btn-ghost btn-sm" onclick="fecharTrocarSenha()">Cancelar</button>
       <button class="btn btn-primary btn-sm" onclick="salvarNovaSenha()">Salvar</button>
@@ -1180,10 +769,11 @@
   </div>
 </div>
 
-<!-- Modal de Detalhes do Livro (Aluno) -->
+<!-- Modal: Detalhes do Livro (Aluno) -->
 <div class="modal-bg" id="modalLivro">
-  <div class="modal" id="modalLivroConteudo">
-    <!-- Conteúdo gerado por JS -->
+  <div class="modal" style="max-width:600px;">
+    <button class="modal-close" onclick="fecharModalLivro()">×</button>
+    <div id="conteudoModalLivro"></div>
   </div>
 </div>
 
@@ -1259,13 +849,10 @@ function registrarTentativaErrada() {
   if (t.n >= 5) { t.bloqueadoAte = Date.now() + 60 * 1000; t.n = 0; }
   localStorage.setItem(SENHA_TENTATIVAS_KEY, JSON.stringify(t));
 }
-function limparTentativas() {
-  localStorage.setItem(SENHA_TENTATIVAS_KEY, JSON.stringify({n:0,bloqueadoAte:0}));
-}
+function limparTentativas() { localStorage.setItem(SENHA_TENTATIVAS_KEY, JSON.stringify({n:0,bloqueadoAte:0})); }
 function estaBloqueado() {
   const t = JSON.parse(localStorage.getItem(SENHA_TENTATIVAS_KEY) || '{"n":0,"bloqueadoAte":0}');
-  return t.bloqueadoAte && t.bloqueadoAte > Date.now()
-    ? Math.ceil((t.bloqueadoAte - Date.now()) / 1000) : 0;
+  return t.bloqueadoAte && t.bloqueadoAte > Date.now() ? Math.ceil((t.bloqueadoAte - Date.now()) / 1000) : 0;
 }
 
 function abrirSenhaBibliotecario() {
@@ -1285,7 +872,7 @@ function abrirSenhaBibliotecario() {
     btnEsqueci.style.display = 'inline-block';
     btnEntrar.textContent = 'Entrar';
   } else {
-    label.textContent = 'Crie uma senha para o bibliotecário (mín. 4 caracteres)';
+    label.textContent = 'Crie uma senha (mín. 4 caracteres)';
     btnEsqueci.style.display = 'none';
     btnEntrar.textContent = 'Criar senha e entrar';
   }
@@ -1298,7 +885,7 @@ async function confirmarSenhaBibliotecario() {
   const senha = input.value;
   if (senha.length < 4) return mostrarErroSenha('A senha precisa ter pelo menos 4 caracteres.');
   const bloqueio = estaBloqueado();
-  if (bloqueio > 0) return mostrarErroSenha(`Muitas tentativas. Aguarde ${bloqueio} segundo(s).`);
+  if (bloqueio > 0) return mostrarErroSenha(`Aguarde ${bloqueio}s.`);
 
   if (!temSenhaSalva()) {
     const hash = await hashSenha(senha);
@@ -1320,11 +907,10 @@ async function confirmarSenhaBibliotecario() {
 }
 function mostrarErroSenha(msg) {
   const erro = document.getElementById('senhaErro');
-  erro.textContent = msg;
-  erro.style.display = 'block';
+  erro.textContent = msg; erro.style.display = 'block';
 }
 function resetarSenhaBibliotecario() {
-  if (!confirm('Isso vai apagar a senha atual. Na próxima entrada, você poderá criar uma nova senha. Continuar?')) return;
+  if (!confirm('Apagar a senha atual? Você poderá criar uma nova.')) return;
   localStorage.removeItem(SENHA_KEY);
   localStorage.removeItem(SENHA_TENTATIVAS_KEY);
   abrirSenhaBibliotecario();
@@ -1337,7 +923,7 @@ function voltarLogin() {
   document.getElementById('btnEntrarAluno').style.display = 'none';
 }
 
-/* ============ TROCAR SENHA (logado) ============ */
+/* ============ TROCAR SENHA ============ */
 function abrirTrocarSenha() {
   document.getElementById('senhaAtualInput').value = '';
   document.getElementById('senhaNovaInput').value = '';
@@ -1345,9 +931,7 @@ function abrirTrocarSenha() {
   document.getElementById('trocarSenhaErro').style.display = 'none';
   document.getElementById('modalTrocarSenha').classList.add('ativo');
 }
-function fecharTrocarSenha() {
-  document.getElementById('modalTrocarSenha').classList.remove('ativo');
-}
+function fecharTrocarSenha() { document.getElementById('modalTrocarSenha').classList.remove('ativo'); }
 async function salvarNovaSenha() {
   const atual = document.getElementById('senhaAtualInput').value;
   const nova = document.getElementById('senhaNovaInput').value;
@@ -1357,21 +941,10 @@ async function salvarNovaSenha() {
 
   if (!temSenhaSalva()) { erro.textContent = 'Não há senha cadastrada.'; erro.style.display = 'block'; return; }
   const hashAtual = await hashSenha(atual);
-  if (hashAtual !== localStorage.getItem(SENHA_KEY)) {
-    erro.textContent = 'Senha atual incorreta.';
-    erro.style.display = 'block';
-    return;
-  }
-  if (nova.length < 4) {
-    erro.textContent = 'A nova senha precisa ter pelo menos 4 caracteres.';
-    erro.style.display = 'block';
-    return;
-  }
-  if (nova !== conf) {
-    erro.textContent = 'As senhas não coincidem.';
-    erro.style.display = 'block';
-    return;
-  }
+  if (hashAtual !== localStorage.getItem(SENHA_KEY)) { erro.textContent = 'Senha atual incorreta.'; erro.style.display = 'block'; return; }
+  if (nova.length < 4) { erro.textContent = 'A nova senha precisa ter pelo menos 4 caracteres.'; erro.style.display = 'block'; return; }
+  if (nova !== conf) { erro.textContent = 'As senhas não coincidem.'; erro.style.display = 'block'; return; }
+  
   localStorage.setItem(SENHA_KEY, await hashSenha(nova));
   limparTentativas();
   fecharTrocarSenha();
@@ -1381,15 +954,13 @@ async function salvarNovaSenha() {
 /* ============ ESTADO ============ */
 let importState = { alunos: null, livros: null };
 let sessao = { tipo: null, alunoId: null, pagina: 'painel' };
-let livroAbertoId = null;
-let notaSelecionada = 0;
 
 /* ============ LOGIN ============ */
 function escolherPerfil(tipo) {
   if (tipo === 'bibliotecario') return abrirSenhaBibliotecario();
   const sel = document.getElementById('loginAluno');
   const btn = document.getElementById('btnEntrarAluno');
-  if (!alunos.length) { alert('Nenhum aluno cadastrado. Peça ao bibliotecário para te cadastrar.'); return; }
+  if (!alunos.length) { alert('Nenhum aluno cadastrado. Peça ao bibliotecário.'); return; }
   sel.innerHTML = '<option value="">Selecione seu nome...</option>' +
     alunos.map(a => `<option value="${a.id}">${a.nome}${a.turma?' — '+a.turma:''}${a.matricula?' ('+a.matricula+')':''}</option>`).join('');
   sel.style.display = 'block';
@@ -1416,9 +987,9 @@ function sair() {
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('loginAluno').style.display = 'none';
   document.getElementById('btnEntrarAluno').style.display = 'none';
-  fecharModalLivro();
   voltarLogin();
   fecharTrocarSenha();
+  fecharModalLivro();
 }
 
 /* ============ MENUS ============ */
@@ -1435,23 +1006,17 @@ const MENUS = {
   aluno: [
     { id: 'minhaFicha',    s: 'i',   label: 'Minha ficha' },
     { id: 'acervo',        s: 'ii',  label: 'Acervo' },
-    { id: 'minhasSolic',   s: 'iii', label: 'Minhas solicitações' }
+    { id: 'minhasSolic',   s: 'iii', label: 'Minhas solicitações' },
   ]
 };
 
 /* ============ RENDER ============ */
-function pendentesBibliotecario() {
-  return solicitacoes.filter(s => s.status === 'pendente').length;
-}
-function pendentesAluno(alunoId) {
-  return solicitacoes.filter(s => s.alunoId === alunoId && s.status === 'pendente').length;
-}
+function pendentesBibliotecario() { return solicitacoes.filter(s => s.status === 'pendente').length; }
+function pendentesAluno(alunoId) { return solicitacoes.filter(s => s.alunoId === alunoId && s.status === 'pendente').length; }
 
 function renderApp() {
   if (!sessao.tipo) return;
-
-  document.getElementById('btnTrocarSenha').style.display =
-    sessao.tipo === 'bibliotecario' ? 'block' : 'none';
+  document.getElementById('btnTrocarSenha').style.display = sessao.tipo === 'bibliotecario' ? 'block' : 'none';
 
   if (sessao.tipo === 'aluno') {
     const a = alunos.find(x => x.id === sessao.alunoId);
@@ -1470,10 +1035,8 @@ function renderApp() {
 
   nav.innerHTML = MENUS[sessao.tipo].map(m => {
     let badge = '';
-    if (sessao.tipo === 'bibliotecario' && m.id === 'solicitacoes' && notifBib > 0)
-      badge = `<span class="nav-badge">${notifBib}</span>`;
-    if (sessao.tipo === 'aluno' && m.id === 'minhasSolic' && notifAluno > 0)
-      badge = `<span class="nav-badge">${notifAluno}</span>`;
+    if (sessao.tipo === 'bibliotecario' && m.id === 'solicitacoes' && notifBib > 0) badge = `<span class="nav-badge">${notifBib}</span>`;
+    if (sessao.tipo === 'aluno' && m.id === 'minhasSolic' && notifAluno > 0) badge = `<span class="nav-badge">${notifAluno}</span>`;
     return `<button class="nav-item ${sessao.pagina===m.id?'active':''}" onclick="irPara('${m.id}')">
       <span class="simbolo">${m.s}.</span> ${m.label} ${badge}
     </button>`;
@@ -1493,10 +1056,7 @@ function renderApp() {
   }
 }
 
-function irPara(p) { 
-  sessao.pagina = p; 
-  renderApp(); 
-}
+function irPara(p) { sessao.pagina = p; renderApp(); }
 
 /* ============ AÇÕES ============ */
 function cadastrarAluno() {
@@ -1519,8 +1079,7 @@ function cadastrarAluno() {
   salvar();
 }
 function removerAluno(id) {
-  if (emprestimos.some(e => e.alunoId === id && !e.devolvido))
-    return alert('Aluno tem empréstimos em aberto.');
+  if (emprestimos.some(e => e.alunoId === id && !e.devolvido)) return alert('Aluno tem empréstimos em aberto.');
   if (!confirm('Remover este aluno?')) return;
   alunos = alunos.filter(a => a.id !== id);
   solicitacoes = solicitacoes.filter(s => s.alunoId !== id);
@@ -1533,10 +1092,8 @@ function cadastrarLivro() {
   const genero = document.getElementById('livroGenero').value.trim() || 'Geral';
   const qtd = parseInt(document.getElementById('livroQtd').value) || 1;
   if (!titulo) return alert('Informe o título.');
-  if (isbn && livros.some(l => norm(l.isbn) === norm(isbn)))
-    return alert('Já existe um livro com este ISBN.');
-  if (!isbn && livros.some(l => norm(l.titulo) === norm(titulo) && norm(l.autor) === norm(autor)))
-    return alert('Já existe um livro com este título e autor.');
+  if (isbn && livros.some(l => norm(l.isbn) === norm(isbn))) return alert('Já existe um livro com este ISBN.');
+  if (!isbn && livros.some(l => norm(l.titulo) === norm(titulo) && norm(l.autor) === norm(autor))) return alert('Já existe um livro com este título e autor.');
   livros.push({ id: uid(), isbn, titulo, autor, genero, qtd, emprestados: 0 });
   salvar();
 }
@@ -1571,112 +1128,6 @@ function devolver(empId) {
   salvar();
 }
 
-/* ============ AVALIAÇÕES PELO MODAL ============ */
-function abrirModalLivro(livroId) {
-  livroAbertoId = livroId;
-  notaSelecionada = 0;
-  atualizarConteudoModal();
-  document.getElementById('modalLivro').classList.add('ativo');
-}
-function fecharModalLivro() {
-  document.getElementById('modalLivro').classList.remove('ativo');
-  livroAbertoId = null;
-}
-function atualizarConteudoModal() {
-  if (!livroAbertoId) return;
-  const l = livros.find(x => x.id === livroAbertoId);
-  if (!l) return;
-  
-  const disp = l.qtd - l.emprestados;
-  const aval = avaliacoes.filter(a => a.livroId === l.id).sort((a,b)=>b.data.localeCompare(a.data));
-  const media = aval.length ? (aval.reduce((s,a)=>s+a.nota,0)/aval.length).toFixed(1) : null;
-
-  const jaSolicitou = solicitacoes.some(s => s.alunoId === sessao.alunoId && s.livroId === l.id && s.status === 'pendente');
-  const jaTem = emprestimos.some(e => e.alunoId === sessao.alunoId && e.livroId === l.id && !e.devolvido);
-
-  let botao;
-  if (jaTem) botao = `<button class="btn btn-ghost" disabled>Já com você</button>`;
-  else if (jaSolicitou) botao = `<button class="btn btn-ghost" disabled>Solicitação pendente</button>`;
-  else if (disp <= 0) botao = `<button class="btn btn-ghost" disabled>Esgotado</button>`;
-  else botao = `<button class="btn btn-primary" onclick="solicitarEmprestimo('${l.id}'); fecharModalLivro();">Solicitar Empréstimo</button>`;
-
-  const elEstrelas = [1,2,3,4,5].map(n => 
-    `<span onclick="setNota(${n})" id="estrela-${n}" style="color: ${n <= notaSelecionada ? 'var(--dourado)' : 'var(--borda-fina)'}">★</span>`
-  ).join('');
-
-  const conteudo = `
-    <div class="modal-livro-header">
-      <div class="modal-livro-capa">
-        ${l.titulo}
-      </div>
-      <div class="modal-livro-info">
-        <div class="genero">${l.genero}</div>
-        <h3>${l.titulo}</h3>
-        <div class="autor">${l.autor || 'Autor não informado'}</div>
-        ${l.isbn ? `<div style="font-size:.75rem;color:var(--tinta-clara);font-family:var(--sans);">ISBN: ${l.isbn}</div>` : ''}
-      </div>
-    </div>
-
-    <div class="modal-livro-acoes">
-      <div class="disp">
-        <span class="badge ${disp>0?'badge-green':'badge-red'}">${disp>0?'Disponível':'Esgotado'}</span>
-        <span style="margin-left:8px;">${disp} de ${l.qtd} exemplares</span>
-        ${media ? `<div class="stars" style="margin-top:6px;">${estrelas(Math.round(media))} <span style="color:var(--tinta-suave);font-size:0.85rem;">Média ${media}</span></div>` : ''}
-      </div>
-      <div>${botao}</div>
-    </div>
-
-    <div class="modal-form-aval">
-      <h4>Deixe sua avaliação</h4>
-      <div class="estrelas-select" id="estrelas-container">
-        ${elEstrelas}
-      </div>
-      <textarea id="avComentarioModal" placeholder="O que você achou do livro? (Recomendação)" style="min-height: 70px;"></textarea>
-      <button class="btn btn-primary btn-sm" onclick="enviarAvaliacaoModal()" style="margin-top:10px;">Enviar avaliação</button>
-    </div>
-
-    <div class="card-header" style="margin-bottom:10px; padding-bottom:10px;">
-      <h2>O que os colegas acharam (${aval.length})</h2>
-    </div>
-    <div style="max-height: 250px; overflow-y: auto; padding-right: 10px;">
-      ${aval.length ? aval.map(a => `
-        <div class="avaliacao-item">
-          <strong>${nomeAluno(a.alunoId)}</strong>
-          <div class="stars">${estrelas(a.nota)}</div>
-          <p>"${a.comentario || 'Sem comentário'}"</p>
-          <div class="data">${fmtData(a.data)}</div>
-        </div>
-      `).join('') : '<p class="empty" style="padding:20px;">Nenhuma avaliação ainda. Seja o primeiro!</p>'}
-    </div>
-
-    <div class="acoes" style="margin-top: 20px;">
-      <button class="btn btn-ghost btn-sm" onclick="fecharModalLivro()">Fechar</button>
-    </div>
-  `;
-  
-  document.getElementById('modalLivroConteudo').innerHTML = conteudo;
-}
-
-function setNota(n) {
-  notaSelecionada = n;
-  for(let i=1; i<=5; i++) {
-    const el = document.getElementById(`estrela-${i}`);
-    if(el) el.style.color = i <= n ? 'var(--dourado)' : 'var(--borda-fina)';
-  }
-}
-
-function enviarAvaliacaoModal() {
-  if (notaSelecionada === 0) return alert('Por favor, escolha uma nota (estrelas).');
-  const livroId = livroAbertoId;
-  const comentario = document.getElementById('avComentarioModal').value.trim();
-  avaliacoes.push({ id: uid(), alunoId: sessao.alunoId, livroId, nota: notaSelecionada, comentario, data: hoje() });
-  salvar();
-  
-  // Recarrega o modal com a avaliação nova
-  notaSelecionada = 0;
-  atualizarConteudoModal();
-}
-
 /* ============ SOLICITAÇÕES ============ */
 function solicitarEmprestimo(livroId) {
   const alunoId = sessao.alunoId;
@@ -1685,35 +1136,110 @@ function solicitarEmprestimo(livroId) {
   if (!l) return;
   const disp = l.qtd - l.emprestados;
   if (disp <= 0) return alert('Este livro está esgotado no momento.');
-  if (solicitacoes.some(s => s.alunoId === alunoId && s.livroId === livroId && s.status === 'pendente'))
-    return alert('Você já tem uma solicitação pendente para este livro.');
-  if (emprestimos.some(e => e.alunoId === alunoId && e.livroId === livroId && !e.devolvido))
-    return alert('Você já está com este livro emprestado.');
+  if (solicitacoes.some(s => s.alunoId === alunoId && s.livroId === livroId && s.status === 'pendente')) return alert('Você já tem uma solicitação pendente.');
+  if (emprestimos.some(e => e.alunoId === alunoId && e.livroId === livroId && !e.devolvido)) return alert('Você já está com este livro emprestado.');
+  
   solicitacoes.push({ id: uid(), alunoId, livroId, data: hoje(), status: 'pendente', motivo: '', dataResposta: null });
   salvar();
   alert('Solicitação enviada! Aguarde a aprovação do bibliotecário.');
+  fecharModalLivro();
 }
 function aprovarSolicitacao(solId) {
   const s = solicitacoes.find(x => x.id === solId);
   if (!s || s.status !== 'pendente') return;
   const l = livros.find(x => x.id === s.livroId);
-  if (!l || l.emprestados >= l.qtd)
-    return alert('Sem exemplares disponíveis para aprovar.');
+  if (!l || l.emprestados >= l.qtd) return alert('Sem exemplares disponíveis.');
   l.emprestados++;
   emprestimos.push({ id: uid(), alunoId: s.alunoId, livroId: s.livroId, data: hoje(), devolvido: false, dataDev: null });
-  s.status = 'aprovada';
-  s.dataResposta = hoje();
+  s.status = 'aprovada'; s.dataResposta = hoje();
   salvar();
 }
 function recusarSolicitacao(solId) {
   const s = solicitacoes.find(x => x.id === solId);
   if (!s || s.status !== 'pendente') return;
   const motivoInput = document.getElementById('motivo-' + solId);
-  const motivo = motivoInput ? motivoInput.value.trim() : '';
   s.status = 'recusada';
-  s.motivo = motivo;
+  s.motivo = motivoInput ? motivoInput.value.trim() : '';
   s.dataResposta = hoje();
   salvar();
+}
+
+/* ============ AVALIAÇÕES ============ */
+function avaliar(livroId) {
+  const nota = parseInt(document.getElementById('avNota').value);
+  const comentario = document.getElementById('avComentario').value.trim();
+  if (!nota) return alert('Selecione uma nota.');
+  avaliacoes.push({ id: uid(), alunoId: sessao.alunoId, livroId, nota, comentario, data: hoje() });
+  salvar();
+  abrirModalLivro(livroId);
+}
+
+/* ============ MODAL DO LIVRO ============ */
+function abrirModalLivro(livroId) {
+  const l = livros.find(x => x.id === livroId);
+  if (!l) return;
+  const avals = avaliacoes.filter(a => a.livroId === livroId).sort((a,b)=>b.data.localeCompare(a.data));
+  const media = avals.length ? (avals.reduce((s,a)=>s+a.nota,0)/avals.length).toFixed(1) : null;
+  const disp = l.qtd - l.emprestados;
+  const jaTem = emprestimos.some(e => e.alunoId === sessao.alunoId && e.livroId === l.id && !e.devolvido);
+  const jaSolicitou = solicitacoes.some(s => s.alunoId === sessao.alunoId && s.livroId === l.id && s.status === 'pendente');
+
+  let botaoEmprestimo = '';
+  if (sessao.tipo === 'aluno') {
+    if (jaTem) botaoEmprestimo = `<button class="btn btn-ghost" disabled>Já com você</button>`;
+    else if (jaSolicitou) botaoEmprestimo = `<button class="btn btn-ghost" disabled>Solicitação pendente</button>`;
+    else if (disp <= 0) botaoEmprestimo = `<button class="btn btn-ghost" disabled>Esgotado</button>`;
+    else botaoEmprestimo = `<button class="btn btn-primary" onclick="solicitarEmprestimo('${l.id}')">Solicitar Empréstimo</button>`;
+  }
+
+  const html = `
+    <div style="margin-bottom:20px; border-bottom:1px solid var(--borda-fina); padding-bottom:15px;">
+      <div class="livro-genero" style="font-size:.9rem;">${l.genero}</div>
+      <h2 style="font-size:1.8rem; margin-bottom:4px;">${l.titulo}</h2>
+      <p style="font-family:var(--serif); font-style:italic; color:var(--tinta-suave); margin-bottom:10px;">${l.autor || 'Autor não informado'}</p>
+      ${l.isbn ? `<div style="font-size:.8rem; color:var(--tinta-clara); letter-spacing:.05em;">ISBN ${l.isbn}</div>` : ''}
+      <div style="margin-top:14px; display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+        <span class="badge ${disp>0?'badge-green':'badge-red'}">${disp>0?disp+' exemplares disponíveis':'Esgotado'}</span>
+        ${media ? `<span class="stars">${estrelas(Math.round(media))} ${media}</span>` : '<span style="color:var(--tinta-clara); font-style:italic; font-size:.85rem;">Sem avaliações ainda</span>'}
+      </div>
+      <div style="margin-top:20px;">${botaoEmprestimo}</div>
+    </div>
+
+    <h3 style="font-family:var(--serif); font-size:1.15rem; font-weight:400; margin-bottom:15px;">Resenhas e Avaliações</h3>
+    
+    <div style="max-height: 250px; overflow-y: auto; margin-bottom: 20px; padding-right:10px;">
+      ${avals.length ? avals.map(a => `
+        <div class="avaliacao-item" style="padding:12px 0;">
+          <strong style="font-size:.95rem;">${nomeAluno(a.alunoId)}</strong>
+          <div class="stars" style="font-size:.85rem;">${estrelas(a.nota)}</div>
+          <p style="margin:4px 0; font-size:.9rem;">"${a.comentario || 'Sem comentário'}"</p>
+          <div class="data" style="font-size:.65rem;">${fmtData(a.data)}</div>
+        </div>
+      `).join('') : '<p class="empty" style="padding:20px;">Seja o primeiro a avaliar este livro!</p>'}
+    </div>
+
+    ${sessao.tipo === 'aluno' ? `
+      <div style="background:var(--papel-escuro); padding:16px; border:1px solid var(--borda-fina);">
+        <h4 style="font-family:var(--serif); font-size:.95rem; font-weight:400; margin-bottom:10px;">Deixe sua avaliação</h4>
+        <div style="display:flex; gap:10px; margin-bottom:10px;">
+          <select id="avNota" style="width:120px;">
+            <option value="5">★★★★★ (5)</option>
+            <option value="4">★★★★☆ (4)</option>
+            <option value="3">★★★☆☆ (3)</option>
+            <option value="2">★★☆☆☆ (2)</option>
+            <option value="1">★☆☆☆☆ (1)</option>
+          </select>
+          <input id="avComentario" placeholder="O que você achou do livro?" style="flex:1;">
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="avaliar('${l.id}')">Enviar Avaliação</button>
+      </div>
+    ` : ''}
+  `;
+  document.getElementById('conteudoModalLivro').innerHTML = html;
+  document.getElementById('modalLivro').classList.add('ativo');
+}
+function fecharModalLivro() {
+  document.getElementById('modalLivro').classList.remove('ativo');
 }
 
 /* ============ HEADER ============ */
@@ -1761,19 +1287,19 @@ function encontrarColuna(cabecalho, nomesAceitos) {
   return -1;
 }
 
-/* ============ IMPORTAR ALUNOS ============ */
+/* ============ IMPORTAR ============ */
 function lerCSVAlunos(event) {
   const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
       const linhas = parseCSV(e.target.result);
-      if (linhas.length < 2) { alert('Arquivo vazio ou sem cabeçalho.'); return; }
+      if (linhas.length < 2) { alert('Arquivo vazio.'); return; }
       const cab = linhas[0];
       const idxNome = encontrarColuna(cab, ['nome','nome completo','aluno']);
       const idxTurma = encontrarColuna(cab, ['turma','classe','serie','série']);
       const idxMat = encontrarColuna(cab, ['matricula','matrícula','mat']);
-      if (idxNome === -1) { alert('A coluna "Nome" é obrigatória.'); return; }
+      if (idxNome === -1) { alert('Coluna "Nome" obrigatória.'); return; }
       const vistos = new Set();
       const novasLinhas = [];
       for (let i = 1; i < linhas.length; i++) {
@@ -1785,79 +1311,65 @@ function lerCSVAlunos(event) {
         const dupPlanilha = vistos.has(chave);
         const dupBanco = alunos.some(a => norm(a.nome) === norm(nome) && norm(a.turma) === norm(turma));
         let status = 'ok', motivo = '';
-        if (dupPlanilha) { status = 'dup'; motivo = 'Repetido na planilha'; }
+        if (dupPlanilha) { status = 'dup'; motivo = 'Repetido'; }
         else if (dupBanco) { status = 'dup'; motivo = 'Já cadastrado'; }
         if (status === 'ok') vistos.add(chave);
         novasLinhas.push({ nome, turma, matricula: mat, status, motivo });
       }
       importState.alunos = { linhas: novasLinhas, arquivo: file.name };
       renderApp();
-    } catch (err) { alert('Erro ao ler: ' + err.message); }
+    } catch (err) { alert('Erro: ' + err.message); }
   };
   reader.readAsText(file, 'UTF-8');
   event.target.value = '';
 }
-function removerLinhaAlunoImport(idx) {
-  if (!importState.alunos) return;
-  importState.alunos.linhas.splice(idx, 1);
-  renderApp();
-}
+function removerLinhaAlunoImport(idx) { importState.alunos.linhas.splice(idx, 1); renderApp(); }
 function atualizarTurmaImport(idx, val) {
-  if (!importState.alunos) return;
   const l = importState.alunos.linhas[idx];
   l.turma = val;
-  const nome = l.nome;
-  const dupBanco = alunos.some(a => norm(a.nome) === norm(nome) && norm(a.turma) === norm(val));
+  const dupBanco = alunos.some(a => norm(a.nome) === norm(l.nome) && norm(a.turma) === norm(val));
   let dupPlanilha = false;
   importState.alunos.linhas.forEach((outra, j) => {
-    if (j !== idx && norm(outra.nome) === norm(nome) && norm(outra.turma) === norm(val)) dupPlanilha = true;
+    if (j !== idx && norm(outra.nome) === norm(l.nome) && norm(outra.turma) === norm(val)) dupPlanilha = true;
   });
-  if (dupPlanilha) { l.status = 'dup'; l.motivo = 'Repetido na planilha'; }
+  if (dupPlanilha) { l.status = 'dup'; l.motivo = 'Repetido'; }
   else if (dupBanco) { l.status = 'dup'; l.motivo = 'Já cadastrado'; }
   else { l.status = 'ok'; l.motivo = ''; }
   renderApp();
 }
 function confirmarImportAlunos() {
-  if (!importState.alunos) return;
   const validos = importState.alunos.linhas.filter(l => l.status === 'ok');
-  if (!validos.length) return alert('Nenhuma linha válida para importar.');
+  if (!validos.length) return alert('Nenhuma linha válida.');
   validos.forEach(l => {
     let matricula = l.matricula;
     if (!matricula) {
-      let t = 0;
-      matricula = proximaMatricula();
+      let t = 0; matricula = proximaMatricula();
       while (alunos.some(a => a.matricula === matricula) && t < 1000) {
-        const ano = new Date().getFullYear();
-        const num = parseInt(matricula.split('-')[1], 10) + 1;
-        matricula = `${ano}-${String(num).padStart(3, '0')}`;
-        t++;
+        const ano = new Date().getFullYear(); const num = parseInt(matricula.split('-')[1], 10) + 1;
+        matricula = `${ano}-${String(num).padStart(3, '0')}`; t++;
       }
     }
     alunos.push({ id: uid(), nome: l.nome, turma: l.turma, matricula });
   });
-  importState.alunos = null;
-  salvar();
-  alert(`✅ ${validos.length} aluno(s) importado(s)!`);
+  importState.alunos = null; salvar(); alert(`✅ ${validos.length} importados!`);
 }
 function cancelarImportAlunos() { importState.alunos = null; renderApp(); }
 
-/* ============ IMPORTAR LIVROS ============ */
 function lerCSVLivros(event) {
   const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
       const linhas = parseCSV(e.target.result);
-      if (linhas.length < 2) { alert('Arquivo vazio ou sem cabeçalho.'); return; }
+      if (linhas.length < 2) { alert('Arquivo vazio.'); return; }
       const cab = linhas[0];
-      const idxIsbn = encontrarColuna(cab, ['isbn','isbn13','isbn-13','codigo','código']);
+      const idxIsbn = encontrarColuna(cab, ['isbn','isbn13','codigo']);
       const idxTitulo = encontrarColuna(cab, ['titulo','título','title']);
-      const idxAutor = encontrarColuna(cab, ['autor','author','autores']);
-      const idxGenero = encontrarColuna(cab, ['genero','gênero','genre','categoria']);
-      const idxQtd = encontrarColuna(cab, ['quantidade','qtd','exemplares','qty']);
-      if (idxTitulo === -1) { alert('A coluna "Título" é obrigatória.'); return; }
-      const isbnsVistos = new Set();
-      const titulosVistos = new Set();
+      const idxAutor = encontrarColuna(cab, ['autor','author']);
+      const idxGenero = encontrarColuna(cab, ['genero','gênero','genre']);
+      const idxQtd = encontrarColuna(cab, ['quantidade','qtd','exemplares']);
+      if (idxTitulo === -1) { alert('Coluna "Título" obrigatória.'); return; }
+      const isbns = new Set(); const titulos = new Set();
       const novasLinhas = [];
       for (let i = 1; i < linhas.length; i++) {
         const l = linhas[i];
@@ -1866,103 +1378,69 @@ function lerCSVLivros(event) {
         const autor = idxAutor >= 0 ? (l[idxAutor] || '').trim() : '';
         const genero = (idxGenero >= 0 ? (l[idxGenero] || '').trim() : '') || 'Geral';
         const qtd = Math.max(1, parseInt(idxQtd >= 0 ? l[idxQtd] : '') || 1);
-        const chaveIsbn = norm(isbn);
-        const chaveTA = norm(titulo) + '||' + norm(autor);
+        
+        const chaveIsbn = norm(isbn); const chaveTA = norm(titulo) + '||' + norm(autor);
         let status = 'ok', motivo = '';
-        if (isbn && isbnsVistos.has(chaveIsbn)) { status = 'dup'; motivo = 'ISBN repetido na planilha'; }
-        else if (!isbn && titulosVistos.has(chaveTA)) { status = 'dup'; motivo = 'Título+autor repetido na planilha'; }
+        if (isbn && isbns.has(chaveIsbn)) { status = 'dup'; motivo = 'ISBN repetido'; }
+        else if (!isbn && titulos.has(chaveTA)) { status = 'dup'; motivo = 'Título repetido'; }
         else if (isbn && livros.some(x => norm(x.isbn) === chaveIsbn)) { status = 'dup'; motivo = 'ISBN já no acervo'; }
-        else if (!isbn && livros.some(x => norm(x.titulo) === norm(titulo) && norm(x.autor) === norm(autor))) { status = 'dup'; motivo = 'Título+autor já no acervo'; }
-        if (status === 'ok') { if (isbn) isbnsVistos.add(chaveIsbn); else titulosVistos.add(chaveTA); }
+        else if (!isbn && livros.some(x => norm(x.titulo) === norm(titulo) && norm(x.autor) === norm(autor))) { status = 'dup'; motivo = 'Título já no acervo'; }
+        
+        if (status === 'ok') { if (isbn) isbns.add(chaveIsbn); else titulos.add(chaveTA); }
         novasLinhas.push({ isbn, titulo, autor, genero, qtd, status, motivo });
       }
       importState.livros = { linhas: novasLinhas, arquivo: file.name };
       renderApp();
-    } catch (err) { alert('Erro ao ler: ' + err.message); }
+    } catch (err) { alert('Erro: ' + err.message); }
   };
   reader.readAsText(file, 'UTF-8');
   event.target.value = '';
 }
-function removerLinhaLivroImport(idx) {
-  if (!importState.livros) return;
-  importState.livros.linhas.splice(idx, 1);
-  renderApp();
-}
-function atualizarGeneroImport(idx, val) {
-  if (!importState.livros) return;
-  importState.livros.linhas[idx].genero = val || 'Geral';
-  renderApp();
-}
-function atualizarQtdImport(idx, val) {
-  if (!importState.livros) return;
-  const n = parseInt(val) || 1;
-  importState.livros.linhas[idx].qtd = Math.max(1, n);
-}
+function removerLinhaLivroImport(idx) { importState.livros.linhas.splice(idx, 1); renderApp(); }
+function atualizarGeneroImport(idx, val) { importState.livros.linhas[idx].genero = val || 'Geral'; renderApp(); }
+function atualizarQtdImport(idx, val) { importState.livros.linhas[idx].qtd = Math.max(1, parseInt(val) || 1); }
 function confirmarImportLivros() {
-  if (!importState.livros) return;
   const validos = importState.livros.linhas.filter(l => l.status === 'ok');
-  if (!validos.length) return alert('Nenhuma linha válida para importar.');
-  validos.forEach(l => {
-    livros.push({ id: uid(), isbn: l.isbn, titulo: l.titulo, autor: l.autor, genero: l.genero, qtd: l.qtd, emprestados: 0 });
-  });
-  importState.livros = null;
-  salvar();
-  alert(`✅ ${validos.length} livro(s) importado(s)!`);
+  if (!validos.length) return alert('Nenhuma linha válida.');
+  validos.forEach(l => { livros.push({ id: uid(), isbn: l.isbn, titulo: l.titulo, autor: l.autor, genero: l.genero, qtd: l.qtd, emprestados: 0 }); });
+  importState.livros = null; salvar(); alert(`✅ ${validos.length} importados!`);
 }
 function cancelarImportLivros() { importState.livros = null; renderApp(); }
 
-/* ============ MODELOS ============ */
-function baixarModeloAlunos() {
-  const csv = 'Nome,Turma,Matrícula\n' +
-    'Ana Beatriz Souza,9ºA,\nLucas Ferreira,9ºB,2024-015\nMariana Costa,8ºC,\n';
-  baixarArquivo(csv, 'modelo-alunos.csv');
-}
-function baixarModeloLivros() {
-  const csv = 'ISBN,Título,Autor,Gênero,Quantidade\n' +
-    '9788535902778,Dom Casmurro,Machado de Assis,Romance,3\n' +
-    '9788532511010,Harry Potter e a Pedra Filosofal,J.K. Rowling,Fantasia,5\n' +
-    ',A Menina que Roubava Livros,Markus Zusak,Drama,2\n';
-  baixarArquivo(csv, 'modelo-livros.csv');
-}
+function baixarModeloAlunos() { baixarArquivo('Nome,Turma,Matrícula\nAna Souza,9ºA,\nLucas Silva,8ºB,2024-015\n', 'modelo-alunos.csv'); }
+function baixarModeloLivros() { baixarArquivo('ISBN,Título,Autor,Gênero,Quantidade\n9788535902778,Dom Casmurro,Machado de Assis,Romance,3\n', 'modelo-livros.csv'); }
 function baixarArquivo(conteudo, nome) {
   const blob = new Blob([conteudo], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = nome;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const url = URL.createObjectURL(blob); const a = document.createElement('a');
+  a.href = url; a.download = nome; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
 /* ============ PREVIEWS ============ */
 function renderPreviewAlunos() {
   const st = importState.alunos; if (!st) return '';
-  const total = st.linhas.length;
-  const validos = st.linhas.filter(l => l.status === 'ok').length;
-  const dups = st.linhas.filter(l => l.status === 'dup').length;
-  if (!total) return `<div class="card"><div class="aviso-import">Todas as linhas foram removidas. <a href="#" onclick="cancelarImportAlunos();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
+  const total = st.linhas.length; const validos = st.linhas.filter(l => l.status === 'ok').length; const dups = st.linhas.filter(l => l.status === 'dup').length;
+  if (!total) return `<div class="card"><div class="aviso-import">Todas removidas. <a href="#" onclick="cancelarImportAlunos();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
   return `
     <div class="card">
       <div class="card-header"><h2>Pré-visualização</h2><span class="num">${st.arquivo}</span></div>
-      <div class="aviso-import">Edite a turma se precisar. Linhas <strong>em vermelho</strong> já existem e serão ignoradas.</div>
+      <div class="aviso-import">Edite a turma. Linhas <strong>em vermelho</strong> serão ignoradas.</div>
       <div class="preview-resumo">
-        <div><span class="cont ok">${validos}</span> válido(s)</div>
-        <div><span class="cont dup">${dups}</span> ignorado(s)</div>
-        <div style="color:var(--tinta-clara)">${total} total</div>
+        <div><span style="color:var(--musgo);font-weight:700">${validos}</span> válido(s)</div>
+        <div><span style="color:var(--terracota);font-weight:700">${dups}</span> ignorado(s)</div>
         <button class="btn btn-primary btn-sm" onclick="confirmarImportAlunos()" ${validos===0?'disabled':''}>✓ Confirmar</button>
         <button class="btn btn-ghost btn-sm" onclick="cancelarImportAlunos()">Cancelar</button>
       </div>
       <div class="preview-table">
         <table>
-          <thead><tr><th style="width:40px">#</th><th>Nome</th><th style="width:140px">Turma</th><th style="width:120px">Matrícula</th><th style="width:180px">Status</th><th style="width:50px"></th></tr></thead>
+          <thead><tr><th>#</th><th>Nome</th><th style="width:140px">Turma</th><th>Matrícula</th><th>Status</th><th></th></tr></thead>
           <tbody>
             ${st.linhas.map((l, i) => `
               <tr class="${l.status === 'dup' ? 'dup' : ''}">
-                <td>${i + 1}</td>
-                <td>${l.nome}</td>
+                <td>${i + 1}</td><td>${l.nome}</td>
                 <td><input value="${l.turma}" onchange="atualizarTurmaImport(${i}, this.value)"></td>
                 <td>${l.matricula ? `<span class="matricula-cell">${l.matricula}</span>` : '<span style="color:var(--tinta-clara);font-style:italic">auto</span>'}</td>
-                <td>${l.status === 'ok' ? '<span class="status-ok">✓ Será importado</span>' : `<span class="status-dup">⚠ ${l.motivo}</span>`}</td>
-                <td><button class="btn-x" onclick="removerLinhaAlunoImport(${i})" title="Remover">✕</button></td>
+                <td>${l.status === 'ok' ? '<span style="color:var(--musgo);font-weight:700;font-size:.75rem;">✓ Válido</span>' : `<span style="color:var(--terracota);font-weight:700;font-size:.75rem;">⚠ ${l.motivo}</span>`}</td>
+                <td><button class="btn-x" onclick="removerLinhaAlunoImport(${i})">✕</button></td>
               </tr>`).join('')}
           </tbody>
         </table>
@@ -1971,35 +1449,30 @@ function renderPreviewAlunos() {
 }
 function renderPreviewLivros() {
   const st = importState.livros; if (!st) return '';
-  const total = st.linhas.length;
-  const validos = st.linhas.filter(l => l.status === 'ok').length;
-  const dups = st.linhas.filter(l => l.status === 'dup').length;
-  if (!total) return `<div class="card"><div class="aviso-import">Todas as linhas foram removidas. <a href="#" onclick="cancelarImportLivros();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
+  const total = st.linhas.length; const validos = st.linhas.filter(l => l.status === 'ok').length; const dups = st.linhas.filter(l => l.status === 'dup').length;
+  if (!total) return `<div class="card"><div class="aviso-import">Todas removidas. <a href="#" onclick="cancelarImportLivros();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
   return `
     <div class="card">
       <div class="card-header"><h2>Pré-visualização</h2><span class="num">${st.arquivo}</span></div>
-      <div class="aviso-import">Edite gênero e quantidade se precisar. Linhas <strong>em vermelho</strong> já existem e serão ignoradas.</div>
+      <div class="aviso-import">Edite gênero e quantidade. Linhas <strong>em vermelho</strong> serão ignoradas.</div>
       <div class="preview-resumo">
-        <div><span class="cont ok">${validos}</span> válido(s)</div>
-        <div><span class="cont dup">${dups}</span> ignorado(s)</div>
-        <div style="color:var(--tinta-clara)">${total} total</div>
+        <div><span style="color:var(--musgo);font-weight:700">${validos}</span> válido(s)</div>
+        <div><span style="color:var(--terracota);font-weight:700">${dups}</span> ignorado(s)</div>
         <button class="btn btn-primary btn-sm" onclick="confirmarImportLivros()" ${validos===0?'disabled':''}>✓ Confirmar</button>
         <button class="btn btn-ghost btn-sm" onclick="cancelarImportLivros()">Cancelar</button>
       </div>
       <div class="preview-table">
         <table>
-          <thead><tr><th style="width:40px">#</th><th>Título</th><th>Autor</th><th style="width:120px">Gênero</th><th style="width:100px">ISBN</th><th style="width:70px">Qtd</th><th style="width:180px">Status</th><th style="width:50px"></th></tr></thead>
+          <thead><tr><th>#</th><th>Título</th><th>Autor</th><th style="width:120px">Gênero</th><th>ISBN</th><th style="width:70px">Qtd</th><th>Status</th><th></th></tr></thead>
           <tbody>
             ${st.linhas.map((l, i) => `
               <tr class="${l.status === 'dup' ? 'dup' : ''}">
-                <td>${i + 1}</td>
-                <td>${l.titulo}</td>
-                <td>${l.autor || '—'}</td>
+                <td>${i + 1}</td><td>${l.titulo}</td><td>${l.autor || '—'}</td>
                 <td><input value="${l.genero}" onchange="atualizarGeneroImport(${i}, this.value)"></td>
-                <td style="font-family:var(--serif);font-size:.82rem;">${l.isbn || '<span style="color:var(--tinta-clara);font-style:italic">—</span>'}</td>
+                <td>${l.isbn || '—'}</td>
                 <td><input type="number" min="1" value="${l.qtd}" onchange="atualizarQtdImport(${i}, this.value)" style="min-width:60px;"></td>
-                <td>${l.status === 'ok' ? '<span class="status-ok">✓ Será importado</span>' : `<span class="status-dup">⚠ ${l.motivo}</span>`}</td>
-                <td><button class="btn-x" onclick="removerLinhaLivroImport(${i})" title="Remover">✕</button></td>
+                <td>${l.status === 'ok' ? '<span style="color:var(--musgo);font-weight:700;font-size:.75rem;">✓ Válido</span>' : `<span style="color:var(--terracota);font-weight:700;font-size:.75rem;">⚠ ${l.motivo}</span>`}</td>
+                <td><button class="btn-x" onclick="removerLinhaLivroImport(${i})">✕</button></td>
               </tr>`).join('')}
           </tbody>
         </table>
@@ -2025,9 +1498,7 @@ const RENDERERS = {
         ${solicPend > 0 ? `
           <div class="card" style="border-left:4px solid var(--terracota);">
             <div class="card-header"><h2>⏳ Solicitações aguardando</h2><span class="num">${solicPend}</span></div>
-            <p style="font-family:var(--serif);font-style:italic;color:var(--tinta-suave);margin-bottom:14px;">
-              Alunos solicitaram livros pelo acervo. Aprove ou recuse para continuar.
-            </p>
+            <p style="font-family:var(--serif);font-style:italic;color:var(--tinta-suave);margin-bottom:14px;">Aprove ou recuse os pedidos.</p>
             <button class="btn btn-primary" onclick="irPara('solicitacoes')">Ver solicitações</button>
           </div>` : ''}
         <div class="card">
@@ -2061,7 +1532,7 @@ const RENDERERS = {
               <div class="meta">Solicitado por <strong>${nomeAluno(s.alunoId)}</strong>
                 ${aluno?.matricula ? `<span class="matricula-cell" style="font-size:.8rem;margin-left:8px;">· ${aluno.matricula}</span>` : ''}
               </div>
-              <input class="motivo-input" id="motivo-${s.id}" placeholder="Motivo (opcional, em caso de recusa)">
+              <input class="motivo-input" id="motivo-${s.id}" placeholder="Motivo (opcional, em caso de recusa)" style="margin-bottom:10px;">
               <div class="acoes">
                 <button class="btn btn-primary btn-sm" onclick="aprovarSolicitacao('${s.id}')">✓ Aprovar</button>
                 <button class="btn btn-danger btn-sm" onclick="recusarSolicitacao('${s.id}')">✕ Recusar</button>
@@ -2094,14 +1565,14 @@ const RENDERERS = {
           </div>
           <div class="form-grid" style="grid-template-columns: 2fr 1fr 1.2fr auto;">
             <input id="alunoNome" placeholder="Nome completo">
-            <input id="alunoTurma" placeholder="Turma (ex: 9ºB)">
+            <input id="alunoTurma" placeholder="Turma">
             <div class="matricula-wrap">
               <input id="alunoMatricula" value="${mat}" readonly style="font-family:var(--serif);letter-spacing:.05em;">
               <button class="btn-regen" onclick="regenerarMatricula()" title="Gerar próxima">🔄</button>
             </div>
             <button class="btn btn-primary" onclick="cadastrarAluno()">Cadastrar</button>
           </div>
-          <p class="form-ajuda">Matrícula automática no formato <strong>ANO-NNN</strong>. Clique em 🔄 para pular.</p>
+          <p class="form-ajuda">Matrícula automática. Clique em 🔄 para pular.</p>
         </div>
         ${renderPreviewAlunos()}
         <div class="card">
@@ -2156,13 +1627,15 @@ const RENDERERS = {
                   const badge = disp === 0 ? '<span class="badge badge-red">Esgotado</span>'
                     : disp === l.qtd ? '<span class="badge badge-green">Disponível</span>'
                     : '<span class="badge badge-blue">Parcial</span>';
-                  return `<div class="livro-card" style="cursor:default;">
+                  return `<div class="livro-card">
                     <div class="livro-genero">${l.genero}</div>
                     <h3>${l.titulo}</h3>
                     <div class="autor">${l.autor || 'Autor não informado'}</div>
                     ${l.isbn ? `<div style="font-size:.72rem;color:var(--tinta-clara);font-family:var(--serif);letter-spacing:.05em;margin-bottom:6px;">ISBN ${l.isbn}</div>` : ''}
                     <div class="estoque">${badge}<br><span style="font-size:.78rem;color:var(--tinta-clara);">${disp} de ${l.qtd} exemplares</span></div>
-                    <div class="ações"><button class="btn btn-danger btn-sm" onclick="removerLivro('${l.id}')">Remover</button></div>
+                    <div style="margin-top:12px; display:flex; gap:8px;">
+                      <button class="btn btn-danger btn-sm" onclick="removerLivro('${l.id}')">Remover</button>
+                    </div>
                   </div>`;
                 }).join('')}
               `).join('')}
@@ -2184,7 +1657,7 @@ const RENDERERS = {
               <input id="empData" type="date" value="${hoje()}">
               <button class="btn btn-primary" onclick="emprestar()">Emprestar</button>
             </div>
-            <p class="form-ajuda">Use para empréstimos presenciais. Para pedidos online, veja "Solicitações".</p>
+            <p class="form-ajuda">Use para empréstimos presenciais.</p>
           ` : '<p class="empty">Cadastre alunos e livros primeiro.</p>'}
         </div>
         <div class="card">
@@ -2219,7 +1692,7 @@ const RENDERERS = {
         <div id="fichaConteudo"><p class="empty">Selecione um aluno para ver a ficha.</p></div>`;
     },
     blog() {
-      return header('Blog', 'Opiniões e resenhas dos leitores', 'blog') + renderBlocoAvaliacoes();
+      return header('Blog', 'Mural de resenhas e opiniões dos leitores', 'blog') + renderBlocoAvaliacoes();
     }
   },
 
@@ -2245,7 +1718,7 @@ const RENDERERS = {
       livros.forEach(l => (grupos[l.genero] = grupos[l.genero] || []).push(l));
       const generos = Object.keys(grupos).sort();
       return `
-        ${header('Acervo', 'Clique em um livro para ver as opiniões ou solicitar', 'acervo')}
+        ${header('Acervo', 'Explore os livros e veja as resenhas', 'acervo')}
         <div class="card">
           ${livros.length ? `
             <div class="livros-grid">
@@ -2255,7 +1728,6 @@ const RENDERERS = {
                   const disp = l.qtd - l.emprestados;
                   const aval = avaliacoes.filter(a => a.livroId === l.id);
                   const media = aval.length ? (aval.reduce((s,a)=>s+a.nota,0)/aval.length).toFixed(1) : null;
-                  
                   return `<div class="livro-card" onclick="abrirModalLivro('${l.id}')">
                     <div class="livro-genero">${l.genero}</div>
                     <h3>${l.titulo}</h3>
@@ -2264,7 +1736,7 @@ const RENDERERS = {
                     <div class="estoque">
                       <span class="badge ${disp>0?'badge-green':'badge-red'}">${disp>0?'Disponível':'Esgotado'}</span><br>
                       <span style="font-size:.78rem;color:var(--tinta-clara);">${disp} de ${l.qtd} exemplares</span>
-                      ${media ? `<div class="stars" style="margin-top:8px;">${estrelas(Math.round(media))} <span style="color:var(--tinta-clara);font-size:.8rem;">${media}</span></div>` : ''}
+                      ${media ? `<div class="stars" style="margin-top:8px; font-size:1rem;">${estrelas(Math.round(media))} <span style="color:var(--tinta-clara);font-size:.8rem;">${media}</span></div>` : ''}
                     </div>
                   </div>`;
                 }).join('')}
