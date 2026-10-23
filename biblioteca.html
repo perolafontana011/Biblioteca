@@ -220,7 +220,6 @@
   .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--tinta-clara); }
   .modal-close:hover { color: var(--terracota); }
 
-  /* Estilos do Aviso para o Aluno */
   .aviso-card { background: #e8f0e8; border: 1px solid var(--musgo); border-left: 5px solid var(--musgo); padding: 16px; margin-bottom: 16px; border-radius: 4px; }
   .aviso-card h4 { font-family: var(--serif); font-size: 1.1rem; color: var(--musgo-escuro); margin-bottom: 4px; }
   .aviso-card p { font-size: .9rem; color: var(--tinta-suave); }
@@ -337,13 +336,14 @@
   // MUDANÇA AQUI: O nome da variável passou a ser 'db' para não conflitar com o SDK.
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+
   /* ============ ESTADO GLOBAL ============ */
   let alunos = [];
   let livros = [];
   let emprestimos = [];
   let avaliacoes = [];
-  let solicitacoes = []; // Local
-  let avisosAlunos = JSON.parse(localStorage.getItem('bib_avisos') || '[]'); // Avisos de aprovação
+  let solicitacoes = []; 
+  let avisosAlunos = JSON.parse(localStorage.getItem('bib_avisos') || '[]');
   
   let importState = { alunos: null, livros: null };
   let sessao = { tipo: null, alunoId: null, pagina: 'painel' };
@@ -549,7 +549,6 @@
       return;
     }
 
-    // Busca o aluno que tenha exatamente o mesmo nome e turma
     const alunoEncontrado = alunos.find(a => 
       norm(a.nome) === norm(nomeDigitado) && norm(a.turma) === norm(turmaDigitada)
     );
@@ -602,11 +601,7 @@
   };
 
   function pendentesBibliotecario() { return solicitacoes.filter(s => s.status === 'pendente').length; }
-  
-  // Conta os avisos não lidos do aluno
-  function avisosPendentesAluno(alunoId) { 
-    return avisosAlunos.filter(a => a.alunoId === alunoId && !a.lido).length; 
-  }
+  function avisosPendentesAluno(alunoId) { return avisosAlunos.filter(a => a.alunoId === alunoId && !a.lido).length; }
 
   function renderApp() {
     if (!sessao.tipo) return;
@@ -730,7 +725,6 @@
     abrirModalLivro(livroId);
   }
 
-  // NOVO: Excluir Avaliação (Bibliotecário)
   async function excluirAvaliacao(avId) {
     if (!confirm('Tem certeza que deseja excluir esta avaliação?')) return;
     const { error } = await db.from('avaliacoes').delete().eq('id', avId);
@@ -760,21 +754,12 @@
     if (!s) return;
     const l = livros.find(x => x.id === s.livroId);
     
-    // 1. Lança no banco
     await db.from('livros').update({ emprestados: l.emprestados + 1 }).eq('id', l.id);
     await db.from('emprestimos').insert([{ aluno_id: s.alunoId, livro_id: s.livroId, data_emprestimo: hoje(), devolvido: false }]);
     
-    // 2. Gera o aviso para o aluno
-    avisosAlunos.push({
-      id: uid(),
-      alunoId: s.alunoId,
-      livroTitulo: l.titulo,
-      data: hoje(),
-      lido: false
-    });
+    avisosAlunos.push({ id: uid(), alunoId: s.alunoId, livroTitulo: l.titulo, data: hoje(), lido: false });
     localStorage.setItem('bib_avisos', JSON.stringify(avisosAlunos));
 
-    // 3. Atualiza solicitação
     s.status = 'aprovada'; 
     s.dataResposta = hoje();
     
@@ -880,7 +865,6 @@
   };
 
   /* ============ CSV E IMPORTAÇÃO ============ */
-  // ... (O código do CSV continua idêntico ao que já funcionava) ...
   function parseCSV(texto) {
     if (texto.charCodeAt(0) === 0xFEFF) texto = texto.slice(1);
     const linhas = []; let atual = []; let campo = ''; let dentroAspas = false;
@@ -1069,7 +1053,7 @@
         const pend = emprestimos.filter(e => !e.devolvido);
         const solicPend = pendentesBibliotecario();
         return `
-          ${header('Painel', 'Visão geral da biblioteca', 'geral', true)}
+          ${header('Painel', 'Visão geral da biblioteca', '', true)}
           <div class="stats-grid">
             <div class="stat-card"><div class="label">Alunos</div><div class="valor">${alunos.length}</div></div>
             <div class="stat-card"><div class="label">Exemplares</div><div class="valor">${livros.reduce((s,l)=>s+l.quantidade,0)}</div></div>
@@ -1095,7 +1079,7 @@
       solicitacoes() {
         const pend = solicitacoes.filter(s => s.status === 'pendente');
         return `
-          ${header('Solicitações', 'Pedidos de empréstimo feitos pelos alunos', 'solicitações', true)}
+          ${header('Solicitações', 'Pedidos de empréstimo feitos pelos alunos', '', true)}
           <div class="card">
             <div class="card-header"><h2>Pendentes</h2><span class="num">${pend.length}</span></div>
             ${pend.length ? pend.map(s => `
@@ -1111,7 +1095,7 @@
       },
       alunos() {
         return `
-          ${header('Alunos', 'Cadastro e gestão dos leitores', 'leitores')}
+          ${header('Alunos', 'Cadastro e gestão dos leitores', '')}
           <div class="card">
             <div class="import-bar">
               <button class="btn btn-primary" onclick="document.getElementById('fileAlunos').click()">📥 Importar CSV</button>
@@ -1146,7 +1130,7 @@
         livros.forEach(l => (grupos[l.genero] = grupos[l.genero] || []).push(l));
         const generos = Object.keys(grupos).sort();
         return `
-          ${header('Acervo', 'Livros organizados por gênero', 'acervo')}
+          ${header('Acervo', 'Livros organizados por gênero', '')}
           <div class="card">
             <div class="import-bar">
               <button class="btn btn-primary" onclick="document.getElementById('fileLivros').click()">📥 Importar CSV</button>
@@ -1193,7 +1177,7 @@
         const optsAlunos = alunos.map(a => `<option value="${a.id}">${a.nome}</option>`).join('');
         const optsLivros = livros.filter(l => l.emprestados < l.quantidade).map(l => `<option value="${l.id}">${l.titulo}</option>`).join('');
         return `
-          ${header('Empréstimos', 'Registre e gerencie as saídas', 'empréstimos')}
+          ${header('Empréstimos', 'Registre e gerencie as saídas', '')}
           <div class="card">
             <div class="card-header"><h2>Novo empréstimo</h2></div>
             ${alunos.length && livros.length ? `
@@ -1224,7 +1208,7 @@
       fichas() {
         const opts = alunos.map(a => `<option value="${a.id}">${a.nome} — ${a.turma}</option>`).join('');
         return `
-          ${header('Fichas', 'Consulte a ficha de cada leitor', 'fichas')}
+          ${header('Fichas', 'Consulte a ficha de cada leitor', '')}
           <div class="card">
             <select id="fichaAluno" onchange="atualizarFicha()" style="max-width:360px">
               <option value="">Selecione um aluno...</option>${opts}
@@ -1233,7 +1217,6 @@
           <div id="fichaConteudo"><p class="empty">Selecione um aluno para ver a ficha.</p></div>`;
       },
       blog() {
-        // NOVO: Adicionado botão de excluir no Blog
         if (!avaliacoes.length) return header('Blog', 'Mural de resenhas', '') + `<div class="card"><p class="empty">Nenhuma avaliação ainda.</p></div>`;
         const grupos = {};
         avaliacoes.forEach(a => (grupos[a.livroId] = grupos[a.livroId] || []).push(a));
@@ -1265,7 +1248,6 @@
         const a = alunos.find(x => x.id === sessao.alunoId);
         if (!a) return '<p class="empty">Aluno não encontrado.</p>';
         
-        // Busca os avisos não lidos
         const meusAvisos = avisosAlunos.filter(av => av.alunoId === sessao.alunoId && !av.lido);
         const htmlAvisos = meusAvisos.length ? meusAvisos.map(av => `
           <div class="aviso-card">
@@ -1276,7 +1258,7 @@
         `).join('') : '';
 
         return `
-          ${header('Minha ficha', 'Seu registro como leitor', 'ficha')}
+          ${header('Minha ficha', 'Seu registro como leitor', '')}
           
           ${htmlAvisos}
 
@@ -1294,7 +1276,7 @@
         livros.forEach(l => (grupos[l.genero] = grupos[l.genero] || []).push(l));
         const generos = Object.keys(grupos).sort();
         return `
-          ${header('Acervo', 'Explore os livros e veja as resenhas', 'acervo')}
+          ${header('Acervo', 'Explore os livros e veja as resenhas', '')}
           <div class="card">
             ${livros.length ? `
               <div class="livros-grid">
@@ -1323,7 +1305,7 @@
         const minhas = solicitacoes.filter(s => s.alunoId === sessao.alunoId);
         const pend = minhas.filter(s => s.status === 'pendente');
         return `
-          ${header('Minhas solicitações', 'Acompanhe seus pedidos', 'solicitações')}
+          ${header('Minhas solicitações', 'Acompanhe seus pedidos', '')}
           <div class="card">
             <div class="card-header"><h2>Pendentes</h2><span class="num">${pend.length}</span></div>
             ${pend.length ? pend.map(s => `
