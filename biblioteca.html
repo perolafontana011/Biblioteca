@@ -323,14 +323,15 @@
   /* ============ CONEXÃO SUPABASE ============ */
   const SUPABASE_URL = 'https://jaeugzqorximwjuzqilp.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphZXVnenFvcnhpbXdqdXpxaWxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2Mzk0MTMsImV4cCI6MjEwODIxNTQxM30.NM3iYYO2lyC-Ve-YFAVjhVDK427EKfBXf_FUbqwVpKg';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  // MUDANÇA AQUI: O nome da variável passou a ser 'db' para não conflitar com o SDK.
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   /* ============ ESTADO GLOBAL ============ */
   let alunos = [];
   let livros = [];
   let emprestimos = [];
   let avaliacoes = [];
-  let solicitacoes = []; // Vamos manter as solicitações na memória local para simplificar
+  let solicitacoes = []; 
   
   let importState = { alunos: null, livros: null };
   let sessao = { tipo: null, alunoId: null, pagina: 'painel' };
@@ -347,28 +348,20 @@
 
   /* ============ CARREGAR DADOS DO SUPABASE ============ */
   async function carregarDados() {
-    // Alunos
-    const { data: aData, error: aErr } = await supabase.from('alunos').select('*').order('nome');
-    if (aErr) console.error('Erro ao carregar alunos:', aErr);
-    else alunos = aData || [];
+    const { data: aData, error: aErr } = await db.from('alunos').select('*').order('nome');
+    if (!aErr) alunos = aData || [];
 
-    // Livros
-    const { data: lData, error: lErr } = await supabase.from('livros').select('*').order('titulo');
-    if (lErr) console.error('Erro ao carregar livros:', lErr);
-    else livros = lData || [];
+    const { data: lData, error: lErr } = await db.from('livros').select('*').order('titulo');
+    if (!lErr) livros = lData || [];
 
-    // Empréstimos
-    const { data: eData, error: eErr } = await supabase.from('emprestimos').select('*');
-    if (eErr) console.error('Erro ao carregar emprestimos:', eErr);
-    else emprestimos = (eData || []).map(e => ({
+    const { data: eData, error: eErr } = await db.from('emprestimos').select('*');
+    if (!eErr) emprestimos = (eData || []).map(e => ({
       id: e.id, alunoId: e.aluno_id, livroId: e.livro_id, 
       data: e.data_emprestimo, devolvido: e.devolvido, dataDev: e.data_devolucao
     }));
 
-    // Avaliações
-    const { data: avData, error: avErr } = await supabase.from('avaliacoes').select('*');
-    if (avErr) console.error('Erro ao carregar avaliacoes:', avErr);
-    else avaliacoes = (avData || []).map(a => ({
+    const { data: avData, error: avErr } = await db.from('avaliacoes').select('*');
+    if (!avErr) avaliacoes = (avData || []).map(a => ({
       id: a.id, alunoId: a.aluno_id, livroId: a.livro_id, 
       nota: a.nota, comentario: a.comentario, data: a.data_avaliacao
     }));
@@ -612,25 +605,17 @@
   async function cadastrarAluno() {
     const nome = document.getElementById('alunoNome').value.trim();
     const turma = document.getElementById('alunoTurma').value.trim();
-    const inputMat = document.getElementById('alunoMatricula');
     if (!nome) return alert('Informe o nome.');
-
-    let matricula = proximaMatricula();
-    const { data, error } = await supabase.from('alunos').insert([{ nome, turma, matricula }]).select();
-    
-    if (error) return alert('Erro ao cadastrar: ' + error.message);
-    
+    const matricula = proximaMatricula();
+    const { error } = await db.from('alunos').insert([{ nome, turma, matricula }]);
+    if (error) return alert('Erro: ' + error.message);
     await carregarDados();
-    document.getElementById('alunoNome').value = '';
-    document.getElementById('alunoTurma').value = '';
-    if (inputMat) inputMat.value = proximaMatricula();
   }
 
   async function removerAluno(id) {
     if (emprestimos.some(e => e.alunoId === id && !e.devolvido)) return alert('Aluno tem empréstimos em aberto.');
     if (!confirm('Remover este aluno?')) return;
-    
-    const { error } = await supabase.from('alunos').delete().eq('id', id);
+    const { error } = await db.from('alunos').delete().eq('id', id);
     if (error) alert('Erro: ' + error.message);
     else await carregarDados();
   }
@@ -645,7 +630,7 @@
     if (isbn && livros.some(l => norm(l.isbn) === norm(isbn))) return alert('Já existe um livro com este ISBN.');
     if (!isbn && livros.some(l => norm(l.titulo) === norm(titulo) && norm(l.autor) === norm(autor))) return alert('Já existe um livro com este título e autor.');
 
-    const { error } = await supabase.from('livros').insert([{ isbn, titulo, autor, genero, quantidade: qtd, emprestados: 0 }]);
+    const { error } = await db.from('livros').insert([{ isbn, titulo, autor, genero, quantidade: qtd, emprestados: 0 }]);
     if (error) alert('Erro: ' + error.message);
     else await carregarDados();
   }
@@ -655,8 +640,7 @@
     if (!l) return;
     if (l.emprestados > 0) return alert('Há exemplares emprestados.');
     if (!confirm('Remover este livro?')) return;
-    
-    const { error } = await supabase.from('livros').delete().eq('id', id);
+    const { error } = await db.from('livros').delete().eq('id', id);
     if (error) alert('Erro: ' + error.message);
     else await carregarDados();
   }
@@ -668,16 +652,10 @@
     if (!alunoId || !livroId) return alert('Selecione aluno e livro.');
     
     const l = livros.find(x => x.id === livroId);
-    if (l.emprestados >= l.quantidade) return alert('Sem exemplares disponíveis.');
+    if (l.emprestados >= l.quantidade) return alert('Sem exemplares.');
 
-    // 1. Atualiza o contador do livro
-    const { error: e1 } = await supabase.from('livros').update({ emprestados: l.emprestados + 1 }).eq('id', livroId);
-    if (e1) return alert('Erro: ' + e1.message);
-
-    // 2. Cria o empréstimo
-    const { error: e2 } = await supabase.from('emprestimos').insert([{ aluno_id: alunoId, livro_id: livroId, data_emprestimo: data, devolvido: false }]);
-    if (e2) return alert('Erro: ' + e2.message);
-
+    await db.from('livros').update({ emprestados: l.emprestados + 1 }).eq('id', livroId);
+    await db.from('emprestimos').insert([{ aluno_id: alunoId, livro_id: livroId, data_emprestimo: data, devolvido: false }]);
     await carregarDados();
   }
 
@@ -685,16 +663,9 @@
     const e = emprestimos.find(x => x.id === empId);
     if (!e || e.devolvido) return;
     const l = livros.find(x => x.id === e.livroId);
-    if (!l) return;
-
-    // 1. Atualiza o contador do livro
-    const { error: e1 } = await supabase.from('livros').update({ emprestados: Math.max(0, l.emprestados - 1) }).eq('id', l.id);
-    if (e1) return alert('Erro: ' + e1.message);
-
-    // 2. Atualiza o empréstimo
-    const { error: e2 } = await supabase.from('emprestimos').update({ devolvido: true, data_devolucao: hoje() }).eq('id', empId);
-    if (e2) return alert('Erro: ' + e2.message);
-
+    
+    await db.from('livros').update({ emprestados: Math.max(0, l.emprestados - 1) }).eq('id', l.id);
+    await db.from('emprestimos').update({ devolvido: true, data_devolucao: hoje() }).eq('id', empId);
     await carregarDados();
   }
 
@@ -703,9 +674,9 @@
     const comentario = document.getElementById('avComentario').value.trim();
     if (!nota) return alert('Selecione uma nota.');
 
-    const { error } = await supabase.from('avaliacoes').insert([{ aluno_id: sessao.alunoId, livro_id: livroId, nota, comentario, data_avaliacao: hoje() }]);
-    if (error) alert('Erro: ' + error.message);
-    else { await carregarDados(); abrirModalLivro(livroId); }
+    await db.from('avaliacoes').insert([{ aluno_id: sessao.alunoId, livro_id: livroId, nota, comentario, data_avaliacao: hoje() }]);
+    await carregarDados(); 
+    abrirModalLivro(livroId);
   }
 
   /* ============ SOLICITAÇÕES (LOCAL) ============ */
@@ -715,28 +686,24 @@
     const l = livros.find(x => x.id === livroId);
     if (!l) return;
     const disp = l.quantidade - l.emprestados;
-    if (disp <= 0) return alert('Este livro está esgotado no momento.');
-    if (solicitacoes.some(s => s.alunoId === alunoId && s.livroId === livroId && s.status === 'pendente')) return alert('Você já tem uma solicitação pendente.');
-    if (emprestimos.some(e => e.alunoId === alunoId && e.livroId === livroId && !e.devolvido)) return alert('Você já está com este livro emprestado.');
+    if (disp <= 0) return alert('Esgotado.');
+    if (solicitacoes.some(s => s.alunoId === alunoId && s.livroId === livroId && s.status === 'pendente')) return alert('Já tem uma pendente.');
+    if (emprestimos.some(e => e.alunoId === alunoId && e.livroId === livroId && !e.devolvido)) return alert('Já está com o livro.');
     
     solicitacoes.push({ id: uid(), alunoId, livroId, data: hoje(), status: 'pendente', motivo: '', dataResposta: null });
-    alert('Solicitação enviada! Aguarde a aprovação do bibliotecário.');
+    alert('Solicitação enviada!');
     fecharModalLivro();
     renderApp();
   }
   
   async function aprovarSolicitacao(solId) {
     const s = solicitacoes.find(x => x.id === solId);
-    if (!s || s.status !== 'pendente') return;
+    if (!s) return;
     const l = livros.find(x => x.id === s.livroId);
-    if (!l || l.emprestados >= l.quantidade) return alert('Sem exemplares disponíveis.');
     
-    // Cria o empréstimo no Supabase
-    const { error: e1 } = await supabase.from('livros').update({ emprestados: l.emprestados + 1 }).eq('id', l.id);
-    const { error: e2 } = await supabase.from('emprestimos').insert([{ aluno_id: s.alunoId, livro_id: s.livroId, data_emprestimo: hoje(), devolvido: false }]);
+    await db.from('livros').update({ emprestados: l.emprestados + 1 }).eq('id', l.id);
+    await db.from('emprestimos').insert([{ aluno_id: s.alunoId, livro_id: s.livroId, data_emprestimo: hoje(), devolvido: false }]);
     
-    if (e1 || e2) return alert('Erro ao aprovar.');
-
     s.status = 'aprovada'; 
     s.dataResposta = hoje();
     await carregarDados();
@@ -744,10 +711,8 @@
   
   function recusarSolicitacao(solId) {
     const s = solicitacoes.find(x => x.id === solId);
-    if (!s || s.status !== 'pendente') return;
-    const motivoInput = document.getElementById('motivo-' + solId);
+    if (!s) return;
     s.status = 'recusada';
-    s.motivo = motivoInput ? motivoInput.value.trim() : '';
     s.dataResposta = hoje();
     renderApp();
   }
@@ -775,7 +740,6 @@
         <div class="livro-genero" style="font-size:.9rem;">${l.genero}</div>
         <h2 style="font-size:1.8rem; margin-bottom:4px;">${l.titulo}</h2>
         <p style="font-family:var(--serif); font-style:italic; color:var(--tinta-suave); margin-bottom:10px;">${l.autor || 'Autor não informado'}</p>
-        ${l.isbn ? `<div style="font-size:.8rem; color:var(--tinta-clara); letter-spacing:.05em;">ISBN ${l.isbn}</div>` : ''}
         <div style="margin-top:14px; display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
           <span class="badge ${disp>0?'badge-green':'badge-red'}">${disp>0?disp+' exemplares disponíveis':'Esgotado'}</span>
           ${media ? `<span class="stars">${estrelas(Math.round(media))} ${media}</span>` : '<span style="color:var(--tinta-clara); font-style:italic; font-size:.85rem;">Sem avaliações ainda</span>'}
@@ -871,7 +835,6 @@
         const cab = linhas[0];
         const idxNome = encontrarColuna(cab, ['nome','nome completo','aluno']);
         const idxTurma = encontrarColuna(cab, ['turma','classe','serie','série']);
-        const idxMat = encontrarColuna(cab, ['matricula','matrícula','mat']);
         if (idxNome === -1) { alert('Coluna "Nome" obrigatória.'); return; }
         const vistos = new Set();
         const novasLinhas = [];
@@ -879,7 +842,6 @@
           const l = linhas[i];
           const nome = (l[idxNome] || '').trim(); if (!nome) continue;
           const turma = (l[idxTurma] || '').trim();
-          const mat = (l[idxMat] || '').trim();
           const chave = norm(nome) + '||' + norm(turma);
           const dupPlanilha = vistos.has(chave);
           const dupBanco = alunos.some(a => norm(a.nome) === norm(nome) && norm(a.turma) === norm(turma));
@@ -887,7 +849,7 @@
           if (dupPlanilha) { status = 'dup'; motivo = 'Repetido'; }
           else if (dupBanco) { status = 'dup'; motivo = 'Já cadastrado'; }
           if (status === 'ok') vistos.add(chave);
-          novasLinhas.push({ nome, turma, matricula: mat, status, motivo });
+          novasLinhas.push({ nome, turma, status, motivo });
         }
         importState.alunos = { linhas: novasLinhas, arquivo: file.name };
         renderApp();
@@ -901,13 +863,9 @@
     const validos = importState.alunos.linhas.filter(l => l.status === 'ok');
     if (!validos.length) return alert('Nenhuma linha válida.');
     
-    const inserts = validos.map(l => {
-      let mat = l.matricula;
-      if (!mat) mat = proximaMatricula(); // Simplificado
-      return { nome: l.nome, turma: l.turma, matricula: mat };
-    });
+    const inserts = validos.map(l => ({ nome: l.nome, turma: l.turma, matricula: proximaMatricula() }));
 
-    const { error } = await supabase.from('alunos').insert(inserts);
+    const { error } = await db.from('alunos').insert(inserts);
     if (error) alert('Erro: ' + error.message);
     else {
       importState.alunos = null; 
@@ -963,7 +921,7 @@
     if (!validos.length) return alert('Nenhuma linha válida.');
     
     const inserts = validos.map(l => ({ isbn: l.isbn, titulo: l.titulo, autor: l.autor, genero: l.genero, quantidade: l.qtd, emprestados: 0 }));
-    const { error } = await supabase.from('livros').insert(inserts);
+    const { error } = await db.from('livros').insert(inserts);
     if (error) alert('Erro: ' + error.message);
     else {
       importState.livros = null; 
@@ -972,7 +930,7 @@
     }
   }
 
-  function baixarModeloAlunos() { baixarArquivo('Nome,Turma,Matrícula\nAna Souza,9ºA,\n', 'modelo-alunos.csv'); }
+  function baixarModeloAlunos() { baixarArquivo('Nome,Turma\nAna Souza,9ºA\n', 'modelo-alunos.csv'); }
   function baixarModeloLivros() { baixarArquivo('ISBN,Título,Autor,Gênero,Quantidade\n9788535902778,Dom Casmurro,Machado de Assis,Romance,3\n', 'modelo-livros.csv'); }
   function baixarArquivo(conteudo, nome) {
     const blob = new Blob([conteudo], { type: 'text/csv;charset=utf-8;' });
@@ -982,8 +940,8 @@
 
   function renderPreviewAlunos() {
     const st = importState.alunos; if (!st) return '';
-    const total = st.linhas.length; const validos = st.linhas.filter(l => l.status === 'ok').length; const dups = st.linhas.filter(l => l.status === 'dup').length;
-    if (!total) return `<div class="card"><div class="aviso-import">Todas removidas. <a href="#" onclick="cancelarImportAlunos();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
+    const validos = st.linhas.filter(l => l.status === 'ok').length; const dups = st.linhas.filter(l => l.status === 'dup').length;
+    if (!st.linhas.length) return `<div class="card"><div class="aviso-import">Todas removidas. <a href="#" onclick="importState.alunos=null;renderApp();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
     return `
       <div class="card">
         <div class="card-header"><h2>Pré-visualização</h2><span class="num">${st.arquivo}</span></div>
@@ -991,30 +949,27 @@
           <div><span style="color:var(--musgo);font-weight:700">${validos}</span> válido(s)</div>
           <div><span style="color:var(--terracota);font-weight:700">${dups}</span> ignorado(s)</div>
           <button class="btn btn-primary btn-sm" onclick="confirmarImportAlunos()" ${validos===0?'disabled':''}>✓ Confirmar</button>
-          <button class="btn btn-ghost btn-sm" onclick="cancelarImportAlunos()">Cancelar</button>
+          <button class="btn btn-ghost btn-sm" onclick="importState.alunos=null;renderApp();">Cancelar</button>
         </div>
         <div class="preview-table">
           <table>
-            <thead><tr><th>#</th><th>Nome</th><th>Turma</th><th>Status</th><th></th></tr></thead>
+            <thead><tr><th>Nome</th><th>Turma</th><th>Status</th></tr></thead>
             <tbody>
               ${st.linhas.map((l, i) => `
                 <tr class="${l.status === 'dup' ? 'dup' : ''}">
-                  <td>${i + 1}</td><td>${l.nome}</td><td>${l.turma}</td>
-                  <td>${l.status === 'ok' ? '<span style="color:var(--musgo);font-weight:700;font-size:.75rem;">✓ Válido</span>' : `<span style="color:var(--terracota);font-weight:700;font-size:.75rem;">⚠ ${l.motivo}</span>`}</td>
-                  <td><button class="btn-x" onclick="removerLinhaAlunoImport(${i})">✕</button></td>
+                  <td>${l.nome}</td><td>${l.turma}</td>
+                  <td>${l.status === 'ok' ? '<span style="color:var(--musgo);font-weight:700;">✓ Válido</span>' : `<span style="color:var(--terracota);font-weight:700;">⚠ ${l.motivo}</span>`}</td>
                 </tr>`).join('')}
             </tbody>
           </table>
         </div>
       </div>`;
   }
-  function cancelarImportAlunos() { importState.alunos = null; renderApp(); }
-  function removerLinhaAlunoImport(idx) { importState.alunos.linhas.splice(idx, 1); renderApp(); }
 
   function renderPreviewLivros() {
     const st = importState.livros; if (!st) return '';
-    const total = st.linhas.length; const validos = st.linhas.filter(l => l.status === 'ok').length; const dups = st.linhas.filter(l => l.status === 'dup').length;
-    if (!total) return `<div class="card"><div class="aviso-import">Todas removidas. <a href="#" onclick="cancelarImportLivros();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
+    const validos = st.linhas.filter(l => l.status === 'ok').length; const dups = st.linhas.filter(l => l.status === 'dup').length;
+    if (!st.linhas.length) return `<div class="card"><div class="aviso-import">Todas removidas. <a href="#" onclick="importState.livros=null;renderApp();return false;" style="color:var(--musgo);">Cancelar</a>.</div></div>`;
     return `
       <div class="card">
         <div class="card-header"><h2>Pré-visualização</h2><span class="num">${st.arquivo}</span></div>
@@ -1022,25 +977,22 @@
           <div><span style="color:var(--musgo);font-weight:700">${validos}</span> válido(s)</div>
           <div><span style="color:var(--terracota);font-weight:700">${dups}</span> ignorado(s)</div>
           <button class="btn btn-primary btn-sm" onclick="confirmarImportLivros()" ${validos===0?'disabled':''}>✓ Confirmar</button>
-          <button class="btn btn-ghost btn-sm" onclick="cancelarImportLivros()">Cancelar</button>
+          <button class="btn btn-ghost btn-sm" onclick="importState.livros=null;renderApp();">Cancelar</button>
         </div>
         <div class="preview-table">
           <table>
-            <thead><tr><th>#</th><th>Título</th><th>Autor</th><th>Status</th><th></th></tr></thead>
+            <thead><tr><th>Título</th><th>Autor</th><th>Status</th></tr></thead>
             <tbody>
               ${st.linhas.map((l, i) => `
                 <tr class="${l.status === 'dup' ? 'dup' : ''}">
-                  <td>${i + 1}</td><td>${l.titulo}</td><td>${l.autor || '—'}</td>
-                  <td>${l.status === 'ok' ? '<span style="color:var(--musgo);font-weight:700;font-size:.75rem;">✓ Válido</span>' : `<span style="color:var(--terracota);font-weight:700;font-size:.75rem;">⚠ ${l.motivo}</span>`}</td>
-                  <td><button class="btn-x" onclick="removerLinhaLivroImport(${i})">✕</button></td>
+                  <td>${l.titulo}</td><td>${l.autor || '—'}</td>
+                  <td>${l.status === 'ok' ? '<span style="color:var(--musgo);font-weight:700;">✓ Válido</span>' : `<span style="color:var(--terracota);font-weight:700;">⚠ ${l.motivo}</span>`}</td>
                 </tr>`).join('')}
             </tbody>
           </table>
         </div>
       </div>`;
   }
-  function cancelarImportLivros() { importState.livros = null; renderApp(); }
-  function removerLinhaLivroImport(idx) { importState.livros.linhas.splice(idx, 1); renderApp(); }
 
   /* ============ RENDERIZAÇÃO DAS TELAS ============ */
   const RENDERERS = {
@@ -1055,7 +1007,6 @@
             <div class="stat-card"><div class="label">Exemplares</div><div class="valor">${livros.reduce((s,l)=>s+l.quantidade,0)}</div></div>
             <div class="stat-card"><div class="label">Emprestados</div><div class="valor">${livros.reduce((s,l)=>s+l.emprestados,0)}</div></div>
             <div class="stat-card"><div class="label">Solicitações</div><div class="valor"><em>${solicPend}</em></div></div>
-            <div class="stat-card"><div class="label">Avaliações</div><div class="valor">${avaliacoes.length}</div></div>
           </div>
           <div class="card">
             <div class="card-header"><h2>Empréstimos em aberto</h2><span class="num">${pend.length}</span></div>
@@ -1099,12 +1050,9 @@
               <input type="file" id="fileAlunos" accept=".csv" style="display:none">
               <button class="btn btn-ghost" onclick="baixarModeloAlunos()">📄 Baixar modelo</button>
             </div>
-            <div class="form-grid" style="grid-template-columns: 2fr 1fr 1.2fr auto;">
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr auto;">
               <input id="alunoNome" placeholder="Nome completo">
               <input id="alunoTurma" placeholder="Turma">
-              <div class="matricula-wrap">
-                <input id="alunoMatricula" value="${proximaMatricula()}" readonly>
-              </div>
               <button class="btn btn-primary" onclick="cadastrarAluno()">Cadastrar</button>
             </div>
           </div>
@@ -1346,7 +1294,7 @@
       ${renderFichaAluno(id)}`;
   }
 
-  // Inicializa o app buscando os dados do Supabase
+  // Inicializa o app
   window.onload = () => {
     carregarDados();
   };
