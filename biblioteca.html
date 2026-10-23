@@ -73,8 +73,8 @@
   .perfil-card .simbolo { font-family: var(--serif); font-size: 1.5rem; color: var(--musgo); display: block; margin-bottom: 6px; font-style: italic; }
   .perfil-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1rem; color: var(--tinta); margin-bottom: 2px; }
   .perfil-card small { color: var(--tinta-clara); font-size: .7rem; font-family: var(--sans); }
-  .login-aluno-select { width: 100%; padding: 12px; background: var(--papel); border: 1px solid var(--borda-fina); font-family: var(--sans); font-size: .9rem; color: var(--tinta); margin-bottom: 12px; display: none; }
-  .login-aluno-select:focus { outline: none; border-color: var(--musgo); }
+  .login-aluno-box { display: none; animation: fadeIn .2s; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+  .login-aluno-box.ativo { display: flex; }
   .btn-entrar { width: 100%; padding: 12px; background: var(--musgo); color: var(--creme-card); border: none; font-family: var(--serif); font-size: .95rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: .2s; display: none; margin-top: 10px; }
   .btn-entrar:hover { background: var(--musgo-escuro); }
   .senha-box { display: none; animation: fadeIn .2s; max-width: 280px; margin: 0 auto; }
@@ -220,6 +220,11 @@
   .modal-close { position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--tinta-clara); }
   .modal-close:hover { color: var(--terracota); }
 
+  /* Estilos do Aviso para o Aluno */
+  .aviso-card { background: #e8f0e8; border: 1px solid var(--musgo); border-left: 5px solid var(--musgo); padding: 16px; margin-bottom: 16px; border-radius: 4px; }
+  .aviso-card h4 { font-family: var(--serif); font-size: 1.1rem; color: var(--musgo-escuro); margin-bottom: 4px; }
+  .aviso-card p { font-size: .9rem; color: var(--tinta-suave); }
+
   @media (max-width: 820px) {
     .app.active { flex-direction: column; }
     .sidebar { width: 100%; height: auto; position: static; padding: 20px; }
@@ -252,9 +257,15 @@
       </div>
     </div>
 
-    <select class="login-aluno-select" id="loginAluno"></select>
+    <!-- Login do Aluno com Nome e Turma -->
+    <div class="login-aluno-box" id="loginAlunoBox">
+      <input type="text" id="loginNome" placeholder="Digite seu Nome completo" style="margin-bottom:0;">
+      <input type="text" id="loginTurma" placeholder="Digite sua Turma (ex: 9ºA)" style="margin-bottom:0;">
+      <div id="loginErro" class="senha-erro" style="display:none"></div>
+    </div>
     <button class="btn-entrar" id="btnEntrarAluno" onclick="entrarComoAluno()">Entrar</button>
 
+    <!-- Login do Bibliotecário -->
     <div class="senha-box" id="senhaBox">
       <label class="senha-label" id="senhaLabel">Senha</label>
       <input type="password" class="senha-input" id="senhaInput" placeholder="••••••••" onkeydown="if(event.key==='Enter') confirmarSenhaBibliotecario()">
@@ -320,7 +331,7 @@
 <!-- Supabase e Lógica -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  /* ============ CONEXÃO SUPABASE ============ */
+ /* ============ CONEXÃO SUPABASE ============ */
   const SUPABASE_URL = 'https://jaeugzqorximwjuzqilp.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphZXVnenFvcnhpbXdqdXpxaWxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2Mzk0MTMsImV4cCI6MjEwODIxNTQxM30.NM3iYYO2lyC-Ve-YFAVjhVDK427EKfBXf_FUbqwVpKg';
   // MUDANÇA AQUI: O nome da variável passou a ser 'db' para não conflitar com o SDK.
@@ -331,7 +342,8 @@
   let livros = [];
   let emprestimos = [];
   let avaliacoes = [];
-  let solicitacoes = []; 
+  let solicitacoes = []; // Local
+  let avisosAlunos = JSON.parse(localStorage.getItem('bib_avisos') || '[]'); // Avisos de aprovação
   
   let importState = { alunos: null, livros: null };
   let sessao = { tipo: null, alunoId: null, pagina: 'painel' };
@@ -344,7 +356,7 @@
   const nomeAluno = (id) => alunos.find(a => a.id === id)?.nome || '—';
   const nomeLivro = (id) => livros.find(l => l.id === id)?.titulo || '—';
   const iniciais = (nome) => nome.split(' ').map(p=>p[0]).slice(0,2).join('').toUpperCase();
-  const norm = (s) => (s || '').toString().trim().toLowerCase().replace(/\s+/g, ' ');
+  const norm = (s) => (s || '').toString().trim().toLowerCase().replace(/\s+/g, ' ').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
   /* ============ CARREGAR DADOS DO SUPABASE ============ */
   async function carregarDados() {
@@ -411,8 +423,13 @@
     const btnEntrar = document.getElementById('btnSenhaEntrar');
     const perfilGrid = document.getElementById('perfilGrid');
     const erro = document.getElementById('senhaErro');
+    const alunoBox = document.getElementById('loginAlunoBox');
+    const btnAluno = document.getElementById('btnEntrarAluno');
 
     perfilGrid.style.display = 'none';
+    alunoBox.classList.remove('ativo');
+    btnAluno.style.display = 'none';
+    
     box.classList.add('ativo');
     erro.style.display = 'none';
 
@@ -466,9 +483,10 @@
   }
   function voltarLogin() {
     document.getElementById('senhaBox').classList.remove('ativo');
+    document.getElementById('loginAlunoBox').classList.remove('ativo');
     document.getElementById('perfilGrid').style.display = 'grid';
     document.getElementById('senhaErro').style.display = 'none';
-    document.getElementById('loginAluno').style.display = 'none';
+    document.getElementById('loginErro').style.display = 'none';
     document.getElementById('btnEntrarAluno').style.display = 'none';
   }
 
@@ -502,35 +520,64 @@
   /* ============ LOGIN ============ */
   function escolherPerfil(tipo) {
     if (tipo === 'bibliotecario') return abrirSenhaBibliotecario();
-    const sel = document.getElementById('loginAluno');
-    const btn = document.getElementById('btnEntrarAluno');
-    if (!alunos.length) { alert('Nenhum aluno cadastrado. Peça ao bibliotecário.'); return; }
-    sel.innerHTML = '<option value="">Selecione seu nome...</option>' +
-      alunos.map(a => `<option value="${a.id}">${a.nome}${a.turma?' — '+a.turma:''}${a.matricula?' ('+a.matricula+')':''}</option>`).join('');
-    sel.style.display = 'block';
-    btn.style.display = 'block';
+    
+    const perfilGrid = document.getElementById('perfilGrid');
+    const alunoBox = document.getElementById('loginAlunoBox');
+    const btnAluno = document.getElementById('btnEntrarAluno');
+    const senhaBox = document.getElementById('senhaBox');
+
+    perfilGrid.style.display = 'none';
+    senhaBox.classList.remove('ativo');
+    alunoBox.classList.add('ativo');
+    btnAluno.style.display = 'block';
+    
+    document.getElementById('loginNome').value = '';
+    document.getElementById('loginTurma').value = '';
+    document.getElementById('loginErro').style.display = 'none';
+    setTimeout(() => document.getElementById('loginNome').focus(), 100);
   }
+
   function entrarComoAluno() {
-    const id = document.getElementById('loginAluno').value;
-    if (!id) return alert('Selecione seu nome.');
-    sessao = { tipo: 'aluno', alunoId: id, pagina: 'minhaFicha' };
+    const nomeDigitado = document.getElementById('loginNome').value.trim();
+    const turmaDigitada = document.getElementById('loginTurma').value.trim();
+    const erro = document.getElementById('loginErro');
+    erro.style.display = 'none';
+
+    if (!nomeDigitado || !turmaDigitada) {
+      erro.textContent = 'Preencha o nome e a turma.';
+      erro.style.display = 'block';
+      return;
+    }
+
+    // Busca o aluno que tenha exatamente o mesmo nome e turma
+    const alunoEncontrado = alunos.find(a => 
+      norm(a.nome) === norm(nomeDigitado) && norm(a.turma) === norm(turmaDigitada)
+    );
+
+    if (!alunoEncontrado) {
+      erro.textContent = 'Aluno não encontrado. Verifique o nome e a turma.';
+      erro.style.display = 'block';
+      return;
+    }
+
+    sessao = { tipo: 'aluno', alunoId: alunoEncontrado.id, pagina: 'minhaFicha' };
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('app').classList.add('active');
     renderApp();
   }
+
   function entrarComoBibliotecario() {
     sessao = { tipo: 'bibliotecario', alunoId: null, pagina: 'painel' };
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('app').classList.add('active');
     renderApp();
   }
+
   function sair() {
     sessao = { tipo: null, alunoId: null, pagina: 'painel' };
     importState = { alunos: null, livros: null };
     document.getElementById('app').classList.remove('active');
     document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('loginAluno').style.display = 'none';
-    document.getElementById('btnEntrarAluno').style.display = 'none';
     voltarLogin();
     fecharTrocarSenha();
     fecharModalLivro();
@@ -555,7 +602,11 @@
   };
 
   function pendentesBibliotecario() { return solicitacoes.filter(s => s.status === 'pendente').length; }
-  function pendentesAluno(alunoId) { return solicitacoes.filter(s => s.alunoId === alunoId && s.status === 'pendente').length; }
+  
+  // Conta os avisos não lidos do aluno
+  function avisosPendentesAluno(alunoId) { 
+    return avisosAlunos.filter(a => a.alunoId === alunoId && !a.lido).length; 
+  }
 
   function renderApp() {
     if (!sessao.tipo) return;
@@ -574,12 +625,12 @@
 
     const nav = document.getElementById('navMenu');
     const notifBib = pendentesBibliotecario();
-    const notifAluno = sessao.tipo === 'aluno' ? pendentesAluno(sessao.alunoId) : 0;
+    const notifAluno = sessao.tipo === 'aluno' ? avisosPendentesAluno(sessao.alunoId) : 0;
 
     nav.innerHTML = MENUS[sessao.tipo].map(m => {
       let badge = '';
       if (sessao.tipo === 'bibliotecario' && m.id === 'solicitacoes' && notifBib > 0) badge = `<span class="nav-badge">${notifBib}</span>`;
-      if (sessao.tipo === 'aluno' && m.id === 'minhasSolic' && notifAluno > 0) badge = `<span class="nav-badge">${notifAluno}</span>`;
+      if (sessao.tipo === 'aluno' && m.id === 'minhaFicha' && notifAluno > 0) badge = `<span class="nav-badge">${notifAluno}</span>`;
       return `<button class="nav-item ${sessao.pagina===m.id?'active':''}" onclick="irPara('${m.id}')">
         <span class="simbolo">${m.s}.</span> ${m.label} ${badge}
       </button>`;
@@ -605,7 +656,7 @@
   async function cadastrarAluno() {
     const nome = document.getElementById('alunoNome').value.trim();
     const turma = document.getElementById('alunoTurma').value.trim();
-    if (!nome) return alert('Informe o nome.');
+    if (!nome || !turma) return alert('Preencha o nome e a turma.');
     const matricula = proximaMatricula();
     const { error } = await db.from('alunos').insert([{ nome, turma, matricula }]);
     if (error) return alert('Erro: ' + error.message);
@@ -679,7 +730,15 @@
     abrirModalLivro(livroId);
   }
 
-  /* ============ SOLICITAÇÕES (LOCAL) ============ */
+  // NOVO: Excluir Avaliação (Bibliotecário)
+  async function excluirAvaliacao(avId) {
+    if (!confirm('Tem certeza que deseja excluir esta avaliação?')) return;
+    const { error } = await db.from('avaliacoes').delete().eq('id', avId);
+    if (error) alert('Erro ao excluir: ' + error.message);
+    else await carregarDados();
+  }
+
+  /* ============ SOLICITAÇÕES E AVISOS ============ */
   function solicitarEmprestimo(livroId) {
     const alunoId = sessao.alunoId;
     if (!alunoId) return;
@@ -701,12 +760,26 @@
     if (!s) return;
     const l = livros.find(x => x.id === s.livroId);
     
+    // 1. Lança no banco
     await db.from('livros').update({ emprestados: l.emprestados + 1 }).eq('id', l.id);
     await db.from('emprestimos').insert([{ aluno_id: s.alunoId, livro_id: s.livroId, data_emprestimo: hoje(), devolvido: false }]);
     
+    // 2. Gera o aviso para o aluno
+    avisosAlunos.push({
+      id: uid(),
+      alunoId: s.alunoId,
+      livroTitulo: l.titulo,
+      data: hoje(),
+      lido: false
+    });
+    localStorage.setItem('bib_avisos', JSON.stringify(avisosAlunos));
+
+    // 3. Atualiza solicitação
     s.status = 'aprovada'; 
     s.dataResposta = hoje();
+    
     await carregarDados();
+    alert('Empréstimo aprovado! O aluno foi notificado no perfil.');
   }
   
   function recusarSolicitacao(solId) {
@@ -714,6 +787,13 @@
     if (!s) return;
     s.status = 'recusada';
     s.dataResposta = hoje();
+    renderApp();
+  }
+
+  function marcarAvisoLido(avisoId) {
+    const aviso = avisosAlunos.find(a => a.id === avisoId);
+    if (aviso) aviso.lido = true;
+    localStorage.setItem('bib_avisos', JSON.stringify(avisosAlunos));
     renderApp();
   }
 
@@ -771,7 +851,7 @@
               <option value="2">★★☆☆☆ (2)</option>
               <option value="1">★☆☆☆☆ (1)</option>
             </select>
-            <input id="avComentario" placeholder="O que você achou do livro?" style="flex:1;">
+            <input id="avComentario" placeholder="O que você achou?" style="flex:1;">
           </div>
           <button class="btn btn-primary btn-sm" onclick="avaliar('${l.id}')">Enviar Avaliação</button>
         </div>
@@ -800,6 +880,7 @@
   };
 
   /* ============ CSV E IMPORTAÇÃO ============ */
+  // ... (O código do CSV continua idêntico ao que já funcionava) ...
   function parseCSV(texto) {
     if (texto.charCodeAt(0) === 0xFEFF) texto = texto.slice(1);
     const linhas = []; let atual = []; let campo = ''; let dentroAspas = false;
@@ -835,13 +916,13 @@
         const cab = linhas[0];
         const idxNome = encontrarColuna(cab, ['nome','nome completo','aluno']);
         const idxTurma = encontrarColuna(cab, ['turma','classe','serie','série']);
-        if (idxNome === -1) { alert('Coluna "Nome" obrigatória.'); return; }
+        if (idxNome === -1 || idxTurma === -1) { alert('Colunas "Nome" e "Turma" obrigatórias.'); return; }
         const vistos = new Set();
         const novasLinhas = [];
         for (let i = 1; i < linhas.length; i++) {
           const l = linhas[i];
           const nome = (l[idxNome] || '').trim(); if (!nome) continue;
-          const turma = (l[idxTurma] || '').trim();
+          const turma = (l[idxTurma] || '').trim(); if (!turma) continue;
           const chave = norm(nome) + '||' + norm(turma);
           const dupPlanilha = vistos.has(chave);
           const dupBanco = alunos.some(a => norm(a.nome) === norm(nome) && norm(a.turma) === norm(turma));
@@ -862,16 +943,10 @@
   async function confirmarImportAlunos() {
     const validos = importState.alunos.linhas.filter(l => l.status === 'ok');
     if (!validos.length) return alert('Nenhuma linha válida.');
-    
     const inserts = validos.map(l => ({ nome: l.nome, turma: l.turma, matricula: proximaMatricula() }));
-
     const { error } = await db.from('alunos').insert(inserts);
     if (error) alert('Erro: ' + error.message);
-    else {
-      importState.alunos = null; 
-      await carregarDados(); 
-      alert(`✅ ${validos.length} importados!`);
-    }
+    else { importState.alunos = null; await carregarDados(); alert(`✅ ${validos.length} importados!`); }
   }
 
   function lerCSVLivros(event) {
@@ -897,14 +972,12 @@
           const autor = idxAutor >= 0 ? (l[idxAutor] || '').trim() : '';
           const genero = (idxGenero >= 0 ? (l[idxGenero] || '').trim() : '') || 'Geral';
           const qtd = Math.max(1, parseInt(idxQtd >= 0 ? l[idxQtd] : '') || 1);
-          
           const chaveIsbn = norm(isbn); const chaveTA = norm(titulo) + '||' + norm(autor);
           let status = 'ok', motivo = '';
           if (isbn && isbns.has(chaveIsbn)) { status = 'dup'; motivo = 'ISBN repetido'; }
           else if (!isbn && titulos.has(chaveTA)) { status = 'dup'; motivo = 'Título repetido'; }
           else if (isbn && livros.some(x => norm(x.isbn) === chaveIsbn)) { status = 'dup'; motivo = 'ISBN já no acervo'; }
           else if (!isbn && livros.some(x => norm(x.titulo) === norm(titulo) && norm(x.autor) === norm(autor))) { status = 'dup'; motivo = 'Título já no acervo'; }
-          
           if (status === 'ok') { if (isbn) isbns.add(chaveIsbn); else titulos.add(chaveTA); }
           novasLinhas.push({ isbn, titulo, autor, genero, qtd, status, motivo });
         }
@@ -919,15 +992,10 @@
   async function confirmarImportLivros() {
     const validos = importState.livros.linhas.filter(l => l.status === 'ok');
     if (!validos.length) return alert('Nenhuma linha válida.');
-    
     const inserts = validos.map(l => ({ isbn: l.isbn, titulo: l.titulo, autor: l.autor, genero: l.genero, quantidade: l.qtd, emprestados: 0 }));
     const { error } = await db.from('livros').insert(inserts);
     if (error) alert('Erro: ' + error.message);
-    else {
-      importState.livros = null; 
-      await carregarDados(); 
-      alert(`✅ ${validos.length} importados!`);
-    }
+    else { importState.livros = null; await carregarDados(); alert(`✅ ${validos.length} importados!`); }
   }
 
   function baixarModeloAlunos() { baixarArquivo('Nome,Turma\nAna Souza,9ºA\n', 'modelo-alunos.csv'); }
@@ -1035,7 +1103,7 @@
                 <div class="topo"><h3>${nomeLivro(s.livroId)}</h3><span class="data">${fmtData(s.data)}</span></div>
                 <div class="meta">Solicitado por <strong>${nomeAluno(s.alunoId)}</strong></div>
                 <div class="acoes">
-                  <button class="btn btn-primary btn-sm" onclick="aprovarSolicitacao('${s.id}')">✓ Aprovar</button>
+                  <button class="btn btn-primary btn-sm" onclick="aprovarSolicitacao('${s.id}')">✓ Aprovar e Avisar</button>
                   <button class="btn btn-danger btn-sm" onclick="recusarSolicitacao('${s.id}')">✕ Recusar</button>
                 </div>
               </div>`).join('') : '<p class="empty">Nenhuma solicitação pendente.</p>'}
@@ -1165,15 +1233,53 @@
           <div id="fichaConteudo"><p class="empty">Selecione um aluno para ver a ficha.</p></div>`;
       },
       blog() {
-        return header('Blog', 'Mural de resenhas e opiniões dos leitores', '') + renderBlocoAvaliacoes();
+        // NOVO: Adicionado botão de excluir no Blog
+        if (!avaliacoes.length) return header('Blog', 'Mural de resenhas', '') + `<div class="card"><p class="empty">Nenhuma avaliação ainda.</p></div>`;
+        const grupos = {};
+        avaliacoes.forEach(a => (grupos[a.livroId] = grupos[a.livroId] || []).push(a));
+        
+        return header('Blog', 'Mural de resenhas', '') + Object.keys(grupos).map(lid => {
+          const lista = grupos[lid];
+          const media = (lista.reduce((s,a)=>s+a.nota,0)/lista.length).toFixed(1);
+          return `
+            <div class="card">
+              <div class="card-header">
+                <h2>${nomeLivro(lid)}</h2>
+                <span class="num">${estrelas(Math.round(media))} ${media}</span>
+              </div>
+              ${lista.map(a => `
+                <div class="avaliacao-item" style="display:flex; justify-content:space-between; align-items:start;">
+                  <div>
+                    <strong>${nomeAluno(a.alunoId)}</strong>
+                    <div class="stars">${estrelas(a.nota)}</div>
+                    <p>"${a.comentario || 'Sem comentário'}"</p>
+                  </div>
+                  <button class="btn btn-danger btn-sm" onclick="excluirAvaliacao('${a.id}')" title="Excluir esta avaliação">🗑️ Excluir</button>
+                </div>`).join('')}
+            </div>`;
+        }).join('');
       }
     },
     aluno: {
       minhaFicha() {
         const a = alunos.find(x => x.id === sessao.alunoId);
         if (!a) return '<p class="empty">Aluno não encontrado.</p>';
+        
+        // Busca os avisos não lidos
+        const meusAvisos = avisosAlunos.filter(av => av.alunoId === sessao.alunoId && !av.lido);
+        const htmlAvisos = meusAvisos.length ? meusAvisos.map(av => `
+          <div class="aviso-card">
+            <h4>📢 Livro Liberado!</h4>
+            <p>O livro <strong>${av.livroTitulo}</strong> foi aprovado. Você já pode ir à biblioteca buscá-lo!</p>
+            <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="marcarAvisoLido('${av.id}')">Entendi, vou buscar</button>
+          </div>
+        `).join('') : '';
+
         return `
           ${header('Minha ficha', 'Seu registro como leitor', 'ficha')}
+          
+          ${htmlAvisos}
+
           <div class="ficha-header">
             <div class="avatar-grande">${iniciais(a.nome)}</div>
             <div>
@@ -1255,29 +1361,6 @@
         <div class="card-header"><h2>Avaliações feitas</h2><span class="num">${avals.length}</span></div>
         ${avals.length ? avals.map(a => `<div class="avaliacao-item"><strong>${nomeLivro(a.livroId)}</strong><div class="stars">${estrelas(a.nota)}</div><p>${a.comentario}</p></div>`).join('') : '<p class="empty">Nenhuma avaliação.</p>'}
       </div>`;
-  }
-
-  function renderBlocoAvaliacoes() {
-    if (!avaliacoes.length) return `<div class="card"><p class="empty">Nenhuma avaliação ainda.</p></div>`;
-    const grupos = {};
-    avaliacoes.forEach(a => (grupos[a.livroId] = grupos[a.livroId] || []).push(a));
-    return Object.keys(grupos).map(lid => {
-      const lista = grupos[lid];
-      const media = (lista.reduce((s,a)=>s+a.nota,0)/lista.length).toFixed(1);
-      return `
-        <div class="card">
-          <div class="card-header">
-            <h2>${nomeLivro(lid)}</h2>
-            <span class="num">${estrelas(Math.round(media))} ${media}</span>
-          </div>
-          ${lista.map(a => `
-            <div class="avaliacao-item">
-              <strong>${nomeAluno(a.alunoId)}</strong>
-              <div class="stars">${estrelas(a.nota)}</div>
-              <p>"${a.comentario || 'Sem comentário'}"</p>
-            </div>`).join('')}
-        </div>`;
-    }).join('');
   }
 
   function atualizarFicha() {
